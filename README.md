@@ -12,7 +12,7 @@ Not to mention passing the class with flying colors - :heart: Dynamic Web System
 
 - Djeneta V. [@asasad204](https://github.com/asasad204)
 - Emina B. [@eminabesic](https://github.com/eminabesic)
-- Matej P. [@ProgramerM](https://github.com/ProgramerM)
+- Matej P. [@PMatej1](https://github.com/PMatej1)
 - Nejra A. [@nejra20](https://github.com/nejra20)
 - Riad P. [@rickboiiii](https://github.com/rickboiiii) 
 
