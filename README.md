@@ -10,10 +10,10 @@ Not to mention passing the class with flying colors - :heart: Dynamic Web System
 
 ## Team
 
-- Djeneta V. [@]()
-- Emina B. [@]()
-- Matej P. [@]()
-- Nejra A. [@]()
+- Djeneta V. [@asasad204](https://github.com/asasad204)
+- Emina B. [@eminabesic](https://github.com/eminabesic)
+- Matej P. [@ProgramerM](https://github.com/ProgramerM)
+- Nejra A. [@nejra20](https://github.com/nejra20)
 - Riad P. [@rickboiiii](https://github.com/rickboiiii) 
 
 ## Setup locally
