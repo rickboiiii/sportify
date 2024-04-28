@@ -21,9 +21,4 @@ app.include_router(profiles.router)
 
 @app.get("/")
 async def root():
-    return {"Hello": "Test"}
-
-
-@app.get("/test")
-async def root():
-    return "Test"
+    return "Landing Page goes here"
