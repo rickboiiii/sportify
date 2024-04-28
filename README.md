@@ -1,6 +1,6 @@
 # Sportify
 
-![Sportify Logo by ](https://github.com/rickboiiii/sportify/blob/master/files/images/sportify_logo1.png?raw=true)
+![Sportify Logo by @nejra20](https://github.com/rickboiiii/sportify/blob/master/files/images/sportify_logo1.png?raw=true)
 
 ## About
 

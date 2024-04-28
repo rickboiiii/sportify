@@ -1,2 +1,7 @@
 /env/
-.env
+/__pycache__/
+/cruds/__pycache__/
+/internal/__pycache__/
+/models/__pycache__/
+/routers/__pycache__/
+/schemas/__pycache__/
