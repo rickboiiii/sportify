@@ -1,6 +1,8 @@
 # Sportify
 
-![Sportify Logo by @nejra20](https://github.com/rickboiiii/sportify/blob/master/files/images/sportify_logo1.png?raw=true)
+<div align="center">
+  <img src="https://github.com/rickboiiii/sportify/blob/master/files/images/sportify_logo1.png?raw=true" alt="Sportify Logo by @nejra20" height="300">
+</div>
 
 ---
 
