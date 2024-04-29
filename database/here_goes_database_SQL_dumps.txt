@@ -1,1 +1,1 @@
-Hi, place database SQL dump in this folder -> sportify/database/
+Hi, place database SQL dump in this folder -> sportify/database/ - CONFLICT HERE
