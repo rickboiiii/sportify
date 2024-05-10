@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     postgres_database: str = "app"
     postgres_user: str = "postgres"
     postgres_password: str = "changethis"
+    jwt_secret_key: str = "your_secret_key"
+    jwt_algorithm: str = "HS256"
+    jwt_refresh_token_expires_in: int = 60
 
 
 def dot_env(key: str):

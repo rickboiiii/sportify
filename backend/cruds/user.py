@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from ..models import users
+from ..models import Korisnik
 from ..schemas import user
 
 
@@ -19,3 +20,7 @@ def create_user(db: Session, new_user: user.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def get_user_by_username(db: Session, korisnicko_ime: str):
+    return db.query(Korisnik).filter(Korisnik.korisnicko_ime == korisnicko_ime).first()
