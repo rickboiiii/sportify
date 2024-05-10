@@ -11,11 +11,11 @@ from .dependencies import get_db
 
 from .routers import users, profiles
 
-from database import Base, SessionLocal, engine
+from .database import Base, SessionLocal, engine
 
 from fastapi.middleware.cors import CORSMiddleware
 
-from models import Korisnik
+from .models_singleton import Korisnik
 
 
 def start_application():
@@ -64,7 +64,7 @@ def authenticate_user(korisnicko_ime: str, sifra: str, db: Session):
     user = db.query(Korisnik).filter(Korisnik.korisnicko_ime == korisnicko_ime).first()
     if not user:
         return False
-    if not pwd_context.verify(sifra, user.hashed_password):
+    if not pwd_context.verify(sifra, user.sifra):
         return False
     return user
 
@@ -81,7 +81,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 @app.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = authenticate_user(form_data.korisnicko_ime, form_data.sifra, db)
+    user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

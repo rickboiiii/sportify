@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, CheckConstraint, Column, ForeignKey, ForeignKeyConstraint, Integer, String, Date, Float, DateTime
 from sqlalchemy.orm import relationship
 
-from database import Base
+from .database import Base
 
 
 class Korisnik(Base):
