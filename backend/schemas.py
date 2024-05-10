@@ -3,13 +3,11 @@ from datetime import datetime, date
 from typing import Optional, List
 from models import *
 
-class Korisnik(BaseModel):
-    id_korisnika: int
+class KorisnikSchema(BaseModel):
     email: str
     sifra: str
     korisnicko_ime: str
-    id_uloge: bool
-    uloga: int
+  
 
 class Prijatelj(BaseModel):
     id_prijateljstva: int
@@ -17,7 +15,6 @@ class Prijatelj(BaseModel):
     id_prijatelja2: int
 
 class Igrac(BaseModel):
-    id_igraca: int
     ime_igraca: str
     prezime_igraca: str
     srednje_ime: str
@@ -31,7 +28,6 @@ class Igrac(BaseModel):
     recenzija: float
 
 class Vlasnik(BaseModel):
-    id_vlasnika: int
     ime_vlasnika: str
     prezime_vlasnika: str
     srednje_ime: str
@@ -40,36 +36,25 @@ class Vlasnik(BaseModel):
     recenzija: float
 
 class Uloga(BaseModel):
-    id_uloge: int
     naziv_uloge: str
     id_korisnika: int
 
 class Lokacija(BaseModel):
-    id_lokacije: int
-    id_vlasnika: int
-    id_adrese: int
     recenzija: float
     cijena_po_terminu: Optional[float]
 
 class Adresa(BaseModel):
-    id_adrese: int
     naziv_ulice: str
     postanski_broj: int
     grad: str
     drzava: str
 
 class Slobodni_Event(BaseModel):
-    id_eventa: int
-    id_lokacije: int
     pocetak_termina: datetime
     kraj_termina: datetime
     
 
 class Event_u_pripremi(BaseModel):
-    id_eventa: int
-    id_lokacije: int
-    id_organizatora: int
-    id_sporta: int
     naziv_termina: Optional[str]
     opis_termina: Optional[str]
     vrsta_termina: str
@@ -82,12 +67,10 @@ class Event_u_pripremi(BaseModel):
     popunjen: bool
 
 class Ekipa(BaseModel):
-    id_ekipe: int
     naziv_ekipe: str
     id_sporta: int
 
 class Turnir(BaseModel):
-    id_turnira: int
     naziv_turnira: str
     kotizacija: int
     organizator: int
@@ -100,7 +83,6 @@ class Veza_igrac_ekipa(BaseModel):
     id_igraca: int
 
 class Sifarnik_sportova(BaseModel):
-    id_sporta: int
     naziv_sporta: str
     broj_igraca: int
     zatvorenog_tipa: bool
@@ -130,19 +112,13 @@ class Veza_igrac_sport(BaseModel):
 
 
 class RecenzijaVlasnika(BaseModel):
-    id_recenzije_vlasnika: int
-    id_vlasnika: int
     komentar: str
     ocjena: float
 
 class RecenzijaIgraca(BaseModel):
-    id_recenzije_igraca: int
-    id_igraca: int
     komentar: str
     ocjena: float
 
 class RecenzijaTerena(BaseModel):
-    id_recenzije_terena: int
-    id_terena: int
     komentar: str
     ocjena: float

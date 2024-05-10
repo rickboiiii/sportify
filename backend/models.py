@@ -16,16 +16,16 @@ class Korisnik(Base):
     uloga= relationship("Uloga", back_populates="korisnici")
     igraci=relationship("Igrac", back_populates="korisnici")
     vlasnici=relationship("Vlasnik", back_populates="korisnici")
-    prijatelj1=relationship("Prijatelj", back_populates="korisnik1")
-    prijatelj2=relationship("Prijatelj", back_populates="korisnik2")
+    # prijatelj1=relationship("Prijatelj", back_populates="korisnik1")
+    # prijatelj2=relationship("Prijatelj", back_populates="korisnik2")
 
-class Prijatelj(Base):
-    __tablename__="prijatelji"
-    id_prijateljstva =Column(Integer, primary_key=True, autoincrement=True)
-    id_prijatelja1=Column(Integer, ForeignKey("korisnici.id_korisnika"))
-    id_prijatelja2=Column(Integer, ForeignKey("korisnici.id_korisnika"))
-    korisnik1=relationship("Korisnik", back_populates="prijatelj1")
-    korisnik2=relationship("Korisnik", back_populates="prijatelj2")
+# class Prijatelj(Base):
+#     __tablename__="prijatelji"
+#     id_prijateljstva =Column(Integer, primary_key=True, autoincrement=True)
+#     id_prijatelja1=Column(Integer, ForeignKey("korisnici.id_korisnika"))
+#     id_prijatelja2=Column(Integer, ForeignKey("korisnici.id_korisnika"))
+#     korisnik1=relationship("Korisnik", back_populates="prijatelj1")
+#     korisnik2=relationship("Korisnik", back_populates="prijatelj2")
 
 class Igrac(Base):
     __tablename__ = "igraci"
@@ -50,7 +50,7 @@ class Igrac(Base):
     sportovi=relationship("Veza_igrac_sport", back_populates="igraci")
     termini_u_pripremi=relationship("Event_u_pripremi", back_populates="organizator")
     event = relationship("Veza_igrac_termin_u_pripremi", back_populates="igrac")
-    eventZavrseni=relationship("Veza_igrac_termin_zavrseni", back_populates="igrac")
+    #eventZavrseni=relationship("Veza_igrac_termin_zavrseni", back_populates="igrac")
     ekipe=relationship("Veza_igrac_ekipa", back_populates="igrac")
 
 class Vlasnik(Base):
@@ -75,8 +75,8 @@ class Uloga(Base):
     #id_uloge 1-igrac, 2-vlasnik, 3-oboje
     id_uloge = Column(Integer, primary_key=True, autoincrement = True)
     naziv_uloge = Column(String)
-    id_korisnika = Column(Integer, ForeignKey("korisnici.id_korisnika"))
-    korisnici = relationship("Korisnici", back_populates="uloge")
+    #id_korisnika = Column(Integer, ForeignKey("korisnici.id_korisnika"))
+    korisnici = relationship("Korisnik", back_populates="uloga")
 
 class Lokacija (Base):
     __tablename__="lokacije"
@@ -155,7 +155,7 @@ class Turnir(Base):
     organizator=Column(Integer, ForeignKey("igraci.id_igraca"))
     id_sporta=Column(Integer, ForeignKey("sportovi.id_sporta"))
     id_lokacije =Column(Integer, ForeignKey("lokacije.id_lokacije")) 
-    sport=relationship("Sport", back_populates="turnir")
+    sport=relationship("Sifarnik_sportova", back_populates="turnir")
     lokacija=relationship("Lokacija", back_populates="turnir") 
     ekipa=relationship("Veza_ekipa_turnir", back_populates="turnir")
 
@@ -242,3 +242,12 @@ class RecenzijaTerena(Base):
     komentar = Column(String)
     ocjena = Column(Float)  
     tereni= relationship("Lokacija", back_populates="recenzija_terena")           
+
+
+
+
+     
+
+
+
+
