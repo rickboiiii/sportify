@@ -1,1 +1,3 @@
 Hi, place database SQL dump in this folder -> sportify/database/ - DATABASE
+
+
