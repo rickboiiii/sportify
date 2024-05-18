@@ -38,6 +38,25 @@ Nakon kloniranja repozitorija, u terminal-u potrebno je upisati sljedeće komand
 - `pip install -r requirements.txt`
 - `cd ../`
 - `cp .env.example .env`
+- `cd frontend`
+- `npm install`
+
+#### Backend pokretanje
+
+Potrebno je uraditi sljedeće:
+ 1. dotENV fajl prilagoditi lokalnom okruženju
+ 2. Pokrenuti bazu (pgAdmin4) 
+ 3. Unutar root folder-a samog projekta (sportify), otvoriti terminal, te upisati sljedeću komandu
+    - `uvicorn backend.main:app --reload`
+ 
+ *Poznati problemi - kada nije moguće **uvicorn** lokalni server prekinuti sa `Ctrl+C`,
+ potrebno je pronaci unutar **Task Manager-a** sve procese `python.exe`, te ih prekinuti.*
+
+#### Frontend pokretanje
+
+Unutar root folder-a samog projekta (sportify), otvoriti terminal i upisati sljedeće komande
+- `cd frontend`
+- `npm run dev`
 
 ## Generalne smjernice
 
@@ -81,6 +100,25 @@ After cloning the repository, in the terminal window write the following command
 - `pip install -r requirements.txt`
 - `cd ../`
 - `cp .env.example .env`
+- `cd frontend`
+- `npm install`
+
+#### Backend starting up
+
+Necessary steps:
+ 1. Adjust dotENV file according to your local environment
+ 2. Start database (pgAdmin4) 
+ 3. Inside root directory (sportify), open a new terminal window, then write following command
+    - `uvicorn backend.main:app --reload`
+ 
+ *Known issues - when you are not able to stop **uvicorn** local server with `Ctrl+C`, 
+ you have to find all `python.exe` processes inside **Task Manager** and end them.*
+
+#### Frontend starting up
+
+Inside root directory (sportify), open a new terminal window and write the following commands 
+- `cd frontend`
+- `npm run dev`
 
 ## General guidelines
 
