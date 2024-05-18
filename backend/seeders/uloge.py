@@ -1,18 +1,20 @@
-import psycopg2
-
-from backend.database import SessionLocal
 from backend.models_singleton import Uloga
+from .seeder import Seeder
 
 
-def uloge_seeders():
-    print("Seeding uloge...")
+def uloge_seeder():
+    class SeederUloge(Seeder):
+        pass
 
-    db = SessionLocal()
+    options = {
+        'model': Uloga,
+        'id_field': 'id_uloge',
+    }
 
     data = [
         {
             'id': 1,
-            'naziv_uloge': 'Admin1'
+            'naziv_uloge': 'Admin'
         },
         {
             'id': 2,
@@ -24,5 +26,4 @@ def uloge_seeders():
         }
     ]
 
-    db.bulk_insert_mappings(Uloga, data)
-    db.commit()
+    SeederUloge(options).seed(data)
