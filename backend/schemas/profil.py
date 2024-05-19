@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 
-from backend.schemas.igrac import Igrac
-from backend.schemas.korisnik import KorisnikSchema
-from backend.schemas.vlasnik import Vlasnik
+from backend.schemas import Igrac, KorisnikSchema, Vlasnik
 
 
 class IgracProfil(Igrac):

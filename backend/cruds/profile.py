@@ -1,8 +1,6 @@
 from sqlalchemy.orm import Session
 
-from backend.models.igrac import Igrac
-from backend.models.vlasnik import Vlasnik
-from backend.models.korisnik import Korisnik
+from backend.models import Igrac, Vlasnik, Korisnik
 
 
 def get_all_profiles(db: Session):

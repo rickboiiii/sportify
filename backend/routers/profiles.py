@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.cruds.profile import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username
+from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username
 from backend.dependencies import get_db
 
 from backend.schemas.profil import IgracProfil, VlasnikProfil, Profili
