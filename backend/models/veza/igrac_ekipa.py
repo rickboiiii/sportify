@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 
 from backend.database import Base
 
-from backend.models.ekipa import Ekipa
-
 
 class Veza_igrac_ekipa(Base):
     __tablename__ = "veze_igrac_ekipa"

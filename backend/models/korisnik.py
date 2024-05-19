@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 
 from backend.database import Base
 
-from backend.models.uloga import Uloga
-
 
 class Korisnik(Base):
     __tablename__ = "korisnici"

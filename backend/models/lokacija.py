@@ -3,12 +3,6 @@ from sqlalchemy.orm import relationship
 
 from backend.database import Base
 
-from backend.models.adresa import Adresa
-from backend.models.recenzija.teren import RecenzijaTerena
-from backend.models.slobodni_event import Slobodni_Event
-from backend.models.event_u_pripremi import Event_u_pripremi
-from backend.models.turnir import Turnir
-
 
 class Lokacija(Base):
     __tablename__ = "lokacije"

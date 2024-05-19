@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 
 from backend.database import Base
 
-from backend.models.sport import Sifarnik_sportova
-
 
 class Ekipa(Base):
     __tablename__ = "ekipe"

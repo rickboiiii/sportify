@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 
 from backend.database import Base
 
-from backend.models.recenzija.vlasnik import RecenzijaVlasnika
-
 
 class Vlasnik(Base):
     __tablename__ = "vlasnici"
@@ -17,8 +15,8 @@ class Vlasnik(Base):
     datum_rodjenja = Column(Date)
     spol = Column(Boolean)
     recenzija = Column(Float, CheckConstraint("recenzija>=1 and recenzija<=5"))
-    #data = Column(LargeBinary) PRIKAZ SLIKE ?
-    #format = Column(String)  # Dodatni atribut za pohranu formata slike; treba pretvarati u binarno i obratno
+    # data = Column(LargeBinary) PRIKAZ SLIKE ?
+    # format = Column(String)  # Dodatni atribut za pohranu formata slike; treba pretvarati u binarno i obratno
 
     korisnici = relationship("Korisnik", back_populates="vlasnici")
     recenzije_vlasnika = relationship("RecenzijaVlasnika", back_populates="vlasnici")
