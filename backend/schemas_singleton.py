@@ -1,13 +1,14 @@
 from pydantic import BaseModel
 from datetime import datetime, date
 from typing import Optional, List
-from models import *
+# from models import *
 
 class KorisnikSchema(BaseModel):
     email: str
-    sifra: str
     korisnicko_ime: str
-  
+
+class Korisnik(KorisnikSchema):
+    sifra: str
 
 class Prijatelj(BaseModel):
     id_prijateljstva: int
@@ -17,7 +18,7 @@ class Prijatelj(BaseModel):
 class Igrac(BaseModel):
     ime_igraca: str
     prezime_igraca: str
-    srednje_ime: str
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     visina: int
@@ -27,13 +28,34 @@ class Igrac(BaseModel):
     verifikovan: bool
     recenzija: float
 
+class IgracProfil(Igrac):
+    id_igraca: int
+    korisnici: KorisnikSchema | None = None
+
+    class Config:
+        from_attributes: True
+
 class Vlasnik(BaseModel):
     ime_vlasnika: str
     prezime_vlasnika: str
-    srednje_ime: str
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     recenzija: float
+
+class VlasnikProfil(Vlasnik):
+    id_vlasnika: int
+    korisnici: KorisnikSchema | None = None
+
+    class Config:
+        from_attributes = True
+
+class Profili(BaseModel):
+    svi_korisnici: list[IgracProfil]
+    svi_vlasnici: list[VlasnikProfil]
+
+    class Config:
+        from_attributes = True
 
 class Uloga(BaseModel):
     naziv_uloge: str

@@ -13,15 +13,12 @@ def uloge_seeder():
 
     data = [
         {
-            'id': 1,
             'naziv_uloge': 'Admin'
         },
         {
-            'id': 2,
             'naziv_uloge': 'Korisnik'
         },
         {
-            'id': 3,
             'naziv_uloge': 'Vlasnik'
         }
     ]
