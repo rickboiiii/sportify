@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .config import Settings
 from .dependencies import get_db
 
-from .routers import users, profiles, auth, forms
+from .routers import profiles, auth, forms
 
 from .database import Base, SessionLocal, engine
 
@@ -29,7 +29,6 @@ def start_application():
         allow_headers=["*"],
     )
 
-    app.include_router(users.router)
     app.include_router(profiles.router)
     app.include_router(auth.router)
     app.include_router(forms.router)

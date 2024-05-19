@@ -1,4 +1,4 @@
-from backend.models_singleton import Uloga
+from backend.models.uloga import Uloga
 from .seeder import Seeder
 
 

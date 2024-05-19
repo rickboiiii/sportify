@@ -1,4 +1,4 @@
-from backend.models_singleton import Igrac
+from backend.models.igrac import Igrac
 from .seeder import Seeder
 
 

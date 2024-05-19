@@ -1,4 +1,4 @@
-from backend.models_singleton import Vlasnik
+from backend.models.vlasnik import Vlasnik
 from .seeder import Seeder
 
 

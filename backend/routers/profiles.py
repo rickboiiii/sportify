@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from backend.cruds.profile import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username
 from backend.dependencies import get_db
 
-from backend.schemas_singleton import IgracProfil, VlasnikProfil, Profili
+from backend.schemas.profil import IgracProfil, VlasnikProfil, Profili
 
 router = APIRouter()
 
