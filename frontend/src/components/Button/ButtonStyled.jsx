@@ -7,7 +7,7 @@ export const LogInButton = styled.button`
     background: ${oxion};
     color: ${ghostWhite};
     width: 500px;
-    height: 70px;
+    height: 60px;
     border: 0;
     border-radius: 150px;
     font-size: 32px;
