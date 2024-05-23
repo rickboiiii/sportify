@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Image from 'next/image';
-import image6 from '../../../../files/images/image6.png';
+import image7 from '../../../../files/images/image7.png';
 import left_arrow from '../../../../files/images/left_arrow.png';
 import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
 import { LogInButton } from "@/components/Button/ButtonStyled";
@@ -16,28 +16,15 @@ const Container = styled.div`
   flex-wrap: wrap;
   color: ${ghostWhiteLight};
   font-size: ${fontSize1};
-  max-width: 98.4vw;
+
   @media (max-width: 900px) {
-    display: block;
+    flex-direction: column-reverse;
     font-size: ${fontSize4};
   }
 `;
-
 const LeftSection = styled.div`
   flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-image: url(${image6.src});
-  background-size: cover;
-  background-position: center;
-  min-height:100vh;
-  @media (max-width: 985px) {
-    min-height: 10vh;
-  }
-`;
-const RightSection = styled.div`
-  flex: 1;
-  padding: 2.5em 1em 4em 6em; 
+  padding: 2.5em 2em 4em 5em; 
   justify-content: center;
   @media (max-width: 700px) {
     padding-top: 1em;
@@ -47,6 +34,18 @@ const RightSection = styled.div`
   }
 `;
 
+const RightSection = styled.div`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-image: url(${image7.src});
+  background-size: cover;
+  background-position: center;
+  min-height:100vh;
+  @media (max-width: 985px) {
+    min-height: 15vh;
+  }
+`;
 const BackLink = styled.a`
 overflow-x: hidden;
   display: flex;
@@ -104,10 +103,12 @@ const Form = styled.form`
     margin-bottom: 2em;
   }
 `;
-function LogIn() {
+function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  /* ---- EDIT FOR REGISTER PURPOSES -----
   const router = useRouter();
 
   const validateForm = () => {
@@ -147,20 +148,19 @@ function LogIn() {
       setError('An error occurred. Please try again later.');
     }
   };
-
+  */
   return (
     <Container>
-      <LeftSection></LeftSection>
-      <RightSection>
+      <LeftSection>
         <BackLink href="http://localhost:3000">
           <Image src={left_arrow} alt="Back arrow" width={40} />
           <span style={{ marginLeft: 15 }}>Vratite se nazad na početnu stranicu</span>
         </BackLink>
-        <Title>Dobrodošli nazad!</Title>
+        <Title>Nemojte biti samo posmatrač</Title>
         <Subtitle>
-          <a href="http://localhost:3000/register" style={{textDecoration: 'underline'}}>Kreirajte besplatan račun</a> ili se prijavite na postojeći
+          Kreirajte besplatan račun ili se <a href="http://localhost:3000" style={{textDecoration: 'underline'}}> prijavite na postojeći</a>
         </Subtitle>
-        <Form onSubmit={handleSubmit} autoComplete="off">
+        <Form autoComplete="off">
           <div>
             <label>email</label><br />
             <input
@@ -179,12 +179,13 @@ function LogIn() {
               autoComplete="off"
             />
           </div>
-          <LogInButton type="submit" style={{ width: '70%' }}>log in</LogInButton>
+          <LogInButton type="submit" style={{ width: '70%' }}>submit</LogInButton>
           {error && <div className="text-danger mt-2" style={{fontSize: fontSize4}}>{error}</div>}
         </Form>
-      </RightSection>
+      </LeftSection>
+      <RightSection></RightSection>
     </Container>
   );
 }
 
-export default LogIn;
+export default Register;
