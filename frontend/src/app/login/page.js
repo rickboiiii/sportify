@@ -165,6 +165,7 @@ function LogIn() {
             <label>email</label><br />
             <input
               type="text"
+              placeholder='ada.lovelace'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="off"
@@ -174,6 +175,7 @@ function LogIn() {
             <label>password</label><br />
             <input
               type="password"
+              placeholder='. . . . . .'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="off"
