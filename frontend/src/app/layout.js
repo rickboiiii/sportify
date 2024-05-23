@@ -1,11 +1,11 @@
 
 import {GlobalStyle} from "@/styles/GlobalStyle";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
     <head>
       <title>Sportify - Connect Your Skills</title>
-
       <link rel="preconnect" href="https://fonts.googleapis.com"/>
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
       <link
@@ -16,7 +16,8 @@ export default function RootLayout({ children }) {
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png"/>
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png"/>
       <link rel="manifest" href=" /favicon_io/site.webmanifest"/>
-
+      <link href="/fa-icons/css/fontawesome.css" rel="stylesheet"/>
+      <link href="/fa-icons/css/all.css" rel="stylesheet"/>
     </head>
     <GlobalStyle>{children}</GlobalStyle>
     </html>

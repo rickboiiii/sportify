@@ -1,4 +1,4 @@
-from backend.models.igrac import Igrac
+from backend.models import Igrac
 from .seeder import Seeder
 
 

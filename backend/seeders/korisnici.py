@@ -1,6 +1,6 @@
 import warnings
 
-from backend.models.korisnik import Korisnik
+from backend.models import Korisnik
 from backend.main import pwd_context
 from .seeder import Seeder
 

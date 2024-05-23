@@ -1,4 +1,4 @@
-from backend.models.vlasnik import Vlasnik
+from backend.models import Vlasnik
 from .seeder import Seeder
 
 

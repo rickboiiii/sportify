@@ -58,6 +58,12 @@ Unutar root folder-a samog projekta (sportify), otvoriti terminal i upisati slje
 - `cd frontend`
 - `npm run dev`
 
+#### Seed-anje baze podataka
+
+*Bitno je pokrenuti barem jednom FASTAPI backend, kako bi seed-eri funkcionisali.*
+Terminal komanda za seedanje baze podataka:
+- `python -m backend.seeders`
+
 ## Generalne smjernice
 
 - Pravilo **KISS** - ***K**eep **I**t **S**tupid **S**imple*
@@ -119,6 +125,12 @@ Necessary steps:
 Inside root directory (sportify), open a new terminal window and write the following commands 
 - `cd frontend`
 - `npm run dev`
+
+#### Database seeding
+
+*It's necessary to run FASTAPI backend at least once, so that seeders would function.*
+Terminal command for database seeding:
+- `python -m backend.seeders`
 
 ## General guidelines
 
