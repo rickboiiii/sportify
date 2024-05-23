@@ -162,7 +162,7 @@ function LogIn() {
         </Subtitle>
         <Form onSubmit={handleSubmit} autoComplete="off">
           <div>
-            <label>email</label><br />
+            <label>username</label><br />
             <input
               type="text"
               placeholder='ada.lovelace'
