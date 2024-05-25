@@ -17,6 +17,7 @@ export const taupeGray = "#A29B9B";
 export const taupeGrayLight = "rgba(162,155,155,0.9)";
 export const lapisLazuli = "#1C64A3";
 export const lapisLazuliLight = "rgba(28,100,163,0.9)";
+export const dirtyWhite = "#D9D9D9";
 
 /*
  * Sizes
