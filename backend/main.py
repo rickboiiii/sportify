@@ -12,7 +12,7 @@ from .database import Base, SessionLocal, engine
 from fastapi.middleware.cors import CORSMiddleware
 
 def start_application():
-    app = FastAPI(dependencies=[Depends(get_db)])
+    app = FastAPI()
     Base.metadata.create_all(bind=engine)
     origins = ["*"]
 

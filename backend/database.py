@@ -4,6 +4,6 @@ from sqlalchemy.orm import sessionmaker
 from .config import get_database_url
 
 engine = create_engine("postgresql://" + get_database_url())
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False)
 
 Base = declarative_base()

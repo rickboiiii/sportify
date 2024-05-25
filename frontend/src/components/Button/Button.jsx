@@ -1,6 +1,7 @@
 "use client";
-export default function LogInButton({ onPress, children }) {
+
+export default function Button(onPress, children) {
     return (
         <button onClick={onPress}>{children}</button>
-    );
+    )
 }
