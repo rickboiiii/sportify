@@ -10,7 +10,7 @@ const JoinUs = () => {
       <>
           <div className={"joinus-div"}>
               <div className={"joinus"}>
-                  <h1 className={"joinus-text"}>KREIRAJTE SVOJE <h1 className={"joinus-intense"}>SPORTSKE AVANTURE</h1> S LAKOĆOM <b/></h1>
+                  <h1 className={"joinus-text"}>KREIRAJTE SVOJE <span className={"joinus-intense"}>SPORTSKE AVANTURE</span> S LAKOĆOM </h1>
                   <div className={"joinus-btn"}>
                     <NavLinkBtn href="/sign-in">SIGN IN</NavLinkBtn>
                     <NavLinkBtn  href="/log-in">LOG IN</NavLinkBtn>

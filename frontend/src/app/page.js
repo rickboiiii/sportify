@@ -176,7 +176,7 @@ export default function Home() {
         <>
             <Navbar/>
             <div className={"banner"}>
-                <h1 className={"message"}><h2 className={"name"}> SPORTIFY </h2> - VAŠA RUTA DO SPORTSKE ZABAVE </h1>
+                <h1 className={"message"}><span className={"name"}> SPORTIFY </span> - VAŠA RUTA DO SPORTSKE ZABAVE </h1>
             </div>
             <About/>
             <JoinUs/>
