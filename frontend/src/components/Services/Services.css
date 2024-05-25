@@ -1,0 +1,105 @@
+
+.services {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+    background: var(--ghost-white);
+}
+
+.services-title {
+    background: url("../../images/services.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    text-align: center;
+    align-content: center;
+    padding: 15% 0;
+}
+
+.services-title h1 {
+    font-size: 10vw;
+    font-family: var(--first-font);
+    letter-spacing: 2px;
+    color: var(--pear);
+}
+
+.services-text {
+    width: 50%;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.hover-container {
+    border: 2px solid var(--pear);
+    margin: auto;
+    margin-bottom: 3vw;
+    width: 45vw;
+    height: 13vh;
+    text-align: center;
+    align-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.title {
+    font-size: 2vw;
+}
+
+.hidden-paragraph {
+    font-size: 1vw;
+    font-weight: 300;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.hover-container:hover .hidden-paragraph {
+    opacity: 1;
+    max-height: max-content;
+    cursor: pointer;
+}
+
+.hover-container:hover .title {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 800px) {
+    .services {
+        flex-direction: column;
+    }
+
+    .services-title {
+        height: 40%;
+        width: 100%;
+    }
+
+    .services-text {
+        height: 60%;
+        width: 100%;
+    }
+
+    .hover-container {
+        border: 2px solid var(--pear);
+        margin: auto;
+        margin-bottom: 3vh;
+        width: 45vh;
+        height: 13vw;
+    }
+
+    .title {
+        font-size: 2vh;
+    }
+
+    .hidden-paragraph {
+        font-size: 1vh;
+    }
+
+}

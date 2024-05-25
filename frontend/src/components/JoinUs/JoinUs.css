@@ -1,0 +1,79 @@
+.joinus-div {
+    background: #393E44;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    font-family: var(--first-font);
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.joinus-text {
+    font-size: 5vw;
+    color: var(--ghost-white);
+}
+
+.joinus-intense {
+    font-size: 5vw;
+    color: var(--pear);
+}
+
+.joinus {
+    align-content: center;
+    width: 80%;
+    padding-left: 5vw;
+}
+
+.joinus-btn {
+    display: flex;
+    text-align: center;
+}
+
+.joinus-btn a {
+    float: left;
+    font-size: 2vw;
+    padding: 1.5rem;
+    color: var(--ghost-white);
+    text-align: center;
+    text-decoration: none;
+}
+
+.joinus-btn a:hover {
+    color: var(--pear);
+}
+
+.joinus-image {
+    height: 100vh;
+    text-align: left;
+    overflow: hidden;
+}
+
+.joinus-image img {
+    height: 100vh;
+    width: max-content;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 750px) {
+    .joinus-text {
+        font-size: 5vh;
+    }
+
+    .joinus-intense {
+        font-size: 5vh;
+    }
+
+    .joinus-btn a {
+        font-size: 2vh;
+    }
+
+    .joinus {
+        width: 70%;
+    }
+
+    .joinus-image img {
+        width: max-content;
+    }
+
+
+}

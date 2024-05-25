@@ -1,0 +1,32 @@
+
+.banner {
+    display: flex;
+    background-image: url("../images/banner.png");
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.banner .name {
+    color: var(--lapis-lazuli);
+    font-size: 4rem;
+    float: left;
+}
+
+.banner .message {
+    width: 50%;
+    margin: 15% 10%;
+    font-family: "Saira Condensed", sans-serif;
+    font-weight: 700;
+    letter-spacing: 4px;
+    font-size: 4rem;
+    color: var(--ghost-white);
+}
+
+.message:hover {
+    transform:translate(-3px,-3px);
+    transition: 1s;
+}
+
+/* DODATI MEDIA QUERY */

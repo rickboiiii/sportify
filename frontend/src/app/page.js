@@ -1,5 +1,15 @@
 "use client";
+import React from "react";
+import "./Home.css"
+import Footer from "@/components/Footer/Footer";
+import About from "@/components/About/About";
+import JoinUs from "@/components/JoinUs/JoinUs";
+import Quote from "@/components/Quote/Quote";
+import Services from "@/components/Services/Services";
+import Navbar from "@/components/Navbar/Navbar";
 
+/*
+ *
 import '@/app/globals.css';
 import { useState } from 'react';
 import { Container } from "@/components/Containers/ContainerStyled";
@@ -85,7 +95,7 @@ export default function Home() {
       }
     }
   ];
-  
+
   const [formKey, setFormKey] = useState(0);
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
@@ -109,7 +119,7 @@ export default function Home() {
       broj_slobodnih_mjesta: broj_slobodnih_mjesta,
       sport: sport,
     };console.log(formValues)
-    
+
     try {
       axios.post('http://localhost:8000/oglas_eventa', formData)
       .then(function (response) {
@@ -125,7 +135,7 @@ export default function Home() {
 
     setFormSubmitCount((prevCount) => prevCount + 1);
   };
-  
+
   const NextSlide = () => {
     let prvaVrijednost= document.getElementById("id1").value;
     let drugaVrijednost= document.getElementById("id2").value;
@@ -158,10 +168,21 @@ export default function Home() {
     </Container>
   );
 }
+ */
 
 
-
-
- 
-        
-  
+export default function Home() {
+  return (
+        <>
+            <Navbar/>
+            <div className={"banner"}>
+                <h1 className={"message"}><h2 className={"name"}> SPORTIFY </h2> - VAŠA RUTA DO SPORTSKE ZABAVE </h1>
+            </div>
+            <About/>
+            <JoinUs/>
+            <Services/>
+            <Quote/>
+            <Footer/>
+        </>
+  );
+}

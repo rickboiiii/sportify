@@ -49,7 +49,7 @@ Nakon kloniranja repozitorija, u terminal-u potrebno je upisati sljedeće komand
 
 ---
 
-## About - `EN`
+## Page - `EN`
 
 Sportify a full stack FASTAPI-Next.js project \
 Developed for acquiring and expanding knowledge regarding our beloved profession. \
