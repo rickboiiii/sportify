@@ -1,4 +1,4 @@
-/*"use client";
+"use client";
 
 import '@/app/globals.css';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import ParForm from "@/components/Forms/ParForm";
 import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
 import styled from 'styled-components';
 import LocationFetcher from '@/components/Location/Locations';
+import {Button} from '@/components/Button/ButtonStyled';
 
 const Message = styled.h1`
   color: white;
@@ -92,17 +93,19 @@ export default function Home() {
 
     try {
       await sendEventDetails(formData);
-      if (formSubmitCount < 2) {
-        setFormKey((prevKey) => prevKey + 1);
-        setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
-        setFormSubmitCount((prevCount) => prevCount + 1);
-      } else {
-        setFormSubmitCount((prevCount) => prevCount + 1);
-      }
     } catch (error) {
       console.error('Failed to submit form', error);
     }
   };
+  const NextSlide = () => {
+    if (formSubmitCount < 2) {
+      setFormKey((prevKey) => prevKey + 1);
+      setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
+      setFormSubmitCount((prevCount) => prevCount + 1);
+    } else {
+      setFormSubmitCount((prevCount) => prevCount + 1);
+    }
+  }
 
   return (
     <Container>
@@ -111,10 +114,9 @@ export default function Home() {
           <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
           <ParForm
             key={formKey}
-            onPress={handlePress}
             inputs={labelSets[currentLabelSetIndex]}
             h_text={"Osnovne informacije o terminu"}
-          />
+          ><button >sljedeće</button></ParForm>
         </>
       ) : (
         
@@ -126,9 +128,8 @@ export default function Home() {
 
   );
 }
-*/
 
-"use client";
+/*"use client";
 import '@/app/globals.css'
 import { useState } from 'react';
 import { Container } from "@/components/Containers/ContainerStyled";
@@ -218,4 +219,4 @@ export default function Home() {
     </Container>
   );
 }
-
+*/
