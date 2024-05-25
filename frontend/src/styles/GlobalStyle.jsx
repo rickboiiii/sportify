@@ -25,8 +25,10 @@ export const GlobalStyle = styled.body`
     font-family: "Saira Condensed", sans-serif;
     font-weight: 100;
     font-style: normal;
-    background: ${lapisLazuli};
+    background: ${ghostWhite};
     margin: 0;
     padding: 0;
-    width: 100vw;
+    
 `;
+
+

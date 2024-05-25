@@ -1,12 +1,25 @@
 "use client";
-
-import { LogInButton } from "@/components/Button/ButtonStyled"
-import {Container} from "@/components/Containers/ContainerStyled";
+import React from "react";
+import "./Home.css"
+import Footer from "@/components/Footer/Footer";
+import About from "@/components/About/About";
+import JoinUs from "@/components/JoinUs/JoinUs";
+import Quote from "@/components/Quote/Quote";
+import Services from "@/components/Services/Services";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
   return (
-      <Container>
-          <LogInButton onClick={() => console.log("Button") }>log in</LogInButton>
-      </Container>
+        <>
+            <Navbar/>
+            <div className={"banner"}>
+                <h1 className={"message"}><h2 className={"name"}> SPORTIFY </h2> - VAŠA RUTA DO SPORTSKE ZABAVE </h1>
+            </div>
+            <About/>
+            <JoinUs/>
+            <Services/>
+            <Quote/>
+            <Footer/>
+        </>
   );
 }
