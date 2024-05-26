@@ -1,11 +1,11 @@
 
 
-import {Card, CardHeader, CardRow, Container} from "@/components/Containers/ContainerStyled";
+import {Container} from "@/components/Containers/ContainerStyled";
 import ProfileComponent from "@/components/Profile/Profile";
 import axios from "axios";
 import {Suspense} from "react";
 import Loading from "@/app/profiles/[type]/id/[id]/loading";
-import {taupeGrayLight} from "@/styles/GlobalStyle";
+import Error404 from "@/components/Errors/404";
 
 export default async function Profile(props) {
 
@@ -57,20 +57,7 @@ export default async function Profile(props) {
     } catch (e) {
         if(e.response.status === 404) {
             return (
-                <Container>
-                    <Card>
-                        <CardHeader>
-                            <h1>{e.response.data.detail} <i className="fas fa-question" style={{fontSize: "4rem", color: taupeGrayLight}}></i></h1>
-                        </CardHeader>
-                        <CardRow>
-                            <p>
-                                Izgleda da ste zalutali, <a href="/">nazad na pocetnu
-                                    <i className="fas fa-arrow-rotate-back" style={{color: "#551A8B"}}></i>
-                                </a>
-                            </p>
-                        </CardRow>
-                    </Card>
-                </Container>
+                <Error404 message={e.response.data.detail}/>
             );
         }
     }
