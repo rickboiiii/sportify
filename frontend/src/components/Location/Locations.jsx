@@ -1,39 +1,4 @@
 "use client";
-/*import React, { useEffect, useState } from 'react';
-
-const LocationFetcher = () => {
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-  useEffect( () => {
-    getLocation();
-  },[])
-  const getLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      }, error => {
-        console.error("Error fetching location:", error);
-      });
-    } else {
-      console.error("Ovaj browser ne podrazava davanje lokacije!.");
-    }
-  };
-
-  return (
-    <div>
-      {location.latitude && location.longitude && (
-        <div>
-          <p>Latitude: {location.latitude}</p>
-          <p>Longitude: {location.longitude}</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default LocationFetcher;*/
 
 import React, { useEffect, useState } from 'react';
 
@@ -74,14 +39,13 @@ const LocationFetcher = () => {
           drzava: data.address.country || ''
         };
         setAddress(addressData);
-        // Slanje podataka na backend server
-        //saveAddressToServer(addressData);
+        saveAddressToServer(addressData);
       })
       .catch(error => console.error('Greska', error));
   };
 
-  /*const saveAddressToServer = (addressData) => {
-    fetch('http://localhost:5000/api/adresa', {
+  const saveAddressToServer = (addressData) => {
+    fetch('http://localhost:8000/spremi_lokaciju', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +55,7 @@ const LocationFetcher = () => {
     .then(response => response.json())
     .then(data => console.log('Success:', data))
     .catch(error => console.error('Error:', error));
-  };*/
+  };
 
   return (
     <div>

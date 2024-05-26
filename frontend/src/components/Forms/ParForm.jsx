@@ -4,14 +4,14 @@ import { Container, Naslov, Forma } from "../Containers/ContainerStyled";
 import InputContainer from "../Inputs/Input";
 
 
-export default function ParForma (props,children) {
-    console.log(children)
+export default function ParForma ({h_text, inputs, children}) {
+
     return(
         <Container>
-        <Naslov>{props.h_text}</Naslov>
+        <Naslov>{h_text}</Naslov>
         <Forma method="get" action="#">
-            <InputContainer {...props.inputs.first} />
-            <InputContainer {...props.inputs.second}/>
+            <InputContainer {...inputs.first} />
+            <InputContainer {...inputs.second}/>
             {children}
         </Forma></Container>
     )
