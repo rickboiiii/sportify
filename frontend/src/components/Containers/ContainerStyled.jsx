@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import {dirtyWhite, lapisLazuli, oxion, taupeGray, ghostWhite} from "@/styles/GlobalStyle";
+import {dirtyWhite, lapisLazuli, lapisLazuliLight, oxion, taupeGrayLight, ghostWhite} from "@/styles/GlobalStyle";
 
 export const Container = styled.div`
     display: flex;
@@ -52,13 +52,29 @@ export const Card = styled.div`
     flex: 0.8;
     border: 0;
     border-radius: 1.25rem;
-    background: ${taupeGray};
+    background: ${taupeGrayLight};
     color: black;
     
     i {
         color: ${lapisLazuli};
         margin: 0.25rem;
         font-size: 14px;
+        vertical-align: 1px;
+    }
+    
+    p {
+        align-self: end;
+        font-weight: bold;
+        text-align: end;
+    }
+    
+    h4 {
+        margin-top: 0;
+    }
+    
+    h5 {
+        margin: 0;
+        color: ${lapisLazuli};
     }
 `;
 
@@ -97,6 +113,7 @@ export const CardHeader = styled.div`
 `;
 export const CardFooter = styled.div`
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     padding: 1rem;
     border: 0;
@@ -121,4 +138,30 @@ export const CardImg = styled.img`
     margin: 0.5rem;
     border: 0;
     border-radius: 50%;
+`;
+
+export const ProgressBarContainer = styled.div`
+    display: flex;
+    flex: 1;
+`;
+
+export const ProgressBarBackground = styled.div`
+    position: relative;
+    display: flex;
+    flex: 1;
+    height: 1rem;
+    border: 0;
+    border-radius: 10px;
+    background: ${taupeGrayLight};
+`;
+
+export const ProgressBarForeground = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    height: 1rem;
+    border: 0;
+    border-radius: 10px;
+    background: ${lapisLazuliLight};
 `;
