@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from jose import JWTError, jwt
 from backend.dependencies import get_db
 from datetime import datetime, timedelta
-from backend.models_singleton import Event_u_pripremi
+from backend.models_singleton import Event_u_pripremi, Adresa
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -39,21 +39,21 @@ async def kreiraj_par(naziv_termina: str, opis_termina: str, lokacija: int, poce
     get_db.refresh(db_par)
     return db_par
 
-
-class Adresa(BaseModel):
+class AdresaBase(BaseModel):
     naziv_ulice: str
     postanski_broj: int
     grad: str
     drzava: str
 
     class Config:
-        orm_mode = True
-class Adresa_create(Adresa) :
-   pass
+        form_attributes = True
+
+class AdresaCreate(Adresa):
+    pass
 
 @router.post("/spremi_lokaciju")
-async def spremi_lokaciju(adresa: Adresa, db: Session = Depends(get_db)):
-    nova_adresa = Adresa_create(**adresa.dict())
+async def spremi_lokaciju(adresa: AdresaBase, db: Session = Depends(get_db)):
+    nova_adresa = AdresaCreate(**adresa.dict())  
     db.add(nova_adresa)
     db.commit()
     db.refresh(nova_adresa)

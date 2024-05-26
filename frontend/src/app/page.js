@@ -6,7 +6,6 @@ import { Container } from "@/components/Containers/ContainerStyled";
 import ParForm from "@/components/Forms/ParForm";
 import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
 import styled from 'styled-components';
-import LocationFetcher from '@/components/Location/Locations';
 import {Button} from '@/components/Button/ButtonStyled';
 
 const Message = styled.h1`
@@ -81,11 +80,17 @@ export default function Home() {
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
   const [formValues, setFormValues] = useState([]);
-
+  // const [formValues, setFormValues] = useState({
+  //   naziv_termina: '',
+  //   opis_termina: '',
+  //   lokacija: '',
+  //   pocetak_termina: '',
+  //   broj_slobodnih_mjesta: '',
+  //   sport: '',
+  // });
   const handlePress = async () => {
     let broj_slobodnih_mjesta = parseInt(document.getElementById('id1').value);
     let sport = parseInt(document.getElementById('id2').value);
-    console.log(broj_slobodnih_mjesta, sport)
     const formData = {
       naziv_termina: formValues[0],
       opis_termina: formValues[1],
@@ -115,6 +120,7 @@ export default function Home() {
     }
   }
 
+
   return (
     <Container>
       {formSubmitCount < 3 ? (
@@ -124,19 +130,16 @@ export default function Home() {
             key={formKey}
             inputs={labelSets[currentLabelSetIndex]}
             h_text={"Osnovne informacije o terminu"}
-          >{(formSubmitCount===2)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
+          >{(formSubmitCount===3)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
-        <>
         <Message>uspješno ste dodali termin</Message>
-        <LocationFetcher></LocationFetcher></>
-        
       )
       }
     </Container>
-
   );
 }
+
 
 
 
