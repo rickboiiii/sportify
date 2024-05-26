@@ -5,7 +5,18 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import image7 from '../../../../files/images/image7.png';
 import left_arrow from '../../../../files/images/left_arrow.png';
-import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
+import {
+  fontSize1,
+  fontSize2,
+  fontSize3,
+  fontSize4,
+  fontSize5,
+  pear,
+  ghostWhite,
+  ghostWhiteLight,
+  fontSize6,
+  lapisLazuli
+} from '@/styles/GlobalStyle';
 import { Button } from "@/components/Button/ButtonStyled";
 
 
@@ -14,6 +25,7 @@ const Container = styled.div`
   flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
+  background: ${lapisLazuli};
   color: ${ghostWhiteLight};
   font-size: ${fontSize1};
 
@@ -158,7 +170,7 @@ function Register() {
         </BackLink>
         <Title>Nemojte biti samo posmatrač</Title>
         <Subtitle>
-          Kreirajte besplatan račun ili se <a href="http://localhost:3000" style={{textDecoration: 'underline'}}> prijavite na postojeći</a>
+          Kreirajte besplatan račun ili se <a href="http://localhost:3000/login" style={{textDecoration: 'underline'}}> prijavite na postojeći</a>
         </Subtitle>
         <Form autoComplete="off">
           <div>

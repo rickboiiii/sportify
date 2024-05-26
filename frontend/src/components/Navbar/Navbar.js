@@ -32,12 +32,12 @@ const Navbar = () => {
                 </NavLink>
             )}
 
-            {(currentPath !== '/sign-up' && currentPath !== '/log-in') && (
+            {(currentPath !== '/register' && currentPath !== '/login') && (
                 <>
-                    <NavLinkBtn href={"/sign-up"} passHref>
+                    <NavLinkBtn href={"/register"} passHref>
                         SIGN UP
                     </NavLinkBtn>
-                    <NavLinkBtn href={"/log-in"} passHref>
+                    <NavLinkBtn href={"/login"} passHref>
                         LOG IN
                     </NavLinkBtn>
                 </>

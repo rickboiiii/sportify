@@ -12,8 +12,8 @@ const JoinUs = () => {
               <div className={"joinus"}>
                   <h1 className={"joinus-text"}>KREIRAJTE SVOJE <span className={"joinus-intense"}>SPORTSKE AVANTURE</span> S LAKOĆOM </h1>
                   <div className={"joinus-btn"}>
-                    <NavLinkBtn href="/sign-in">SIGN IN</NavLinkBtn>
-                    <NavLinkBtn  href="/log-in">LOG IN</NavLinkBtn>
+                    <NavLinkBtn href="/register">SIGN IN</NavLinkBtn>
+                    <NavLinkBtn  href="/login">LOG IN</NavLinkBtn>
                   </div>
               </div>
               <div className={"joinus-image"}>

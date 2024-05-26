@@ -5,7 +5,18 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import image6 from '../../../../files/images/image6.png';
 import left_arrow from '../../../../files/images/left_arrow.png';
-import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
+import {
+  fontSize1,
+  fontSize2,
+  fontSize3,
+  fontSize4,
+  fontSize5,
+  pear,
+  ghostWhite,
+  ghostWhiteLight,
+  fontSize6,
+  lapisLazuli
+} from '@/styles/GlobalStyle';
 import { Button } from "@/components/Button/ButtonStyled";
 
 
@@ -14,6 +25,7 @@ const Container = styled.div`
   flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
+  background: ${lapisLazuli};
   color: ${ghostWhiteLight};
   font-size: ${fontSize1};
   max-width: 98.4vw;
