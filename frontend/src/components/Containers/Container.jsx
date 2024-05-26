@@ -1,7 +1,7 @@
 "use client";
 
-export default function Container(props, children) {
+export default function Container(props) {
     return (
-        <div {...props}>{children}</div>
-    )
+        <div {...props}>{props.children}</div>
+    );
 }
