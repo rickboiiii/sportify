@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { fontSize4, ghostWhite, fontSize5 } from '@/styles/GlobalStyle';
-import { LogInButton } from "@/components/Button/ButtonStyled";
+import { Button } from "@/components/Button/ButtonStyled";
 
 const Form = styled.form`
   color: ${ghostWhite};
@@ -93,7 +93,7 @@ const LogInForm = () => {
           autoComplete="off"
         />
       </div>
-      <LogInButton type="submit" style={{ width: '70%' }}>log in</LogInButton>
+      <Button type="submit" style={{ width: '70%' }}>log in</Button>
       {error && <div className="text-danger mt-2" style={{fontSize: fontSize4}}>{error}</div>}
     </Form>
   );

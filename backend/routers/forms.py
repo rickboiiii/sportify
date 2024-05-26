@@ -24,7 +24,13 @@ class Event_u_pripremi_create(Event_u_pripremi) :
 
 @router.post("/oglas_eventa")
 async def napravi_event(event: Event, db: Session = Depends(get_db)):
-    novi_termin = Event_u_pripremi_create(**event.dict())
+    novi_termin = Event_u_pripremi_create(
+        id_lokacije=event.id_lokacije, id_organizatora=1,
+        id_sporta=event.sport, naziv_termina=event.naziv_termina,
+        opis_termina=event.opis_termina, vrsta_termina='Termin',
+        pocetak_termina=event.pocetak_termina, potreban_nivo_sposobnosti=5,
+        spol=True, minimalan_broj_igraca=2, maksimalan_broj_igraca=100,
+        broj_slobodnih_mjesta=event.broj_slobodnih_mjesta, popunjen=False)
     db.add(novi_termin)
     db.commit()
     db.refresh(novi_termin)

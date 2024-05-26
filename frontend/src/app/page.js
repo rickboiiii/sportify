@@ -7,6 +7,7 @@ import ParForm from "@/components/Forms/ParForm";
 import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
 import styled from 'styled-components';
 import {Button} from '@/components/Button/ButtonStyled';
+import axios from "axios";
 
 const Message = styled.h1`
   color: white;
@@ -17,19 +18,28 @@ const Message = styled.h1`
 
 async function sendEventDetails(eventDetails) {
   try {
-    const response = await fetch('http://localhost:8000/oglas_eventa', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(eventDetails),
-    });
 
-    if (!response.ok) {
-      throw new Error('Failed to submit event details');
-    }
+    axios.post('http://localhost:8000/oglas_eventa', eventDetails)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-    return await response.json();
+    // const response = await fetch('http://localhost:8000/oglas_eventa', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(eventDetails),
+    // });
+    //
+    // if (!response.ok) {
+    //   throw new Error('Failed to submit event details');
+    // }
+    //
+    // return await response.json();
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -88,23 +98,32 @@ export default function Home() {
   //   broj_slobodnih_mjesta: '',
   //   sport: '',
   // });
-  const handlePress = async () => {
+  const handlePress = () => {
     let broj_slobodnih_mjesta = parseInt(document.getElementById('id1').value);
     let sport = parseInt(document.getElementById('id2').value);
     const formData = {
       naziv_termina: formValues[0],
       opis_termina: formValues[1],
-      lokacija: formValues[2],
+      id_lokacije: formValues[2],
       pocetak_termina: formValues[3],
       broj_slobodnih_mjesta: broj_slobodnih_mjesta,
       sport: sport,
     };console.log(formValues)
     
     try {
-      await sendEventDetails(formData);
+      axios.post('http://localhost:8000/oglas_eventa', formData)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      //await sendEventDetails(formData);
     } catch (error) {
       console.error('Failed to submit form', error);
     }
+
+    setFormSubmitCount((prevCount) => prevCount + 1);
   };
   
   const NextSlide = () => {
@@ -130,7 +149,7 @@ export default function Home() {
             key={formKey}
             inputs={labelSets[currentLabelSetIndex]}
             h_text={"Osnovne informacije o terminu"}
-          >{(formSubmitCount===3)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
+          >{(formSubmitCount===2)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
         <Message>uspješno ste dodali termin</Message>

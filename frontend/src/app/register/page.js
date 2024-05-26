@@ -6,7 +6,7 @@ import Image from 'next/image';
 import image7 from '../../../../files/images/image7.png';
 import left_arrow from '../../../../files/images/left_arrow.png';
 import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
-import { LogInButton } from "@/components/Button/ButtonStyled";
+import { Button } from "@/components/Button/ButtonStyled";
 
 
 const Container = styled.div`
@@ -179,7 +179,7 @@ function Register() {
               autoComplete="off"
             />
           </div>
-          <LogInButton type="submit" style={{ width: '70%' }}>submit</LogInButton>
+          <Button type="submit" style={{ width: '70%' }}>submit</Button>
           {error && <div className="text-danger mt-2" style={{fontSize: fontSize4}}>{error}</div>}
         </Form>
       </LeftSection>
