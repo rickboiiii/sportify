@@ -1,54 +1,38 @@
 // "use client";
 
-import {
-    Card,
-    CardColumn,
-    CardFooter,
-    CardHeader,
-    CardRow,
-    CardSpan,
-    Container
-} from "@/components/Containers/ContainerStyled";
+import {Container} from "@/components/Containers/ContainerStyled";
+import ProfileComponent from "@/components/Profile/Profile";
+import axios from "axios";
+import {Suspense} from "react";
+import Loading from "@/app/profiles/[id]/loading";
 
-export default function Profile() {
-  return (
-      <Container>
-          <Card>
-              <CardHeader>
-                  <CardColumn>
-                      <img src="" alt="Users Profile Picture"/>
-                  </CardColumn>
-                  <CardColumn>
-                      <h3>Ime (Srednje) Prezime</h3>
-                  </CardColumn>
-              </CardHeader>
-              <CardRow>
-                  <CardSpan>
-                      <h4>Informacije</h4>
-                  </CardSpan>
-              </CardRow>
-              <CardRow>
-                  <CardColumn>
-                      <h3>Test 1</h3>
-                  </CardColumn>
-                  <CardColumn>
-                      <h3>Test 2</h3>
-                  </CardColumn>
-                  <CardColumn>
-                      <h3>Test 3</h3>
-                  </CardColumn>
-              </CardRow>
-              <CardFooter>
-                  <CardColumn>
-                      <CardRow>
-                        <h3>Nivo Sposobnosti</h3>
-                      </CardRow>
-                      <CardRow>
-                          **Visual Representation**
-                      </CardRow>
-                  </CardColumn>
-              </CardFooter>
-          </Card>
-      </Container>
-  );
+export default async function Profile(props) {
+
+    const params = props.params;
+    const stock_pic = '/blank_profile_picture.png';
+    const res = await axios.get('http://127.0.0.1:8000/profiles/igraci/id/' + params.id);
+    const igrac = {
+         first_name: res.data.ime_igraca,
+         middle_name: res.data.srednje_ime,
+         last_name: res.data.prezime_igraca,
+         date_of_birth: res.data.datum_rodjenja,
+         gender: res.data.spol,
+         height: res.data.visina,
+         weight: res.data.tezina,
+         elo: res.data.nivo_sposobnosti,
+         max_distance: res.data.max_dozvoljena_udaljenost,
+         verified: res.data.verifikovan,
+         stars: res.data.recenzija,
+         id: res.data.id_igraca,
+         email: res.data.korisnici.email,
+         username: res.data.korisnici.korisnicko_ime
+    };
+
+    return (
+        <Container>
+            <Suspense fallback={<Loading />}>
+                <ProfileComponent profile={igrac} picture={stock_pic} />
+            </Suspense>
+        </Container>
+    );
 }

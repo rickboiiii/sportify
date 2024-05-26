@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import {dirtyWhite, oxion, taupeGray, ghostWhite} from "@/styles/GlobalStyle";
+import {dirtyWhite, lapisLazuli, oxion, taupeGray, ghostWhite} from "@/styles/GlobalStyle";
 
 export const Container = styled.div`
     display: flex;
@@ -54,6 +54,12 @@ export const Card = styled.div`
     border-radius: 1.25rem;
     background: ${taupeGray};
     color: black;
+    
+    i {
+        color: ${lapisLazuli};
+        margin: 0.25rem;
+        font-size: 14px;
+    }
 `;
 
 export const CardRow = styled.div`
@@ -110,8 +116,8 @@ export const CardSpan = styled.span`
 `;
 
 export const CardImg = styled.img`
-    width: 4rem;
-    height: 4rem;
+    width: 7rem;
+    height: 7rem;
     margin: 0.5rem;
     border: 0;
     border-radius: 50%;
