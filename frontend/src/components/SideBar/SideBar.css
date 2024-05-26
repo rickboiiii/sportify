@@ -1,0 +1,28 @@
+/* src/components/SideBar.css */
+.sideBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100vh;
+    width: 30%;
+}
+
+.logo {
+  text-align: center;
+  float: left;
+  width: 3vw;
+  height: 3vw;
+  margin: 1rem 3rem;
+}
+
+
+.sideBar div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sideBar p {
+    margin: 0;
+}

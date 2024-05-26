@@ -1,0 +1,22 @@
+
+.quote {
+    height: 20vw;
+    background: var(--taupe-gray);
+    padding: 5%;
+    font-family: var(--first-font);
+    font-size: 2.5vw;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.quote h2 {
+    margin: auto;
+    display: inline;
+    color: var(--lapis-lazuli);
+}
+
+.quote h3 {
+    margin: auto;
+    display: inline;
+    color: var(--oxion);
+}

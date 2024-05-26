@@ -1,6 +1,6 @@
 "use client";
 
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 /*
  * Primary color theme
@@ -31,16 +31,12 @@ export const fontSize6 = "28px";
 /*
  * Global style regarding body and every tag that is going to inherit this
  */
-
-export const GlobalStyle = createGlobalStyle`
-    body {
-        font-family: "Saira Condensed", sans-serif !important;
-        font-weight: 100;
-        font-style: normal;
-        background: ${lapisLazuli};
-        margin: 0 ;
-        padding: 0 ;
-        width: 100%;
-    }
-
+export const GlobalStyle = styled.body`
+    font-family: "Saira Condensed", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    background: ${ghostWhite};
+    margin: 0;
+    padding: 0;
+    
 `;

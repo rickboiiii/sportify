@@ -1,0 +1,89 @@
+@import "../styles.css";
+
+.about-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+}
+
+.about-img {
+    width: 50%;
+    text-align: center;
+    align-content: space-around;
+}
+
+.about-img > img {
+    margin-left: 10%;
+    width: 40vw;
+    height: 40vw;
+}
+
+.about-img > img:hover {
+    transform: scale(1.02);
+    transition: 0.7s;
+    box-shadow: 2px 2px #D8ED0Faa;
+}
+
+.about-text {
+    width: 50%;
+    padding: 3vw 3vw 0 0;
+    font-family: var(--second-font);
+    font-weight: 300;
+}
+
+.about-text > h1 {
+    font-family: var(--first-font);
+    font-size: 5rem;
+    color: var(--oxion);
+    float: left;
+    align-items: center;
+}
+
+.about-text > h2 {
+    margin-left: 10%;
+    font-family: var(--first-font);
+    letter-spacing: 3px;
+    color:  var(--pear);
+    font-size: 5rem;
+}
+
+.about-text > p {
+    margin: 3%;
+}
+
+@media screen and (max-width: 750px) {
+    .about-div {
+        flex-direction: column;
+    }
+    .about-img {
+        height: 40%;
+    }
+    .about-img > img {
+        margin: 10% 0 0 50%;
+        width: 40vh;
+        height: 40vh;
+    }
+    .about-text {
+        height: 60%;
+        width: 100%;
+        padding: 5%;
+        padding-top: 2%;
+    }
+
+    .about-text > h1 {
+        font-size: 3rem;
+        margin: auto;
+    }
+
+    .about-text > h2 {
+        margin: auto;
+        margin-left: 4vh;
+        font-size: 3rem;
+    }
+
+    .about-text > p {
+        font-size: 0.8rem;
+    }
+
+}

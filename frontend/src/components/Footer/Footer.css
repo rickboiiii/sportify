@@ -1,0 +1,45 @@
+
+.footer {
+    font-family: var(--second-font);
+    position: relative;
+    background: #A29B9B;
+    text-align: end;
+    bottom: 0;
+    padding: 10%;
+    height: 20vh;
+}
+
+.socials {
+    position:absolute;
+    width: 50%;
+    bottom:0;
+    left:0;
+    margin-left: 5%;
+    margin-bottom: 3%;
+    display: flex;
+    float: left;
+    text-align: center;
+}
+
+.socials img {
+    width: 80%;
+    margin: auto;
+}
+
+.links{
+    position:absolute;
+    width: 50%;
+    bottom:0;
+    right:0;
+    margin-right: 5%;
+    margin-bottom: 3%;
+    font-family: var(--second-font);
+    font-size: 1rem;
+    color: var(--ghost-white);
+}
+.links a {
+    color: #F0F3FA;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 7%;
+}

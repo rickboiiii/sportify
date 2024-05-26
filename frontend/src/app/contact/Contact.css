@@ -1,0 +1,116 @@
+@import "../styles.css";
+
+.contact {
+    height: 100vh;
+    background: var(--ghost-white);
+}
+
+.title {
+    position: relative;
+    height: 40%;
+}
+
+.title h3 {
+    font-family: var(--second-font);
+    font-size: large;
+    padding-left: 6%;
+    padding-top: 2%;
+    color: var(--lapis-lazuli);
+}
+
+.title h1 {
+    font-family: var(--first-font);
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 10vw;
+    padding-left: 5%;
+    color: var(--oxion);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.message-box {
+    height: 60%;
+    font-family: var(--second-font);
+    font-weight: bold;
+    font-size: large;
+    color: #1C64A3bb;
+    padding-left: 5%;
+}
+
+.message-box input[type=text],
+.message-box input[type=email],
+.message-box textarea {
+    text-align: left;
+    background: var(--ghost-white);
+    font-family: var(--second-font);
+    font-size: large;
+    color: var(--oxion);
+    width: 70%;
+    padding: 1%;
+    padding-left:3%;
+    box-sizing: border-box;
+    border: none;
+    border-left: 2px solid var(--lapis-lazuli);
+    outline: none; /* Prevent the default focus outline */
+}
+
+.message-box input[type=text]:focus,
+.message-box input[type=email]:focus,
+.message-box textarea:focus {
+    border: none;
+    border-left: 2px solid var(--lapis-lazuli); /* Optional: keep the left border */
+    outline: none;
+    padding: 1%;
+    padding-left:3%;
+    font-family: var(--second-font);
+    font-size: large;
+    color: var(--oxion);
+}
+
+
+.message-box input::placeholder {
+    font-size: large;
+    color: #1C64A3bb;
+}
+
+.message-box textarea::placeholder {
+    font-family: var(--second-font);
+    font-size: large;
+    color: #1C64A3bb;
+}
+
+.message-box input[type="submit"] {
+    font-family: var(--first-font);
+    letter-spacing: 2px;
+    font-weight: bold;
+    background: transparent;
+    color: var(--oxion);
+    border: 2px solid var(--oxion); /* Border color to match the text */
+    padding: 10px 20px;
+    border-radius: 25px; /* Rounded edges */
+    font-size: large;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    .title {
+        position: relative;
+        height: 30%;
+    }
+
+    .title h3 {
+        padding: 5%;
+    }
+
+    .title h1 {
+        font-size: 13vw;
+        padding-left: 5%;
+    }
+
+    .message-box {
+        height: 70%;
+    }
+}
