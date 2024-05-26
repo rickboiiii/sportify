@@ -114,6 +114,7 @@ class Slobodni_Event(Base):
     kraj_termina=Column(DateTime, nullable=False)
     lokacije=relationship ("Lokacija", back_populates="slobodni_termini")
 
+
 class Event_u_pripremi(Base):
     __tablename__="eventi_u_pripremi"
 

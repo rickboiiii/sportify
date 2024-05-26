@@ -65,6 +65,7 @@ class Event_u_pripremi(BaseModel):
     maksimalan_broj_igraca: int
     broj_slobodnih_mjesta: int
     popunjen: bool
+    id_lokacije: Optional[int]=None
 
 class Ekipa(BaseModel):
     naziv_ekipe: str
