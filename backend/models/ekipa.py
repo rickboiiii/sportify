@@ -10,6 +10,8 @@ class Ekipa(Base):
     id_ekipe = Column(Integer, primary_key=True, autoincrement=True)
     naziv_ekipe = Column(String)
     id_sporta = Column(Integer, ForeignKey("sportovi.id_sporta"))
+    broj_pobjeda = Column(Integer)
+    broj_poraza = Column(Integer)
 
     sport = relationship("Sifarnik_sportova", back_populates="ekipe")
     igrac = relationship("Veza_igrac_ekipa", back_populates="ekipe")

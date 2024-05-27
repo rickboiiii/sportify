@@ -9,9 +9,9 @@ class Settings(BaseSettings):
     app_name: str = "Sportify"
     postgres_server: str = "localhost"
     postgres_port: int = 5432
-    postgres_database: str = "Sportify"
+    postgres_database: str = "app"
     postgres_user: str = "postgres"
-    postgres_password: str = "12345678"
+    postgres_password: str = "changethis"
     jwt_secret_key: str = "your_secret_key"
     jwt_algorithm: str = "HS256"
     jwt_refresh_token_expires_in: int = 60
