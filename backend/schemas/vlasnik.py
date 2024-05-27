@@ -10,3 +10,7 @@ class Vlasnik(BaseModel):
     datum_rodjenja: date
     spol: bool
     recenzija: float
+
+
+class VlasnikSchema(Vlasnik):
+    id_korisnika: int

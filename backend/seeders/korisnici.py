@@ -1,7 +1,7 @@
 import warnings
 
 from backend.models import Korisnik
-from backend.main import pwd_context
+from backend.routers.auth import pwd_context
 from .seeder import Seeder
 
 

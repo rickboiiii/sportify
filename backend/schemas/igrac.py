@@ -15,3 +15,8 @@ class Igrac(BaseModel):
     max_dozvoljena_udaljenost: int
     verifikovan: bool
     recenzija: float
+
+
+class IgracSchema(Igrac):
+    id_korisnika: int
+    sport: int

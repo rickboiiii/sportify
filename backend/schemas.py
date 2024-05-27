@@ -14,11 +14,16 @@ class KorisnikSchema(BaseModel):
     korisnicko_ime: str
     uloga:int
 
+
+@deprecated('use class inside schemas/sport.py')
 class SportistaSport(BaseModel):
     naziv_sporta: str
     ime: str
     prezime: str
     rating: float
+
+
+@deprecated('use class inside schemas/sport.py')
 class EkipaSport(BaseModel):
     naziv_sporta: str
     ime: str

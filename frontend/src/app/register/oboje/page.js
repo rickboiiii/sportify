@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
-import { LogInButton } from "@/components/Button/ButtonStyled";
+import { Button } from "@/components/Button/ButtonStyled";
 import axios from 'axios';
 import Multiselect from 'multiselect-react-dropdown';
 import Quiz from '@/components/QuizCard/KarticaChat';
@@ -384,7 +384,7 @@ export default Kviz;
                 
 //           </select>
 //     </div>
-//           <LogInButton onClick={(e)=>validateForm(e)} type="submit" style={{ width: '70%' }}>Registruj se</LogInButton>
+//           <Button onClick={(e)=>validateForm(e)} type="submit" style={{ width: '70%' }}>Registruj se</Button>
 //           {error && <div className="text-danger mt-2" style={{fontSize: fontSize4}}>{error}</div>}
 //         </Form>
 //       </LeftSection>

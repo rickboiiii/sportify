@@ -2,8 +2,9 @@ import os
 from functools import lru_cache
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .models_singleton import Korisnik, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa
-from .schemas import KorisnikSchema, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
+from .models import Korisnik, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa
+from .routers.auth import pwd_context
+from .schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
 from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias
 from .config import Settings
 from .dependencies import get_db
@@ -65,14 +66,16 @@ app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="stati
 async def postojiUsername( username:str, db:Session= Depends(get_db)):
     print(username)
     user = db.query(Korisnik).filter(Korisnik.korisnicko_ime==username).first()
+    print(user)
     if user is None:
         return 0
     else:
         return 1
 
 @app.post("/dodajKorisnika")
-async def dodaj(korisnik:KorisnikSchema, db:Session = Depends(get_db)):
-    novi_korisnik=Korisnik(email=korisnik.email, sifra=korisnik.sifra, korisnicko_ime=korisnik.korisnicko_ime, id_uloge=korisnik.uloga)
+async def dodaj(korisnik:KorisnikSchema2, db:Session = Depends(get_db)):
+    new_password = pwd_context.hash(korisnik.sifra)
+    novi_korisnik=Korisnik(email=korisnik.email, sifra=new_password, korisnicko_ime=korisnik.korisnicko_ime, id_uloge=korisnik.uloga)
 #         id_adrese_trenutni=id.id_adrese
 #         new_lokacija = Lokacija(id_adrese=id_adrese_trenutni,recenzija=request.ocjena)
 
