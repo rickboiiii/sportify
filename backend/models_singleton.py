@@ -1,9 +1,11 @@
 from sqlalchemy import Boolean, CheckConstraint, Column, ForeignKey, ForeignKeyConstraint, Integer, String, Date, Float, DateTime
 from sqlalchemy.orm import relationship
+from typing_extensions import deprecated
 
 from .database import Base
 
 
+@deprecated('use class inside models/korisnik.py')
 class Korisnik(Base):
     __tablename__ = "korisnici"
 
@@ -27,6 +29,8 @@ class Korisnik(Base):
 #     korisnik1=relationship("Korisnik", back_populates="prijatelj1")
 #     korisnik2=relationship("Korisnik", back_populates="prijatelj2")
 
+
+@deprecated('use class inside models/igrac.py')
 class Igrac(Base):
     __tablename__ = "igraci"
 
@@ -53,6 +57,8 @@ class Igrac(Base):
     #eventZavrseni=relationship("Veza_igrac_termin_zavrseni", back_populates="igrac")
     ekipe=relationship("Veza_igrac_ekipa", back_populates="igrac")
 
+
+@deprecated('use class inside models/vlasnik.py')
 class Vlasnik(Base):
     __tablename__= "vlasnici"
 
@@ -70,6 +76,8 @@ class Vlasnik(Base):
     recenzije_vlasnika= relationship("RecenzijaVlasnika", back_populates="vlasnici") 
     lokacije=relationship("Lokacija", back_populates="vlasnici")
 
+
+@deprecated('use class inside models/uloga.py')
 class Uloga(Base):
     __tablename__ = "uloge"
     #id_uloge 1-igrac, 2-vlasnik, 3-oboje
@@ -78,6 +86,8 @@ class Uloga(Base):
     #id_korisnika = Column(Integer, ForeignKey("korisnici.id_korisnika"))
     korisnici = relationship("Korisnik", back_populates="uloga")
 
+
+@deprecated('use class inside models/lokacija.py')
 class Lokacija (Base):
     __tablename__="lokacije"
     id_lokacije=Column(Integer, primary_key=True, autoincrement=True)
@@ -95,6 +105,8 @@ class Lokacija (Base):
     termini_u_pripremi=relationship("Event_u_pripremi", back_populates="lokacije")
     turnir=relationship("Turnir", back_populates="lokacija")
 
+
+@deprecated('use class inside models/adresa.py')
 class Adresa(Base):
     __tablename__="adrese"
 
@@ -106,6 +118,8 @@ class Adresa(Base):
 
     lokacija=relationship("Lokacija", back_populates="adrese")    
 
+
+@deprecated('use class inside models/slobodni_event.py')
 class Slobodni_Event(Base):
     __tablename__="slobodni_eventi"
     id_eventa=Column(Integer, primary_key=True, autoincrement=True)
@@ -115,6 +129,7 @@ class Slobodni_Event(Base):
     lokacije=relationship ("Lokacija", back_populates="slobodni_termini")
 
 
+@deprecated('use class inside models/event_u_pripremi.py')
 class Event_u_pripremi(Base):
     __tablename__="eventi_u_pripremi"
 
@@ -138,6 +153,7 @@ class Event_u_pripremi(Base):
     igrac=relationship("Veza_igrac_termin_u_pripremi", back_populates="event")
 
 
+@deprecated('use class inside models/ekipa.py')
 class Ekipa(Base):
     __tablename__="ekipe"
     id_ekipe=Column(Integer, primary_key=True, autoincrement=True)
@@ -148,6 +164,8 @@ class Ekipa(Base):
     igrac=relationship("Veza_igrac_ekipa", back_populates="ekipe")
     turnir=relationship("Veza_ekipa_turnir", back_populates="ekipa")
 
+
+@deprecated('use class inside models/turnir.py')
 class Turnir(Base):
     __tablename__="turniri"
     id_turnira = Column(Integer, primary_key=True, autoincrement=True)
@@ -160,6 +178,8 @@ class Turnir(Base):
     lokacija=relationship("Lokacija", back_populates="turnir") 
     ekipa=relationship("Veza_ekipa_turnir", back_populates="turnir")
 
+
+@deprecated('use class inside models/veza/ekipa_turnir.py')
 class Veza_ekipa_turnir(Base):
     __tablename__="veze_ekipa_turnir"
     id_veze=Column (Integer, primary_key=True, autoincrement=True)
@@ -169,6 +189,8 @@ class Veza_ekipa_turnir(Base):
     ekipa=relationship("Ekipa", back_populates="turnir") 
     turnir=relationship("Turnir", back_populates="ekipa")     
 
+
+@deprecated('use class inside models/veza/igrac_ekipa.py')
 class Veza_igrac_ekipa(Base):
     __tablename__="veze_igrac_ekipa"
     id_veze=Column (Integer, primary_key=True, autoincrement=True)
@@ -177,6 +199,8 @@ class Veza_igrac_ekipa(Base):
     id_igraca=Column(Integer, ForeignKey("igraci.id_igraca"))
     igrac=relationship("Igrac", back_populates="ekipe")
 
+
+@deprecated('use class inside models/sport.py')
 class Sifarnik_sportova(Base):
     __tablename__="sportovi"
 
@@ -191,6 +215,7 @@ class Sifarnik_sportova(Base):
     turnir=relationship("Turnir", back_populates="sport")    
 
 
+@deprecated('use class inside models/veza/igrac_termin_u_pripremi.py')
 class Veza_igrac_termin_u_pripremi(Base):
     __tablename__="veze_igrac_termin_u_pripremi"
     id_veze=Column(Integer, primary_key=True, autoincrement=True)
@@ -198,7 +223,9 @@ class Veza_igrac_termin_u_pripremi(Base):
     igrac = relationship("Igrac", back_populates="event")
     id_eventa=Column(Integer, ForeignKey("eventi_u_pripremi.id_eventa"))
     event=relationship("Event_u_pripremi", back_populates="igrac")
- 
+
+
+@deprecated('use class inside models/veza/lokacija_sport.py')
 class Veza_lokacija_sport(Base):
     __tablename__="veze_lokacije_sport"
     id_veze=Column(Integer, primary_key=True, autoincrement=True)
@@ -208,6 +235,7 @@ class Veza_lokacija_sport(Base):
     sportovi=relationship("Sifarnik_sportova", back_populates="lokacije")
 
 
+@deprecated('use class inside models/veza/igrac_sport.py')
 class Veza_igrac_sport(Base):
     __tablename__="veze_igrac_sport"
 
@@ -217,6 +245,8 @@ class Veza_igrac_sport(Base):
     id_sporta=Column(Integer, ForeignKey("sportovi.id_sporta"))
     sportovi=relationship("Sifarnik_sportova", back_populates="igraci")
 
+
+@deprecated('use class inside models/recenzija/vlasnik.py')
 class RecenzijaVlasnika(Base):
     __tablename__ = "recenzije_vlasnika"
 
@@ -226,6 +256,8 @@ class RecenzijaVlasnika(Base):
     ocjena = Column(Float)  
     vlasnici= relationship("Vlasnik", back_populates="recenzije_vlasnika")  
 
+
+@deprecated('use class inside models/recenzija/igrac.py')
 class RecenzijaIgraca(Base):
     __tablename__ = "recenzije_igraca"
 
@@ -235,6 +267,8 @@ class RecenzijaIgraca(Base):
     ocjena = Column(Float)
     igraci= relationship("Igrac", back_populates="recenzije_igraca")  
 
+
+@deprecated('use class inside models/recenzija/teren.py')
 class RecenzijaTerena(Base):
     __tablename__ = "recenzije_terena"
 

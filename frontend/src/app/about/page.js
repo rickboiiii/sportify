@@ -6,9 +6,10 @@ import slika from "@/images/s1.jpg"
 import Image from "next/image";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import {ghostWhite} from "@/styles/GlobalStyle";
 const Page = () => {
     return (
-        <>
+        <section style={{background: ghostWhite}}>
             <Navbar/>
             <div className={"about-div"}>
                 <div className={"about-img"}>
@@ -21,7 +22,7 @@ const Page = () => {
                 </div>
             </div>
             <Footer/>
-        </>
+        </section>
     );
 };
 

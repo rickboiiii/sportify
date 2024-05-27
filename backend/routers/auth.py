@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from typing import Optional
 
-from ..config import Settings, get_database_url
-from ..dependencies import get_db
-from ..models_singleton import Korisnik
+from backend.config import Settings, get_database_url
+from backend.dependencies import get_db
+from backend.models import Korisnik
 
 router = APIRouter()
 

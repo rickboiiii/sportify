@@ -1,23 +1,34 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, deprecated
 from datetime import datetime, date
 from typing import Optional, List
-from models import *
 
+from typing_extensions import deprecated
+
+
+# from models import *
+
+
+@deprecated('use class inside schemas/korisnik.py')
 class KorisnikSchema(BaseModel):
     email: str
-    sifra: str
     korisnicko_ime: str
-  
+
+
+@deprecated('use class inside schemas/korisnik.py')
+class Korisnik(KorisnikSchema):
+    sifra: str
 
 class Prijatelj(BaseModel):
     id_prijateljstva: int
     id_prijatelja1: int
     id_prijatelja2: int
 
+
+@deprecated('use class inside schemas/igrac.py')
 class Igrac(BaseModel):
     ime_igraca: str
     prezime_igraca: str
-    srednje_ime: str
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     visina: int
@@ -27,13 +38,42 @@ class Igrac(BaseModel):
     verifikovan: bool
     recenzija: float
 
+
+@deprecated('use class inside schemas/profil.py')
+class IgracProfil(Igrac):
+    id_igraca: int
+    korisnici: KorisnikSchema | None = None
+
+    class Config:
+        from_attributes: True
+
+
+@deprecated('use class inside schemas/vlasnik.py')
 class Vlasnik(BaseModel):
     ime_vlasnika: str
     prezime_vlasnika: str
-    srednje_ime: str
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     recenzija: float
+
+
+@deprecated('use class inside schemas/profil.py')
+class VlasnikProfil(Vlasnik):
+    id_vlasnika: int
+    korisnici: KorisnikSchema | None = None
+
+    class Config:
+        from_attributes = True
+
+
+@deprecated('use class inside schemas/profil.py')
+class Profili(BaseModel):
+    svi_korisnici: list[IgracProfil]
+    svi_vlasnici: list[VlasnikProfil]
+
+    class Config:
+        from_attributes = True
 
 class Uloga(BaseModel):
     naziv_uloge: str
