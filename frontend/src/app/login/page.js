@@ -156,6 +156,7 @@ function LogIn() {
         setError(errorData.detail || 'Authentication failed!');
       }
     } catch (error) {
+      console.log(error)
       setError('An error occurred. Please try again later.');
     }
   };

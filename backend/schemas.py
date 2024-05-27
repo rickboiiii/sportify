@@ -12,6 +12,17 @@ from typing_extensions import deprecated
 class KorisnikSchema(BaseModel):
     email: str
     korisnicko_ime: str
+    uloga:int
+
+class SportistaSport(BaseModel):
+    naziv_sporta: str
+    ime: str
+    prezime: str
+    rating: float
+class EkipaSport(BaseModel):
+    naziv_sporta: str
+    ime: str
+    winrate: float
 
 
 @deprecated('use class inside schemas/korisnik.py')
@@ -26,6 +37,7 @@ class Prijatelj(BaseModel):
 
 @deprecated('use class inside schemas/igrac.py')
 class Igrac(BaseModel):
+    id_korisnika:int
     ime_igraca: str
     prezime_igraca: str
     srednje_ime: str | None = None
@@ -37,6 +49,7 @@ class Igrac(BaseModel):
     max_dozvoljena_udaljenost: int
     verifikovan: bool
     recenzija: float
+    sport:int
 
 
 @deprecated('use class inside schemas/profil.py')
@@ -50,6 +63,7 @@ class IgracProfil(Igrac):
 
 @deprecated('use class inside schemas/vlasnik.py')
 class Vlasnik(BaseModel):
+    id_korisnika:int
     ime_vlasnika: str
     prezime_vlasnika: str
     srednje_ime: str | None = None
