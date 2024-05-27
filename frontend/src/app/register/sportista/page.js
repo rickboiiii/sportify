@@ -3,20 +3,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Image from 'next/image';
-import image7 from '../../../../files/images/image7.png';
-import left_arrow from '../../../../files/images/left_arrow.png';
-import {
-  fontSize1,
-  fontSize2,
-  fontSize3,
-  fontSize4,
-  fontSize5,
-  pear,
-  ghostWhite,
-  ghostWhiteLight,
-  fontSize6,
-  lapisLazuli
-} from '@/styles/GlobalStyle';
+import image7 from '../../../../../files/images/image7.png';
+import left_arrow from '../../../../../files/images/left_arrow.png';
+import { fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, pear, ghostWhite, ghostWhiteLight, fontSize6 } from '@/styles/GlobalStyle';
 import { Button } from "@/components/Button/ButtonStyled";
 import axios from 'axios';
 
@@ -25,7 +14,6 @@ const Container = styled.div`
   flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
-  background: ${lapisLazuli};
   color: ${ghostWhiteLight};
   font-size: ${fontSize1};
 
@@ -126,9 +114,9 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword]=useState("");
   const [error, setError] = useState('');
-  const [uloga, setUloga]=useState(1);
+  const [uloga, setUloga]=useState(0);
   const [email, setEmail]=useState("");
-
+  
 
   const validateForm =  (e) => {
     e.preventDefault();
@@ -158,23 +146,14 @@ function Register() {
               korisnicko_ime:username,
               uloga:uloga
           }
-          if (uloga==2)
-            {  axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
-              .then(response=>router.push(`/register/sportista/${response.data.id_korisnika}`)).catch(err=>console.log(err))}
-          else if (uloga==1){
-            axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
-            .then(response=>router.push(`/register/vlasnik/${response.data.id_korisnika}`)).catch(err=>console.log(err))
-          }
-          else {
-            axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
-            .then(response=>router.push(`/register/oboje/${response.data.id_korisnika}`)).catch(err=>console.log(err))
-          }
+          axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
+          .then(response=>router.push('/registracija/sportista')).catch(err=>console.log(err))
         }
          // return false;
-
-
+        
+      
    // return true;
-
+    
       }).catch(error=>{
         console.error("greska"+error)
       })
@@ -191,7 +170,7 @@ function Register() {
         </BackLink>
         <Title>Nemojte biti samo posmatrač</Title>
         <Subtitle>
-          Kreirajte besplatan račun ili se <a href="http://localhost:3000/login" style={{textDecoration: 'underline'}}> prijavite na postojeći</a>
+          Kreirajte besplatan račun ili se <a href="http://localhost:3000" style={{textDecoration: 'underline'}}> prijavite na postojeći</a>
         </Subtitle>
         <Form autoComplete="off">
           <div>
@@ -207,11 +186,11 @@ function Register() {
             <label>Uloga</label><br />
             <select
                 value={uloga}
-                onChange={e => setUloga(e.target.value)}
+                onChange={e => setUloga(e.target.value)} 
               >
-                <option value={2}>Igrač</option>
+                <option value={0}>Igrač</option>
                 <option value={1}>Vlasnik</option>
-                <option value={3}>Oboje</option>
+                <option value={2}>Oboje</option>
           </select>
           </div>
           <div>
@@ -275,9 +254,9 @@ export default Register;
           setError("Zauzeto korisničko ime");
           return false;
         }
-
+      
     return true;
-
+    
       }).catch(error=>{
         console.error("greska":error)
       })

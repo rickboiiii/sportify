@@ -8,3 +8,7 @@ class KorisnikSchema(BaseModel):
 
 class Korisnik(KorisnikSchema):
     sifra: str
+
+
+class KorisnikSchema2(Korisnik):
+    uloga: int
