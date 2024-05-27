@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, FastAPI, HTTPException
 from jose import JWTError, jwt
 from backend.dependencies import get_db
 from datetime import datetime, timedelta
-from backend.models_singleton import Event_u_pripremi, Adresa
+from backend.models import Event_u_pripremi, Adresa
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 

@@ -1,6 +1,6 @@
 // "use client";
 
-import {Container} from "@/components/Containers/ContainerStyled";
+import {Container, ContainerOld} from "@/components/Containers/ContainerStyled";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import axios from "axios";
 import {SearchBarContainer, SearchBarResult, SearchBarResultSplitter} from "@/components/SearchBar/SearchBarStyled";
@@ -58,7 +58,7 @@ export default async function Profiles(props) {
         }
 
         return (
-            <Container>
+            <ContainerOld>
                 <SearchBarContainer>
                     <SearchBar value={queryParams.search}/>
                     <SearchBarResultSplitter>
@@ -70,7 +70,7 @@ export default async function Profiles(props) {
                     </SearchBarResultSplitter>
                     {profilesVlasniciList}
                 </SearchBarContainer>
-            </Container>
+            </ContainerOld>
         );
     } catch (e) {
         return (

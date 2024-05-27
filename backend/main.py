@@ -46,15 +46,15 @@ def get_settings():
 # Mount the React build directory as static files
 app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="static")
 
-
-@app.get("/")
-async def read_index():
-    return FileResponse("../frontend/.next/index.html")
-
-# If you want to serve other routes in your React app, you might need to catch-all route:
-@app.get("/{full_path:path}")
-async def read_react_app(full_path: str):
-    file_path = f"../frontend/.next/{full_path}"
-    if os.path.exists(file_path) and os.path.isfile(file_path):
-        return FileResponse(file_path)
-    return FileResponse("../frontend/.next/index.html")
+# Unnecessary, Next loads differently than React
+# @app.get("/")
+# async def read_index():
+#     return FileResponse("../frontend/.next/index.html")
+#
+# # If you want to serve other routes in your React app, you might need to catch-all route:
+# @app.get("/{full_path:path}")
+# async def read_react_app(full_path: str):
+#     file_path = f"../frontend/.next/{full_path}"
+#     if os.path.exists(file_path) and os.path.isfile(file_path):
+#         return FileResponse(file_path)
+#     return FileResponse("../frontend/.next/index.html")

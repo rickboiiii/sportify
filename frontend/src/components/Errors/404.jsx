@@ -1,9 +1,9 @@
-import {Card, CardHeader, CardRow, Container} from "@/components/Containers/ContainerStyled";
+import {Card, CardHeader, CardRow, Container, ContainerOld} from "@/components/Containers/ContainerStyled";
 import {taupeGrayLight} from "@/styles/GlobalStyle";
 
 export default function Error404({message}) {
     return (
-        <Container>
+        <ContainerOld>
             <Card>
                 <CardHeader>
                     <h1>{message} <i className="fas fa-question" style={{fontSize: "4rem", color: taupeGrayLight}}></i></h1>
@@ -16,6 +16,6 @@ export default function Error404({message}) {
                     </p>
                 </CardRow>
             </Card>
-        </Container>
+        </ContainerOld>
     );
 }

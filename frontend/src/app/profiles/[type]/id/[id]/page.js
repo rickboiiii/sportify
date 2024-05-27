@@ -1,6 +1,6 @@
 
 
-import {Container} from "@/components/Containers/ContainerStyled";
+import {Container, ContainerOld} from "@/components/Containers/ContainerStyled";
 import ProfileComponent from "@/components/Profile/Profile";
 import axios from "axios";
 import {Suspense} from "react";
@@ -48,11 +48,11 @@ export default async function Profile(props) {
         }
 
         return (
-            <Container>
+            <ContainerOld>
                 <Suspense fallback={<Loading />}>
                     <ProfileComponent type={params.type} profile={profile} picture={stock_pic} />
                 </Suspense>
-            </Container>
+            </ContainerOld>
         );
     } catch (e) {
         if(e.response.status === 404) {
