@@ -24,6 +24,28 @@ export const Input = styled.input`
         background: ${ghostWhiteLight};
     }
 `;
+export const Select = styled.select`
+    background: ${ghostWhite};
+    color: ${oxion};
+    width: 450px;
+    padding: 10px;
+    padding-left: 25px;
+    height: 60px;
+    border: 0;
+    border-radius: 150px;
+    font-size: 30px;
+    font-family: inherit;
+
+    &:hover {
+        background: ${ghostWhiteLight};
+    }
+
+    &:focus {
+        border: none;
+        outline: none;
+        background: ${ghostWhiteLight};
+    }
+`;
 
 export const Label = styled.label`
     color: ${ghostWhite};

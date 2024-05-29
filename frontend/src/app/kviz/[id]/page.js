@@ -9,16 +9,8 @@ import axios from "axios"
 import Quiz from "@/components/QuizCard/TestYesNo";
 
 
- function Kviz () {
-    const router=useRouter()
-    const params=useParams();
-    const {id}=params;
-    console.log(id);
-    const [stanje, setStanje]=useState(0);
-    const [indeksPitanja, setIndeksPitanja]=useState(0);
-    const handleYesNoAnswer=(udio, odgovor)=>{setStanje(prethodnoStanje=>prethodnoStanje+odgovor*udio);setIndeksPitanja(prethodniIndeks=>prethodniIndeks+1) }
-    const handleNumericAnswer=(funkcija, odgovor)=>{setStanje(prethodnoStanje=>prethodnoStanje+funkcija(odgovor));setIndeksPitanja(prethodniIndeks=>prethodniIndeks+1)}
 
+ function Kviz () {
     const pitanja= [
         {
             pitanje:"Da li ste profesionalno bavili sportom?",
@@ -77,27 +69,35 @@ import Quiz from "@/components/QuizCard/TestYesNo";
             "Ponekad odradim neki trening ili vježbu kad se sjetim.", 
             "Pokušavam redovito vježbati i pratiti neki jednostavan plan treninga.",
             "Imam strukturiran trening program i kombiniram različite aktivnosti kako bih održao/la svoju formu na visokoj razini."]
-        } 
-
-
-
-
+        }
     ]
 
-    console.log(indeksPitanja, stanje)
+    const router=useRouter()
+    const params=useParams();
+    const {id}=params;
+    const [stanje, setStanje]=useState(0);
+    const [indeksPitanja, setIndeksPitanja]=useState(0);
+    const handleYesNoAnswer=(udio, odgovor)=>{setStanje(prethodnoStanje=>prethodnoStanje+odgovor*udio);setIndeksPitanja(prethodniIndeks=>prethodniIndeks+1) }
+    const handleNumericAnswer=(funkcija, odgovor)=>{setStanje(prethodnoStanje=>prethodnoStanje+funkcija(odgovor));setIndeksPitanja(prethodniIndeks=>prethodniIndeks+1)}
     useEffect(()=>{
         if (indeksPitanja===pitanja.length)  {
-    axios.put(`http://localhost:8000/dodajSposobnost/${stanje}/${id}`).then(response=>router.push("/login")).catch(error=>console.log(error))
+    axios.put(`http://localhost:8000/dodajSposobnost/${stanje}/${id}`)
+    .then(response=>{
+        router.push("/login")
+        console.log(response)
+    }
+        
+    ).catch(error=>console.log(error))
 }
     }, [indeksPitanja])
 
     return (
         (indeksPitanja < pitanja.length) ? 
                 (pitanja[indeksPitanja].tip==="da-ne") ?
-                    <CardYesNo pitanje={pitanja[indeksPitanja]} handleAnswer={handleYesNoAnswer} i={indeksPitanja} /> 
+                    <CardYesNo pitanje={pitanja[indeksPitanja]} handleAnswer={handleYesNoAnswer} indeks={indeksPitanja} id={Number(id)} /> 
                     : (pitanja[indeksPitanja].tip==="numericko") ? 
-                        <CardNumeric pitanje={pitanja[indeksPitanja]} handleAnswer={handleNumericAnswer} />
-                         : <CardSelect pitanje={pitanja[indeksPitanja]} handleAnswer={handleNumericAnswer} /> 
+                        <CardNumeric pitanje={pitanja[indeksPitanja]} handleAnswer={handleNumericAnswer} indeks={indeksPitanja} id={Number(id)} />
+                         : <CardSelect pitanje={pitanja[indeksPitanja]} handleAnswer={handleNumericAnswer} indeks={indeksPitanja} id={Number(id)} /> 
         : <h1></h1>
       );
     }

@@ -1,20 +1,37 @@
 // src/components/QuizCard.js
 import React from 'react';
 import styled from 'styled-components';
+import '@/app/globals.css';
+import { useState } from 'react';
+import { Container, Row } from "@/components/Containers/ContainerStyled";
+import QuizYesNoForm from "@/components/Forms/QuizYesNoForm";
+import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
+import {Button} from '@/components/Button/ButtonStyled';
+import axios from "axios";
+import {fontSize1, lapisLazuli} from "@/styles/GlobalStyle";
+import Image from "next/image";
+import left_arrow from "@/images/left_arrow.png"
 
-const CardYesNo = ({ pitanje, handleAnswer }) => {
+const CardYesNo = ({ pitanje, handleAnswer, indeks, id}) => {
+  const izbrisi=(id)=>{
+    axios.delete(`http://localhost:8000/obrisiSportistu/${Number(id)}`).then(res=>console.log(res)).catch(err=>console.log(err))
+  }
   return (
-    <Tijelo>
-    <Kartica>
-      <Pitanje>
-        <Tekst>{pitanje.pitanje}</Tekst>
-      </Pitanje>
-      <Odgovori>
-        <Dugme value={1} onClick={()=>handleAnswer(pitanje.udio,1)}>Da</Dugme>
-        <Dugme value={0} onClick={()=>handleAnswer(0,0)}>Ne</Dugme>
-      </Odgovori>
-    </Kartica>
-    </Tijelo>
+    <Container>
+      <Row style={{justifyContent:"start", alignItems:"center"}}>
+      <Image src={left_arrow} width={20} height={20}/>
+        <a onClick={()=>izbrisi(id)} href='http://localhost:3000'>Povratak na prethodnu stranicu</a>
+        </Row>
+     <ProgressIndicator steps={10} active_number={indeks+1}/> 
+     <Row> <p style={{fontFamily: "Saira Condensed, sans-serif",fontSize:"16px"
+    }}>{indeks+1}  od  10</p> </Row>
+     <QuizYesNoForm  h_text={pitanje.pitanje}>
+     
+        <Button style={{backgroundColor:"#D8ED0F", color:"#1C64A3", width:"20vw"}}  value={1} onClick={()=>handleAnswer(pitanje.udio,1)}>Da</Button>
+        <Button style={{backgroundColor:"#D8ED0F", color:"#1C64A3", marginTop:"10vh", marginLeft:"5vw", width:"20vw"}} value={0} onClick={()=>handleAnswer(0,0)}>Ne</Button>
+       
+      </QuizYesNoForm>
+    </Container>
   );
 };
 
