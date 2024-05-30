@@ -9,7 +9,7 @@ const StyledSquare = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 36px;
   cursor: pointer;
 
   &:hover {

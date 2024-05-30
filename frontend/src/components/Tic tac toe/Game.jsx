@@ -1,54 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Board from './Board';
+import {  Row } from "@/components/Containers/ContainerStyled";
+import Image from "next/image";
+import left_arrow from "@/images/left_arrow.png"
+import { Naslov } from '@/components/Containers/ContainerStyled';
+import {Button} from '@/components/Button/ButtonStyled';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
 const GameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: start;
+height: 100vh;
+font-family: Arial, sans-serif;
+margin-top: 10vh;
 `;
 
 const BoardContainer = styled.div`
-  display: flex;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10vh;
 `;
 
-const BoardGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-gap: 5px;
+// const BoardGrid = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(3, 100px);
+//   grid-gap: 5px;
 
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(3, 80px);
-    grid-gap: 3px;
-  }
-`;
+//   @media (max-width: 600px) {
+//     grid-template-columns: repeat(3, 80px);
+//     grid-gap: 3px;
+//   }
+// `;
 
-const Square = styled.div`
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
-  border: 1px solid #999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  cursor: pointer;
+// const Square = styled.div`
+//   width: 100px;
+//   height: 100px;
+//   background-color: #fff;
+//   border: 1px solid #999;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 24px;
+//   cursor: pointer;
 
-  @media (max-width: 600px) {
-    width: 80px;
-    height: 80px;
-    font-size: 20px;
-  }
+//   @media (max-width: 600px) {
+//     width: 80px;
+//     height: 80px;
+//     font-size: 20px;
+//   }
 
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
+//   &:hover {
+//     background-color: #f0f0f0;
+//   }
+// `;
 
 const provjeriKrajMinimax = (igrac, noveKockice, maximizer) => {
     // red
@@ -130,9 +138,9 @@ const nadjiNajbolji=(tabla, trenutniIgrac, slobodnaMjesta, kompjuter)=>{
         if (tabla[i].zauzeta===false)
         {
             
-            tabla[i]={zauzeta:true, tekst:"o", pozicija:tabla[i].pozicija}
+            tabla[i]={zauzeta:true, tekst:trenutniIgrac, pozicija:tabla[i].pozicija}
             console.log(slobodnaMjesta.length)
-            let vrijednost=minimax(tabla, "x", 1, false, slobodnaMjesta.length-1, kompjuter)
+            let vrijednost=minimax(tabla, trenutniIgrac==="x"?"o":"x", 1, false, slobodnaMjesta.length-1, kompjuter)
             tabla[i]={zauzeta:false, tekst:"", pozicija:tabla[i].pozicija}
             console.log(vrijednost, i)
             //console.log(tabla)
@@ -158,10 +166,8 @@ const Game = () => {
     const [ishod, setIshod]= useState("nerijeseno");
     const [tezina, setTezina]=useState("lagano")
     const [slobodnaMjesta, setSlobodnaMjesta]=useState([1,2,3,4,5,6,7,8,9])
-    const [slobodnaMjestaMinimax, setSlobodnaMjestaMinimax]=useState([1,2,3,4,5,6,7,8,9])
     const [kompjuter, setKompjuter]=useState();
     const [trenutniIgrac, setTrenutniIgrac]=useState("x");
-    const [trenutniIgracMinimax, setTrenutniIgracMinimax]=useState("x");
     const [zavrsenaIgra, setZavrsenaIgra]=useState(false)
     const [kockice, setKockice]=useState(
         [
@@ -182,8 +188,9 @@ const Game = () => {
     
     useEffect(()=>{
         const randomIgrac=Math.floor(Math.random()*2)
-       // setKompjuter(randomIgrac===0 ? "x": "o")
-       setKompjuter("o")
+         setKompjuter(randomIgrac===0 ? "x": "o")
+         
+       
     }, [])
         
     useEffect(()=>{
@@ -205,7 +212,7 @@ const Game = () => {
                 let noveKockice=kockice.map(element=>element)
                 let novaSlobodnaMjesta=slobodnaMjesta.map(element=>element)
                 let noviTrenutniIgrac=trenutniIgrac;
-                const MinimaxMjesto=nadjiNajbolji(noveKockice, "o", novaSlobodnaMjesta, kompjuter);
+                const MinimaxMjesto=nadjiNajbolji(noveKockice, noviTrenutniIgrac, novaSlobodnaMjesta, kompjuter);
                 
                
                 odigrajPotez(kockice[MinimaxMjesto], trenutniIgrac);
@@ -283,15 +290,49 @@ const Game = () => {
         }
     }
 
+    const restart=()=>{
+    setIshod("nerijeseno")
+    setSlobodnaMjesta([1,2,3,4,5,6,7,8,9])
+    setKompjuter(prethodni=>{return prethodni==="x"?"o":"x"})
+    setTrenutniIgrac("x");
+    setZavrsenaIgra(false)
+    setKockice(
+        [
+            {pozicija:1,zauzeta:false, tekst:""},
+            {pozicija:2,zauzeta:false, tekst:""},
+            {pozicija:3,zauzeta:false, tekst:""},
+            {pozicija:4,zauzeta:false, tekst:""},
+            {pozicija:5,zauzeta:false, tekst:""},
+            {pozicija:6,zauzeta:false, tekst:""},
+            {pozicija:7,zauzeta:false, tekst:""},
+            {pozicija:8,zauzeta:false, tekst:""},
+            {pozicija:9,zauzeta:false, tekst:""}
+        
+        ]
     
+    )
+
+    }
   return (
+    <>
+    <Row style={{paddingLeft: "10vw" ,justifyContent:"start", alignItems:"center"}}>
+      <Image src={left_arrow} width={20} height={20}/>
+        <a style={{color:"white"}}href='http://localhost:3000'>Povratak na prethodnu stranicu</a>
+        </Row>
     <GameContainer>
       <BoardContainer>
+      <Naslov>Tic Tac Toe</Naslov>
         <Board kockice={kockice} funkcija={odigrajPotez} trenutniIgrac={trenutniIgrac}></Board>
       </BoardContainer>
-      {zavrsenaIgra || slobodnaMjesta.length===0 ? <p> {ishod}</p>:<p></p>}
+      {zavrsenaIgra || slobodnaMjesta.length===0 ? 
+      <> <Naslov style={{color:"white", fontSize:"30px"}}>{ishod}</Naslov>
+       <Button style={{backgroundColor:"white", color:"black"}} onClick={restart}>Restart</Button> </>
+       :
+       <p></p>}
     </GameContainer>
+    </>
   );
 };
 
 export default Game;
+

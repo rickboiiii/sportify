@@ -4,7 +4,9 @@ import Square from './Square';
 
 const BoardContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 10vh;
 `;
 
 const BoardGrid = styled.div`
