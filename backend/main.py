@@ -2,12 +2,16 @@ import os
 from functools import lru_cache
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .models import Korisnik, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa
+from .models import Korisnik, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
+from .models.prijatelj import Prijatelj
+from .models.objava import Objava
 from .routers.auth import pwd_context
 from .schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
-from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias
+from .schema import Oglas, ObjavaSchema
+from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias, asc
 from .config import Settings
 from .dependencies import get_db
+
 
 from .routers import profiles, auth, forms
 
@@ -47,7 +51,7 @@ def get_settings():
 
 
 # Mount the React build directory as static files
-app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="static")
+# app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="static")
 
 # Unnecessary, Next loads differently than React
 # @app.get("/")
@@ -187,3 +191,97 @@ async def sport(sposobnost:float, id:int, db:Session=Depends(get_db)):
         db_igrac.nivo_sposobnosti = x
         db.commit()
 
+@app.delete("/obrisiSportistu/{id}")
+async def obrisi(id:int, db:Session=Depends(get_db) ) :
+    sportista=db.query(Igrac).filter(Igrac.id_igraca==id).first()
+    korisnik=db.query(Korisnik).filter(Korisnik.id_korisnika==sportista.id_korisnika).first()
+    if sportista:
+        db.delete(sportista)
+        db.commit() 
+        db.delete(korisnik)
+        db.commit()   
+        return {"detail": "User deleted successfully"}  
+    else:
+        return {"detail": "User nije obrisan"}
+
+@app.get("/dajFiltriraneOglase/{id_sporta}/{nivo}/{spol}")
+async def eventi(id_sporta:int, nivo:str, spol:int, db:Session=Depends(get_db)):
+    spol_bool=2
+    if (spol==0):
+        spol_bool=False
+    elif (spol==1):
+        spol_bool=True
+    # if (spol_bool!=2):
+    #     if(nivo!="svi"):
+    #         if(id_sporta!=0):
+    #             result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.potreban_nivo_sposobnosti==nivo, Event_u_pripremi.id_sporta==id_sporta)   
+    #         else:
+    #              result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
+
+    #     else:
+    #         if(id_sporta!=0):
+    #             result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.id_sporta==id_sporta)   
+    #         else:
+    #              result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool)
+    # else:
+    #     if(nivo!="svi"):
+    #         if(id_sporta!=0):
+    #             result=db.query(Event_u_pripremi).filter( Event_u_pripremi.potreban_nivo_sposobnosti==nivo, Event_u_pripremi.id_sporta==id_sporta)  
+    #         else:
+    #              result=db.query(Event_u_pripremi).filter( Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
+
+    #     else:
+    #         if(id_sporta!=0):
+    #             result=db.query(Event_u_pripremi).filter( Event_u_pripremi.id_sporta==id_sporta)  
+    #         else:
+    #              result=db.query(Event_u_pripremi)
+    result= db.query(Event_u_pripremi)
+    if (id_sporta!=0):
+        result=result.filter(Event_u_pripremi.id_sporta==id_sporta)
+    if (nivo!="svi"):
+        result=result.filter(Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
+    if(spol_bool!=2):
+        result=result.filter(Event_u_pripremi.spol==spol_bool)
+    result=result.join(Igrac, Event_u_pripremi.id_organizatora==Igrac.id_igraca).join(Lokacija, Event_u_pripremi.id_lokacije==Lokacija.id_lokacije)\
+    .join(Sifarnik_sportova, Event_u_pripremi.id_sporta==Sifarnik_sportova.id_sporta).order_by(asc(Event_u_pripremi.pocetak_termina))\
+        .add_columns(Igrac.ime_igraca, Igrac.srednje_ime, Igrac.prezime_igraca,Igrac.srednje_ime, Sifarnik_sportova.naziv_sporta, Lokacija.longituda, Lokacija.latituda, Event_u_pripremi.naziv_termina, Event_u_pripremi.opis_termina,Event_u_pripremi.pocetak_termina, Event_u_pripremi.broj_slobodnih_mjesta ).all()   
+    #[SportistaSport(naziv_sporta=row.naziv_sporta, ime=row.ime_igraca, prezime=row.prezime_igraca, rating=row.recenzija) for row in results]         
+    return [Oglas(ime_igraca=row.ime_igraca,prezime_igraca= row.prezime_igraca,srednje_ime=row.srednje_ime ,naziv_sporta=row.naziv_sporta, longituda=row.longituda, latituda=row.latituda,naziv_termina=row.naziv_termina,opis_termina=row.opis_termina , pocetak_termina=row.pocetak_termina ,broj_slobodnih_mjesta=row.broj_slobodnih_mjesta ) for row in result]       
+
+@app.post("/testPrijateljstva/{id1}/{id2}")
+async def dodaj(id1:int, id2:int, db:Session=Depends(get_db) ):
+    novo_prijateljstvo=Prijatelj(id_prijatelja1=id1, id_prijatelja2=id2)
+    db.add(novo_prijateljstvo)
+    db.commit()
+
+    db.refresh(novo_prijateljstvo)
+
+@app.get("/dajObjavePrijatelja/{id}")
+async def objave(id:int, db:Session=Depends(get_db)):
+    result= db.query(Prijatelj).filter(Prijatelj.id_prijatelja1==id)\
+   .join(Objava, Prijatelj.id_prijatelja2==Objava.id_korisnika).join(Korisnik, Korisnik.id_korisnika==Prijatelj.id_prijatelja2).\
+    add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all()
+    return [ObjavaSchema(id_korisnika=row.id_prijatelja2, tekst_objave=row.tekst_objave, korisnicko_ime=row.korisnicko_ime) for row in result]
+    
+
+
+# @app.get("/events-in-preparation/")
+# def get_events_in_preparation(db: Session = Depends(database.get_db)):
+#     result = db.query(models.Event_u_pripremi)\
+#                .join(models.Event, models.Event_u_pripremi.id_eventa == models.Event.id)\
+#                .join(models.Igrac, models.Event.id_igraca == models.Igrac.id)\
+#                .join(models.Lokacija, models.Event.id_lokacije == models.Lokacija.id)\
+#                .add_columns(models.Igrac.ime, models.Igrac.prezime, models.Event.naziv, models.Lokacija.naziv.label("lokacija_naziv"))\
+#                .all()
+#     return result
+
+@app.get("/pretraziPrijatelje/{id}/{username}/{svi}")
+async def pretrazi_username(id: int, username: str,svi:bool, db: Session = Depends(get_db)):
+
+    id_korisnika=db.query(Korisnik.id_korisnika).join(Igrac, Igrac.id_korisnika==Korisnik.id_korisnika).first()
+    if (svi==True):
+        return db.query(Korisnik).join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2)\
+        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0]).all() 
+    return db.query(Korisnik).join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2)\
+        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0], Korisnik.korisnicko_ime.like(f"{username}%")).all()
+ #Igrac.ime.like(f"{ime}%")

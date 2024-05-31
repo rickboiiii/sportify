@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Vlasnik(BaseModel):
     ime_vlasnika: str
     prezime_vlasnika: str
-    srednje_ime: str | None = None
+    srednje_ime: str 
     datum_rodjenja: date
     spol: bool
     recenzija: float

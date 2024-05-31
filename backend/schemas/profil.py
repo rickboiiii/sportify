@@ -1,11 +1,12 @@
 from pydantic import BaseModel
 
 from backend.schemas import Igrac, KorisnikSchema, Vlasnik
+from typing import List
 
 
 class IgracProfil(Igrac):
     id_igraca: int
-    korisnici: KorisnikSchema | None = None
+    korisnici: KorisnikSchema 
 
     class Config:
         from_attributes: True
@@ -13,15 +14,15 @@ class IgracProfil(Igrac):
 
 class VlasnikProfil(Vlasnik):
     id_vlasnika: int
-    korisnici: KorisnikSchema | None = None
+    korisnici: KorisnikSchema 
 
     class Config:
         from_attributes = True
 
 
 class Profili(BaseModel):
-    svi_korisnici: list[IgracProfil]
-    svi_vlasnici: list[VlasnikProfil]
+    svi_korisnici: List[IgracProfil]
+    svi_vlasnici: List[VlasnikProfil]
 
     class Config:
         from_attributes = True

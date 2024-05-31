@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Igrac(BaseModel):
     ime_igraca: str
     prezime_igraca: str
-    srednje_ime: str | None = None
+    srednje_ime: str 
     datum_rodjenja: date
     spol: bool
     visina: int
