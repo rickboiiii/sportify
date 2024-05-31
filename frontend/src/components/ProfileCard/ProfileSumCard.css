@@ -1,0 +1,52 @@
+.profile-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    width: 20vw;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 4vw;
+    height: 4vw;
+    background-color: var(--taupe-gray); /* Placeholder za sliku */
+}
+
+.profile-info {
+    font-family: var(--second-font);
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.username {
+    font-size: 1rem;
+    color: var(--oxion);
+    font-weight: normal;
+    margin: 0;
+}
+
+.fullname {
+    font-size: 1rem;
+    font-weight: 350;
+    color: var(--pear);
+    margin: 0;
+}
+
+.follow-button {
+    color: var(--lapis-lazuli);
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 2%;
+}
+
+
+/* Media query za tablete */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .profile-image {
+        display: none;
+    }
+}

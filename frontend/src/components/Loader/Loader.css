@@ -1,0 +1,9 @@
+
+#pre-loader {
+    background: #ffffff url("../../images/loader.gif") no-repeat center center;
+    background-size: 7vh;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+}

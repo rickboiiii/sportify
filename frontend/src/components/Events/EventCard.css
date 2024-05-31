@@ -1,0 +1,53 @@
+.event-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  padding: 16px;
+  max-width: 600px;
+  transition: box-shadow 0.2s;
+}
+
+.event-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.event-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.event-card-header button {
+  background-color: #1877f2;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2em;
+  height: 50px;
+  margin-right: 12px;
+  width: 50px;
+}
+
+.event-card h1 {
+  font-size: 1.4em;
+  margin: 0;
+}
+
+.event-card h2 {
+  font-size: 1.2em;
+  color: #555;
+  margin: 8px 0;
+}
+
+.event-card p {
+  color: #333;
+  margin: 10px 0;
+}
+
+.datum {
+  color: #777;
+  font-size: 0.9em;
+}

@@ -3,14 +3,14 @@ from fastapi import FastAPI, Depends
 from .config import Settings
 from .dependencies import get_db
 
-
-from .routers import profiles, auth, forms, register_quiz_teams
+from .routers import profiles, auth, forms, eventi, register_quiz_teams
 
 from .database import Base, engine
 
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 
 def start_application():
@@ -30,12 +30,23 @@ def start_application():
     app.include_router(auth.router)
     app.include_router(forms.router)
     app.include_router(register_quiz_teams.router)
-    
+
 
     return app
 
 
 app = start_application()
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # React dev server URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(eventi.router)
 
 @lru_cache
 def get_settings():
@@ -43,7 +54,6 @@ def get_settings():
 
 
 # Mount the React build directory as static files
-
 app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="static")
 
 # Unnecessary, Next loads differently than React
@@ -61,7 +71,6 @@ app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="stati
 
 
 
-        
 
 
-    
+

@@ -1,0 +1,11 @@
+.suggested-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.suggested-container h1 {
+    font-size: 1.5em;
+    color: var(--oxion);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}

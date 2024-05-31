@@ -12,9 +12,6 @@ import Image from "next/image";
 
 const Navbar = () => {
     const currentPath = usePathname();
-
-    console.log(currentPath)
-
     return (
         <div className="topnav" id="myTopnav">
             <Image src={logo} alt="logo" className="logo" />
