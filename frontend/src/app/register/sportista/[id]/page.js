@@ -208,7 +208,7 @@ useEffect(  ()=>{
 setPrikazSportova(
   listaMogucihSportova.map((sport, indeks) => (
     
-    <option value={indeks}>{sport.naziv_sporta} </option>
+    <option value={sport.id_sporta}>{sport.naziv_sporta} </option>// bila je potrebna izmjena, lose sam indeksirao
   )))
 console.log(listaMogucihSportova)
 console.log(typeof(listaMogucihSportova))

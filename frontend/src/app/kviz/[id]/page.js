@@ -6,7 +6,7 @@ import CardSelect from "@/components/QuizCard/KarticaSelect";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import axios from "axios"
-import Quiz from "@/components/QuizCard/TestYesNo";
+// import Quiz from "@/components/QuizCard/TestYesNo";
 
 
 

@@ -2,12 +2,12 @@ import os
 from functools import lru_cache
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .models import Korisnik, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
+from .models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
 from .models.prijatelj import Prijatelj
 from .models.objava import Objava
 from .routers.auth import pwd_context
 from .schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
-from .schema import Oglas, ObjavaSchema
+from .schema import Oglas, ObjavaSchema, EkipaSchema, EkipaSaClanovimaSchema
 from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias, asc
 from .config import Settings
 from .dependencies import get_db
@@ -97,22 +97,22 @@ async def sportovi(db:Session=Depends(get_db)):
 @app.post("/dodajSportistu")
 async def dodaj(korisnik:IgracSchema, db:Session = Depends(get_db)):
     novi_korisnik=Igrac(id_korisnika=korisnik.id_korisnika, ime_igraca=korisnik.ime_igraca, prezime_igraca=korisnik.prezime_igraca, datum_rodjenja=korisnik.datum_rodjenja, spol=korisnik.spol,visina=korisnik.visina, tezina=korisnik.tezina, max_dozvoljena_udaljenost=korisnik.max_dozvoljena_udaljenost)
-   # nova_veza=Veza_igrac_sport()
+   
 #         id_adrese_trenutni=id.id_adrese
 #         new_lokacija = Lokacija(id_adrese=id_adrese_trenutni,recenzija=request.ocjena)
 
     db.add(novi_korisnik)
     db.commit()
 
+    nova_veza=Veza_igrac_sport(id_igraca=novi_korisnik.id_igraca, id_sporta=korisnik.sport)
+    db.add(nova_veza)
+    db.commit()
     db.refresh(novi_korisnik)
-
     return novi_korisnik
 @app.post("/dodajVlasnika")
 async def dodaj(korisnik:VlasnikSchema, db:Session = Depends(get_db)):
     novi_korisnik=Vlasnik(id_korisnika=korisnik.id_korisnika, ime_vlasnika=korisnik.ime_vlasnika, prezime_vlasnika=korisnik.prezime_vlasnika, datum_rodjenja=korisnik.datum_rodjenja, spol=korisnik.spol)
-   # nova_veza=Veza_igrac_sport()
-#         id_adrese_trenutni=id.id_adrese
-#         new_lokacija = Lokacija(id_adrese=id_adrese_trenutni,recenzija=request.ocjena)
+   
 
     db.add(novi_korisnik)
     db.commit()
@@ -133,7 +133,11 @@ async def dodaj(korisnik:IgracSchema, db:Session = Depends(get_db)):
     db.commit()
     db.add(novi_vlasnik)
     db.commit()
-
+    #nove linije
+    nova_veza=Veza_igrac_sport(id_igraca=novi_korisnik.id_igraca, id_sporta=korisnik.sport)
+    db.add(nova_veza)
+    db.commit()
+    #
     db.refresh(novi_korisnik)
     db.refresh(novi_vlasnik)
 
@@ -242,6 +246,7 @@ async def eventi(id_sporta:int, nivo:str, spol:int, db:Session=Depends(get_db)):
         result=result.filter(Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
     if(spol_bool!=2):
         result=result.filter(Event_u_pripremi.spol==spol_bool)
+    result=result.filter(Event_u_pripremi.broj_slobodnih_mjesta>0)    
     result=result.join(Igrac, Event_u_pripremi.id_organizatora==Igrac.id_igraca).join(Lokacija, Event_u_pripremi.id_lokacije==Lokacija.id_lokacije)\
     .join(Sifarnik_sportova, Event_u_pripremi.id_sporta==Sifarnik_sportova.id_sporta).order_by(asc(Event_u_pripremi.pocetak_termina))\
         .add_columns(Igrac.ime_igraca, Igrac.srednje_ime, Igrac.prezime_igraca,Igrac.srednje_ime, Sifarnik_sportova.naziv_sporta, Lokacija.longituda, Lokacija.latituda, Event_u_pripremi.naziv_termina, Event_u_pripremi.opis_termina,Event_u_pripremi.pocetak_termina, Event_u_pripremi.broj_slobodnih_mjesta ).all()   
@@ -275,13 +280,40 @@ async def objave(id:int, db:Session=Depends(get_db)):
 #                .all()
 #     return result
 
+#Komplikovanija ruta, salje se id igraca iz sesije, pronalazi se korisnik koji je povezan s tim igracem nakon toga
+#izlistava sve prijatelje trenutnog igraca ali koji se nalaze u tabeli igraca (ne u tabeli vlasnika)
 @app.get("/pretraziPrijatelje/{id}/{username}/{svi}")
 async def pretrazi_username(id: int, username: str,svi:bool, db: Session = Depends(get_db)):
 
-    id_korisnika=db.query(Korisnik.id_korisnika).join(Igrac, Igrac.id_korisnika==Korisnik.id_korisnika).first()
+    id_korisnika=db.query(Igrac.id_korisnika).filter(Igrac.id_igraca==id).first()
     if (svi==True):
-        return db.query(Korisnik).join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2)\
-        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0]).all() 
-    return db.query(Korisnik).join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2)\
-        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0], Korisnik.korisnicko_ime.like(f"{username}%")).all()
- #Igrac.ime.like(f"{ime}%")
+        return db.query(Korisnik)\
+        .join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2).join(Igrac, Igrac.id_korisnika==Korisnik.id_korisnika)\
+        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0]).all()
+
+@app.post("/dodajEkipu")
+async def dodaj(ekipa:EkipaSchema, db:Session=Depends(get_db)):
+    id_igraca=db.query(Igrac.id_igraca).filter(Igrac.id_igraca==ekipa.id_kapitena).first()
+    nova_ekipa=Ekipa(naziv_ekipe=ekipa.naziv_ekipe, id_sporta=ekipa.id_sporta,kapiten=id_igraca[0])
+    db.add(nova_ekipa)
+    db.commit()
+
+    db.refresh(nova_ekipa)
+    nova_veza=Veza_igrac_ekipa(id_ekipe=nova_ekipa.id_ekipe, id_igraca=id_igraca[0])
+    db.add(nova_veza)
+    db.commit()
+    db.refresh(nova_veza)
+    return nova_veza
+
+@app.post("/dodajClanoveEkipe")
+async def dodaj(ekipa:EkipaSaClanovimaSchema, db:Session=Depends(get_db)):
+    for igrac in ekipa.igraci:
+        id=db.query(Igrac.id_igraca).filter(Igrac.id_korisnika==igrac).first()
+        novi_igrac=Veza_igrac_ekipa(id_ekipe=ekipa.id_ekipe, id_igraca=id[0])
+        db.add(novi_igrac)
+        db.commit()
+
+        
+
+
+    

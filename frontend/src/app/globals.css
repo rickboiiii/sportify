@@ -80,10 +80,10 @@
   /*overflow: hidden;*/
 }
 
-html,
+/*html,
 body {
   overflow-x: hidden;
-}
+}*/
 
 body {
   color: rgb(var(--foreground-rgb));

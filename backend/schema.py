@@ -134,9 +134,14 @@ class Event_u_pripremi(BaseModel):
     popunjen: bool
     id_lokacije: Optional[int]=None
 
-class Ekipa(BaseModel):
+class EkipaSchema(BaseModel):
     naziv_ekipe: str
     id_sporta: int
+    id_kapitena:int
+
+class EkipaSaClanovimaSchema(BaseModel):
+      id_ekipe:int
+      igraci:List[int] 
 
 class Turnir(BaseModel):
     naziv_turnira: str
