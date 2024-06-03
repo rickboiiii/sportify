@@ -93,6 +93,8 @@ class Uloga(Base):
 class Lokacija (Base):
     __tablename__="lokacije"
     id_lokacije=Column(Integer, primary_key=True, autoincrement=True)
+    naziv_lokacije = Column(String)
+    opis_lokacije = Column(String)
     id_vlasnika=Column(Integer, ForeignKey("vlasnici.id_vlasnika"))
     vlasnici=relationship("Vlasnik", back_populates="lokacije")
     id_adrese=Column(Integer, ForeignKey("adrese.id_adrese"))
@@ -146,7 +148,7 @@ class Event_u_pripremi(Base):
     opis_termina=Column(String, nullable=True)
     vrsta_termina=Column(String, nullable=False)
     pocetak_termina=Column(DateTime)
-    potreban_nivo_sposobnosti=Column(Integer)
+    potreban_nivo_sposobnosti=Column(String)
     spol=Column(Boolean, nullable=True)
     minimalan_broj_igraca=Column(Integer)
     maksimalan_broj_igraca=Column(Integer)
@@ -280,7 +282,34 @@ class RecenzijaTerena(Base):
     id_terena = Column(Integer, ForeignKey("lokacije.id_lokacije"))
     komentar = Column(String)
     ocjena = Column(Float)  
-    tereni= relationship("Lokacija", back_populates="recenzija_terena")           
+    tereni= relationship("Lokacija", back_populates="recenzija_terena")  
+
+@deprecated('use class inside models/meet_and_greet.py')
+class MeetAndGreet(Base):
+    __tablename__ = 'meet_and_greet'
+
+    id_meeta = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    kapacitet = Column(Integer, nullable=False)
+    id_sporta = Column(Integer, ForeignKey('sport.id_sporta'), nullable=False)
+    id_lokacije = Column(Integer, ForeignKey('lokacije.id_lokacije'), nullable=False)
+    datum_odrzavanja = Column(Date, nullable=False)
+    naziv_okupljanja = Column(String)
+    opis_okupljanja=Column(String)
+
+    sport = relationship("Sport", back_populates="meet_and_greet_eventi")
+    lokacija = relationship("Lokacije", back_populates="meet_and_greet_eventi")   
+
+@deprecated('use class inside models/lost_and_found.py')
+class LostAndFound(Base):
+    __tablename__ = 'lost_and_found'
+
+    id_losta = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    tag = Column(String, nullable=False)
+    opis = Column(String, nullable=False)
+    id_lokacije = Column(Integer, ForeignKey('lokacije.id_lokacije'), nullable=False)
+    slika = Column(String)
+
+    lokacija = relationship("Lokacije", back_populates="lost_and_found_predmeti")     
 
 @deprecated('use class inside models/chat.py')
 class Chat(Base):

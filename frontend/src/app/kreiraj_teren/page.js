@@ -1,4 +1,5 @@
 "use client";
+
 import '@/app/globals.css';
 import { useState, useEffect } from 'react';
 import { Container } from "@/components/Containers/ContainerStyled";
@@ -22,9 +23,9 @@ const Message = styled.h1`
 // Dinamički učitaj MapComponent bez SSR-a
 const MapComponent = dynamic(() => import('@/components/Map/map'), { ssr: false });
 
-async function sendTerenDetails(formData) {
+async function sendTerenDetails(terenDetails) {
   try {
-    const response = await axios.post('http://localhost:8000/kreiraj_teren', formData); //terenDetails
+    const response = await axios.post('http://localhost:8000/kreiraj_teren', terenDetails);
     return response.data;
   } catch (error) {
     console.error('Error:', error);
@@ -65,7 +66,7 @@ const fetchIdKorisnika = async (token) => {
             .then(res=>{
               temp_username=res.data.korisnicko_ime;
               setUsername(temp_username);
-            
+
             }).catch(err=>console.log(err))
           axios.get(`http://localhost:8000/dajVlasnika/${data}`)
           .then(res=>{
@@ -75,7 +76,7 @@ const fetchIdKorisnika = async (token) => {
             else
               router.push(`/feed/${temp_username}`)
           })
-          
+
           .catch(err=>console.log(err))
       } else {
           console.error('Failed to fetch id_korisnika:', response.statusText);
@@ -90,6 +91,18 @@ const fetchIdKorisnika = async (token) => {
         label: "naziv terena",
         id: "id1",
         name: "naziv_terena",
+      },
+      second: {
+        label: "kratki opis",
+        id: "id2",
+        name: "opis_terena",
+      }
+    },
+    {
+      first: {
+        label: "lokacija terena",
+        id: "id1",
+        name: "lokacija",
       },
       second: {
         label: "kapacitet terena",
@@ -113,6 +126,7 @@ const fetchIdKorisnika = async (token) => {
   const [sport, setSport]=useState(1)
   const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
   const [prikazSportova, setPrikazSportova]=useState([])
+
   const [formKey, setFormKey] = useState(0);
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
@@ -126,14 +140,14 @@ const fetchIdKorisnika = async (token) => {
         console.log(error); // Rukovanje greškom u slučaju neuspješnog dohvata
       }
     };
-  
+
     fetchData(); // Pozivanje funkcije za dohvat podataka
   }, []); // Prazna niz ovisnosti kako bi se hook izvršio samo prilikom montiranja komponente
-  
+
   useEffect(  ()=>{
   setPrikazSportova(
     listaMogucihSportova.map((sport, indeks) => (
-      
+
       <option value={sport.id_sporta}>{sport.naziv_sporta} </option>
     )))
   console.log(listaMogucihSportova)
@@ -145,7 +159,9 @@ const fetchIdKorisnika = async (token) => {
     let slika = parseInt(document.getElementById('id2').value);
     const formData = {
       naziv_terena: formValues[0],
-      kapacitet: formValues[1],
+      opis_terena: formValues[1],
+      id_terena: formValues[2],
+      kapacitet: formValues[3],
       cijena_po_terminu: cijena_po_terminu,
       slika: slika,
     };console.log(formData)
@@ -195,12 +211,12 @@ const fetchIdKorisnika = async (token) => {
               {formSubmitCount===1 && (<><label>Odaberite sport</label><br></br>
           <SelectKomponenta
                 value={sport}
-                onChange={e => setSport(e.target.value)} 
+                onChange={e => setSport(e.target.value)}
               >
                 {prikazSportova}
-                
+
           </SelectKomponenta><br></br></>)}
-              {(formSubmitCount === 2) ? (<Button onClick={handlePress}>Završite</Button>) 
+              {(formSubmitCount === 2) ? (<Button onClick={handlePress}>Završite</Button>)
               : (<Button style={{marginTop:"50px"}} onClick={NextSlide}>sljedeće</Button>)}</ParForm>
 
           </>
@@ -219,12 +235,12 @@ const fetchIdKorisnika = async (token) => {
                 kapacitet: parseInt(formValues[1]),
               cijena_po_terminu: parseInt(document.getElementById('id1').value),
               slika: parseInt(document.getElementById('id2').value),
-              sport:sport, 
+              sport:sport,
               id_vlasnika:id,
               username:username
             }
     } />
-        
+
       </div>
     );
   }

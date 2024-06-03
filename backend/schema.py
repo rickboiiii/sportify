@@ -110,6 +110,8 @@ class Uloga(BaseModel):
 class Lokacija(BaseModel):
     longituda: float
     latituda: float
+    naziv_lokacije: str
+    opis_Lokacije : str
     recenzija: float
     cijena_po_terminu: Optional[float]
 
@@ -131,7 +133,7 @@ class Event_u_pripremi(BaseModel):
     opis_termina: Optional[str]
     vrsta_termina: str
     pocetak_termina: datetime
-    potreban_nivo_sposobnosti: int
+    potreban_nivo_sposobnosti: str
     spol: Optional[bool]
     minimalan_broj_igraca: int
     maksimalan_broj_igraca: int
@@ -209,6 +211,19 @@ class RecenzijaTerena(BaseModel):
     komentar: str
     ocjena: float
 
+
+class MeetAndGreetBase(BaseModel):
+    kapacitet: int
+    id_sporta: int
+    id_lokacije: int
+    datum_odrzavanja: datetime
+    naziv_okupljanja: str
+
+class LostAndFoundBase(BaseModel):
+    tag: str
+    opis: str
+    id_lokacije: int
+    slika: str
 
 class Oglas(BaseModel):
     ime_igraca: str

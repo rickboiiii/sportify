@@ -8,7 +8,7 @@ import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
 import styled from 'styled-components';
 import {Button} from '@/components/Button/ButtonStyled';
 import axios from "axios";
-
+import {lapisLazuli} from "@/styles/GlobalStyle";
 
 const Message = styled.h1`
   color: white;
@@ -17,18 +17,10 @@ const Message = styled.h1`
   margin-top: 2rem;
 `;
 
-async function sendEventDetails(eventDetails) {
+async function sendLostDetails(lostDetails) {
   try {
-
-    axios.post('http://localhost:8000/oglas_eventa', eventDetails)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    
+    const response = await axios.post('http://localhost:8000/lost_and_found', lostDetails);
+    return response.data;
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -39,50 +31,26 @@ export default function Home() {
   const labelSets = [
     {
       first: {
-        label: "naziv termina",
+        label: "tag:lost/found",
         id: "id1",
-        name: "naziv_termina",
+        name: "tag",
       },
       second: {
         label: "kratki opis",
         id: "id2",
-        name: "opis_termina",
+        name: "opis",
       }
     },
     {
       first: {
-        label: "mjesto održavanja",
+        label: "lokacija terena",
         id: "id1",
         name: "lokacija",
       },
       second: {
-        label: "vrijeme održavanja",
+        label: "slika",
         id: "id2",
-        name: "pocetak_termina",
-      }
-    },
-    {
-      first: {
-        label: "broj igrača",
-        id: "id1",
-        name: "broj_slobodnih_mjesta",
-      },
-      second: {
-        label: "sport",
-        id: "id2",
-        name: "sport",
-      }
-    },
-    {
-      first: {
-        label: "spol",
-        id: "id1",
-        name: "spol",
-      },
-      second: {
-        label: "nivo sposobnosti",
-        id: "id2",
-        name: "nivo_sposobnosti",
+        name: "slika",
       }
     }
   ];
@@ -91,32 +59,26 @@ export default function Home() {
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
   const [formValues, setFormValues] = useState([]);
- 
+
   const handlePress = () => {
-    let spol = parseInt(document.getElementById('id1').value);
-    console.log(spol);
-    let nivo_sposobnosti = (document.getElementById('id2').value);
-    console.log(nivo_sposobnosti);
+    let lokacija = parseInt(document.getElementById('id1').value);
+    let slika = parseInt(document.getElementById('id2').value);
     const formData = {
-      naziv_termina: formValues[0],
-      opis_termina: formValues[1],
-      id_lokacije: formValues[2],
-      pocetak_termina: formValues[3],
-      broj_slobodnih_mjesta: formValues[4],
-      sport: formValues[5],
-      spol: spol,
-      nivo_sposobnosti : nivo_sposobnosti
+      tag: formValues[0],
+      opis: formValues[1],
+      lokacija: lokacija,
+      slika: slika,
     };console.log(formData)
 
     try {
-      axios.post('http://localhost:8000/oglas_eventa', formData)
+      axios.post('http://localhost:8000/lost_and_found', formData)
       .then(function (response) {
         console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-       sendEventDetails(formData);
+       sendLostDetails(formData);
     } catch (error) {
       console.error('Failed to submit form', error);
     }
@@ -128,7 +90,7 @@ export default function Home() {
     let prvaVrijednost= document.getElementById("id1").value;
     let drugaVrijednost= document.getElementById("id2").value;
     setFormValues([...formValues,prvaVrijednost,drugaVrijednost])
-    if (formSubmitCount < 3) {
+    if (formSubmitCount < 1) {
       setFormKey((prevKey) => prevKey + 1);
       setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
       setFormSubmitCount((prevCount) => prevCount + 1);
@@ -140,17 +102,17 @@ export default function Home() {
 
   return (
     <Container>
-      {formSubmitCount < 4 ? (
+      {formSubmitCount < 2 ? (
         <>
-          <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
+          <ProgressIndicator steps={2} active_number={formSubmitCount + 1} />
           <ParForm
             key={formKey}
             inputs={labelSets[currentLabelSetIndex]}
-            h_text={"Osnovne informacije o terminu"}
-          >{(formSubmitCount===3)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
+            h_text={"Osnovne informacije o izgubljenom predmetu"}
+          >{(formSubmitCount===1)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
-        <Message>uspješno ste dodali termin</Message>
+        <Message>uspješno ste dodali izgubljeni/pronadjeni predmet</Message>
       )
       }
     </Container>
