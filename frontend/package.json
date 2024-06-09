@@ -19,6 +19,7 @@
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
     "react-router-dom": "^6.23.1",
+    "react-select": "^5.8.0",
     "styled-components": "^6.1.11"
   }
 }

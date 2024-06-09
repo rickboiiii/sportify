@@ -15,19 +15,22 @@ class Korisnik(Base):
     korisnicko_ime = Column(String)
     id_uloge = Column(Integer, ForeignKey("uloge.id_uloge"))
     
-    uloga= relationship("Uloga", back_populates="korisnici")
-    igraci=relationship("Igrac", back_populates="korisnici")
-    vlasnici=relationship("Vlasnik", back_populates="korisnici")
-    # prijatelj1=relationship("Prijatelj", back_populates="korisnik1")
-    # prijatelj2=relationship("Prijatelj", back_populates="korisnik2")
+    uloga = relationship("Uloga", back_populates="korisnici")
+    igraci = relationship("Igrac", back_populates="korisnici")
+    vlasnici = relationship("Vlasnik", back_populates="korisnici")
+    prijateljstva1 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja1]", back_populates="korisnik1")
+    prijateljstva2 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja2]", back_populates="korisnik2")
 
-# class Prijatelj(Base):
-#     __tablename__="prijatelji"
-#     id_prijateljstva =Column(Integer, primary_key=True, autoincrement=True)
-#     id_prijatelja1=Column(Integer, ForeignKey("korisnici.id_korisnika"))
-#     id_prijatelja2=Column(Integer, ForeignKey("korisnici.id_korisnika"))
-#     korisnik1=relationship("Korisnik", back_populates="prijatelj1")
-#     korisnik2=relationship("Korisnik", back_populates="prijatelj2")
+@deprecated('use class inside models/prijatelj.py')
+class Prijatelj(Base):
+    __tablename__ = "prijatelji"
+    
+    id_prijateljstva = Column(Integer, primary_key=True, autoincrement=True)
+    id_prijatelja1 = Column(Integer, ForeignKey("korisnici.id_korisnika"))
+    id_prijatelja2 = Column(Integer, ForeignKey("korisnici.id_korisnika"))
+    
+    korisnik1 = relationship("Korisnik", foreign_keys=[id_prijatelja1], back_populates="prijateljstva1")
+    korisnik2 = relationship("Korisnik", foreign_keys=[id_prijatelja2], back_populates="prijateljstva2")
 
 
 @deprecated('use class inside models/igrac.py')

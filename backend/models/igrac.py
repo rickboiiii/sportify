@@ -23,6 +23,7 @@ class Igrac(Base):
     # data = Column(LargeBinary) PRIKAZ SLIKE ?
     # format = Column(String)  # Dodatni atribut za pohranu formata slike
 
+    igrac = relationship("Ekipa",back_populates="ekipa")
     korisnici = relationship("Korisnik", back_populates="igraci")
     recenzije_igraca = relationship("RecenzijaIgraca", back_populates= "igraci")
     sportovi = relationship("Veza_igrac_sport", back_populates="igraci")

@@ -36,10 +36,13 @@ export const Column = styled.div`
 export const Naslov = styled.h1`
     margin:auto;
     letter-spacing: 1px;
-    font-size: 3rem;
+    font-size: 4vw;
     color: ${ghostWhite}
 `;
 
+export const Forma1 = styled.div`
+    margin: auto;
+`;
 export const Forma = styled.form`
     margin: auto;
 `;

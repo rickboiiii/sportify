@@ -131,7 +131,7 @@ function Register() {
   const [visina, setVisina]=useState(0);
   const [tezina, setTezina]=useState(0);
   const [udaljenost, setUdaljenost]=useState(0);
-  const [sport, setSport]=useState([])
+  const [sport, setSport]=useState(1)
   const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
   const [prikazSportova, setPrikazSportova]=useState([])
   const validateForm =  (e) => {
@@ -196,6 +196,7 @@ function Register() {
     try {
       const response = await axios.get("http://localhost:8000/sportovi");
       setListaMogucihSportova(response.data);
+      console.log(response)
     } catch (error) {
       console.log(error); // Rukovanje greškom u slučaju neuspješnog dohvata
     }
@@ -208,7 +209,8 @@ useEffect(  ()=>{
 setPrikazSportova(
   listaMogucihSportova.map((sport, indeks) => (
     
-    <option value={indeks}>{sport.naziv_sporta} </option>
+    <option value={sport.id_sporta}>{sport.naziv_sporta} </option>// bila je potrebna izmjena, lose sam indeksirao
+    
   )))
 console.log(listaMogucihSportova)
 console.log(typeof(listaMogucihSportova))

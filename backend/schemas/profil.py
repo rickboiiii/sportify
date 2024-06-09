@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from backend.schemas import Igrac, KorisnikSchema, Vlasnik
 
 
+
 class IgracProfil(Igrac):
     id_igraca: int
     korisnici: KorisnikSchema | None = None
@@ -13,7 +14,7 @@ class IgracProfil(Igrac):
 
 class VlasnikProfil(Vlasnik):
     id_vlasnika: int
-    korisnici: KorisnikSchema | None = None
+    korisnici: KorisnikSchema | None = None 
 
     class Config:
         from_attributes = True

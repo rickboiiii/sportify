@@ -39,13 +39,19 @@ class Prijatelj(BaseModel):
     id_prijatelja1: int
     id_prijatelja2: int
 
+class ObjavaSchema(BaseModel):
+    korisnicko_ime:str
+    id_korisnika:int
+    tekst_objave:str
+    #slika
+    
 
-@deprecated('use class inside schemas/igrac.py')
+
 class Igrac(BaseModel):
     id_korisnika:int
     ime_igraca: str
     prezime_igraca: str
-    srednje_ime: str | None = None
+    srednje_ime: str 
     datum_rodjenja: date
     spol: bool
     visina: int
@@ -60,7 +66,7 @@ class Igrac(BaseModel):
 @deprecated('use class inside schemas/profil.py')
 class IgracProfil(Igrac):
     id_igraca: int
-    korisnici: KorisnikSchema | None = None
+    korisnici: KorisnikSchema 
 
     class Config:
         from_attributes: True
@@ -71,7 +77,7 @@ class Vlasnik(BaseModel):
     id_korisnika:int
     ime_vlasnika: str
     prezime_vlasnika: str
-    srednje_ime: str | None = None
+    srednje_ime: str 
     datum_rodjenja: date
     spol: bool
     recenzija: float
@@ -80,7 +86,7 @@ class Vlasnik(BaseModel):
 @deprecated('use class inside schemas/profil.py')
 class VlasnikProfil(Vlasnik):
     id_vlasnika: int
-    korisnici: KorisnikSchema | None = None
+    # korisnici: KorisnikSchema 
 
     class Config:
         from_attributes = True
@@ -88,8 +94,8 @@ class VlasnikProfil(Vlasnik):
 
 @deprecated('use class inside schemas/profil.py')
 class Profili(BaseModel):
-    svi_korisnici: list[IgracProfil]
-    svi_vlasnici: list[VlasnikProfil]
+    # svi_korisnici: list[IgracProfil]
+    # svi_vlasnici: list[VlasnikProfil]
 
     class Config:
         from_attributes = True
@@ -99,6 +105,8 @@ class Uloga(BaseModel):
     id_korisnika: int
 
 class Lokacija(BaseModel):
+    longituda:float
+    latituda:float
     recenzija: float
     cijena_po_terminu: Optional[float]
 
@@ -126,9 +134,14 @@ class Event_u_pripremi(BaseModel):
     popunjen: bool
     id_lokacije: Optional[int]=None
 
-class Ekipa(BaseModel):
+class EkipaSchema(BaseModel):
     naziv_ekipe: str
     id_sporta: int
+    id_kapitena:int
+
+class EkipaSaClanovimaSchema(BaseModel):
+      id_ekipe:int
+      igraci:List[int] 
 
 class Turnir(BaseModel):
     naziv_turnira: str
@@ -182,3 +195,7 @@ class RecenzijaIgraca(BaseModel):
 class RecenzijaTerena(BaseModel):
     komentar: str
     ocjena: float
+
+
+    
+    

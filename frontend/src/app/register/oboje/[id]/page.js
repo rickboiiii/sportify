@@ -205,11 +205,11 @@ function Register() {
 }, []); // Prazna niz ovisnosti kako bi se hook izvršio samo prilikom montiranja komponente
 
 useEffect(  ()=>{
-setPrikazSportova(
-  listaMogucihSportova.map((sport, indeks) => (
-    
-    <option value={indeks}>{sport.naziv_sporta} </option>
-  )))
+  setPrikazSportova(
+    listaMogucihSportova.map((sport, indeks) => (
+      
+      <option value={sport.id_sporta}>{sport.naziv_sporta}</option>// potrebna bila izmjena
+    )))
 console.log(listaMogucihSportova)
 console.log(typeof(listaMogucihSportova))
 console.log(prikazSportova)}, [listaMogucihSportova])

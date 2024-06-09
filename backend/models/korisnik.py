@@ -16,5 +16,5 @@ class Korisnik(Base):
     uloga = relationship("Uloga", back_populates="korisnici")
     igraci = relationship("Igrac", back_populates="korisnici")
     vlasnici = relationship("Vlasnik", back_populates="korisnici")
-    # prijatelj1 = relationship("Prijatelj", back_populates="korisnik1")
-    # prijatelj2 = relationship("Prijatelj", back_populates="korisnik2")
+    prijateljstva1 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja1]", back_populates="korisnik1")
+    prijateljstva2 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja2]", back_populates="korisnik2")

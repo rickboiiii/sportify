@@ -11,8 +11,8 @@ export const Number = styled.div`
     font-family: inherit;
     border: 0.375vw solid ${pear};
     border-radius: 50%;
-    width: 4.3vw;
-    height: 4.3vw;
+    width: 4.7vw;
+    height: 4.7vw;
     background: transparent;
     color: ${pear};
 
