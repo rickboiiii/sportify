@@ -1,7 +1,15 @@
 "use client";
 
 import styled from "styled-components";
-import {dirtyWhite, lapisLazuli, lapisLazuliLight, oxion, taupeGrayLight, ghostWhite} from "@/styles/GlobalStyle";
+import {
+    dirtyWhite,
+    lapisLazuli,
+    lapisLazuliLight,
+    oxion,
+    taupeGrayLight,
+    ghostWhite,
+    taupeGray
+} from "@/styles/GlobalStyle";
 
 export const Container = styled.div`
     display: flex;
@@ -148,6 +156,10 @@ export const CardImg = styled.img`
     margin: 0.5rem;
     border: 0;
     border-radius: 50%;
+
+    &.event-img {
+        border-radius: 10% 10% 0 0;
+    }
 `;
 
 export const ProgressBarContainer = styled.div`
@@ -174,4 +186,53 @@ export const ProgressBarForeground = styled.div`
     border: 0;
     border-radius: 10px;
     background: ${lapisLazuliLight};
+`;
+
+export const Grid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    gap: 1rem;
+`;
+
+export const GridItem = styled.div`
+    border: 1px solid ${taupeGray};
+    border-radius: 10px;
+    color: ${lapisLazuli};
+`;
+
+export const GridItemHeader = styled.div`
+    padding: 0.5rem;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    border-bottom: 1px solid ${taupeGrayLight};
+    
+    &.active {
+        background: ${lapisLazuliLight};
+        color: ${ghostWhite};
+    }
+`;
+
+export const GridItemBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    flex: 1;
+    
+    h6 {
+        margin: 0;
+    }
+`;
+
+export const GridItemFooter = styled.div`
+    padding: 0.5rem;
+    font-size: small;
+    text-align: end;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-top: 1px solid ${taupeGrayLight};
+    
+    &.active {
+        background: ${lapisLazuliLight};
+        color: ${ghostWhite};
+    }
 `;

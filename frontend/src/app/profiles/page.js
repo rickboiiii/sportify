@@ -9,7 +9,7 @@ import Error404 from "@/components/Errors/404";
 export default async function Profiles(props) {
 
     const queryParams = props.searchParams;
-    const stock_pic = '/blank_profile_picture.png';
+    const stock_pic = '/profile_picture_cute_nejra.jpg';
 
     try {
         let res = {};

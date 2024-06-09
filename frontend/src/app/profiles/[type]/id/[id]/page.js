@@ -10,7 +10,7 @@ import Error404 from "@/components/Errors/404";
 export default async function Profile(props) {
 
     const params = props.params;
-    const stock_pic = '/blank_profile_picture.png';
+    const stock_pic = '/profile_picture_cute_nejra.jpg';
 
     try {
         const res = await axios.get('http://127.0.0.1:8000/profiles/' + params.type + '/id/' + params.id);
