@@ -5,16 +5,16 @@ from backend.schemas import Igrac, KorisnikSchema, Vlasnik
 
 
 class IgracProfil(Igrac):
-    id_igraca: int | None = None
-    korisnici: KorisnikSchema 
+    id_igraca: int
+    korisnici: KorisnikSchema | None = None
 
     class Config:
         from_attributes: True
 
 
 class VlasnikProfil(Vlasnik):
-    id_vlasnika: int | None = None
-    korisnici: KorisnikSchema 
+    id_vlasnika: int
+    korisnici: KorisnikSchema | None = None 
 
     class Config:
         from_attributes = True
