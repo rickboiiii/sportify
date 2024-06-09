@@ -80,6 +80,9 @@ import { useRouter } from "next/navigation";
           borderRadius:"150px"
         }),
       };
+      
+
+    
 
     useEffect(()=>{
         axios.get("http://localhost:8000/sportovi")
