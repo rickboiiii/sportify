@@ -165,7 +165,7 @@ console.log(saigraci)
                 
                 <Label>Ime Ekipe</Label>
                 <Input placeholder="Unesite ime ekipe" value={imeEkipe} onChange={(e)=>setImeEkipe(e.target.value)} type="text"></Input>
-                <p>{imeEkipe}</p>
+                
                 <br></br>
                 {SelectSport}
                 <br></br>

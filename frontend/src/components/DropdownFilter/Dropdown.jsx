@@ -163,9 +163,9 @@ const getLocation = () => {
               Nivo:
               <select onChange={(e)=>setNivo(e.target.value)} value={nivo}>
               <option value="svi">Svi</option>
-                <option value="pocetnik">Početnik</option>
-                <option value="intermediate">Srednji nivo</option>
-                <option value="profesionalni">Profesionalno</option>
+                <option value="0.33">Početnik</option>
+                <option value="0.66">Srednji nivo</option>
+                <option value="1">Profesionalno</option>
               </select>
             </NestedLabel>
             

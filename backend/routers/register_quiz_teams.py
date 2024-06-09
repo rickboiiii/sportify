@@ -146,7 +146,7 @@ async def sport(sposobnost:float, id:int, db:Session=Depends(get_db)):
 
     db_igrac = db.query(Igrac).filter(Igrac.id_igraca == id).first()
     if db_igrac:
-        db_igrac.nivo_sposobnosti = x
+        db_igrac.nivo_sposobnosti = str (round(sposobnost, 2))
         db.commit()
 
 
@@ -171,12 +171,21 @@ async def eventi(id_sporta:int, nivo:str, spol:int, db:Session=Depends(get_db)):
         spol_bool=False
     elif (spol==1):
         spol_bool=True
-    
+    if(nivo == "0.33"):
+        first=0
+        second=0.33
+    elif(nivo == "0.66"):
+        first=0.33
+        second=0.66    
+    elif (nivo=="1"):
+        first=0.66
+        second=1
+
     result= db.query(Event_u_pripremi)
     if (id_sporta!=0):
         result=result.filter(Event_u_pripremi.id_sporta==id_sporta)
     if (nivo!="svi"):
-        result=result.filter(Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
+        result=result.filter(Event_u_pripremi.potreban_nivo_sposobnosti.between(str(first),str(second)))
     if(spol_bool!=2):
         result=result.filter(Event_u_pripremi.spol==spol_bool)
     result=result.filter(Event_u_pripremi.broj_slobodnih_mjesta>0)    
