@@ -1,26 +1,16 @@
-import os
 from functools import lru_cache
-from fastapi import FastAPI, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from .models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
-from .models.prijatelj import Prijatelj
-from .models.objava import Objava
-from .routers.auth import pwd_context
-from .schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
-from .schema import Oglas, ObjavaSchema, EkipaSchema, EkipaSaClanovimaSchema
-from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias, asc
+from fastapi import FastAPI, Depends
 from .config import Settings
 from .dependencies import get_db
 
 
-from .routers import profiles, auth, forms
+from .routers import profiles, auth, forms, register_quiz_teams
 
-from .database import Base, SessionLocal, engine
+from .database import Base, engine
 
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 
 
 def start_application():
@@ -39,6 +29,8 @@ def start_application():
     app.include_router(profiles.router)
     app.include_router(auth.router)
     app.include_router(forms.router)
+    app.include_router(register_quiz_teams.router)
+    
 
     return app
 
