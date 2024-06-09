@@ -2,20 +2,20 @@ import os
 from functools import lru_cache
 from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
-from .models.prijatelj import Prijatelj
-from .models.objava import Objava
-from .routers.auth import pwd_context
-from .schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
-from .schema import Oglas, ObjavaSchema, EkipaSchema, EkipaSaClanovimaSchema
+from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
+from backend.models.prijatelj import Prijatelj
+from backend.models.objava import Objava
+from backend.routers.auth import pwd_context
+from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
+from backend.schema import Oglas, ObjavaSchema, EkipaSchema, EkipaSaClanovimaSchema
 from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias, asc
-from .config import Settings
-from .dependencies import get_db
+from backend.config import Settings
+from backend.dependencies import get_db
 
 
-from .routers import profiles, auth, forms
+from backend.routers import profiles, auth, forms
 
-from .database import Base, SessionLocal, engine
+from backend.database import Base, SessionLocal, engine
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -50,22 +50,6 @@ def get_settings():
     return Settings()
 
 
-# Mount the React build directory as static files
-
-app.mount("/static", StaticFiles(directory="frontend/.next/static"), name="static")
-
-# Unnecessary, Next loads differently than React
-# @app.get("/")
-# async def read_index():
-#     return FileResponse("../frontend/.next/index.html")
-#
-# # If you want to serve other routes in your React app, you might need to catch-all route:
-# @app.get("/{full_path:path}")
-# async def read_react_app(full_path: str):
-#     file_path = f"../frontend/.next/{full_path}"
-#     if os.path.exists(file_path) and os.path.isfile(file_path):
-#         return FileResponse(file_path)
-#     return FileResponse("../frontend/.next/index.html")
 
 @app.get("/register/validUsername/{username}")
 async def postojiUsername( username:str, db:Session= Depends(get_db)):
@@ -313,8 +297,3 @@ async def dodaj(ekipa:EkipaSaClanovimaSchema, db:Session=Depends(get_db)):
         novi_igrac=Veza_igrac_ekipa(id_ekipe=ekipa.id_ekipe, id_igraca=id[0])
         db.add(novi_igrac)
         db.commit()
-
-        
-
-
-    

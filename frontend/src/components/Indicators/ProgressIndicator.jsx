@@ -10,9 +10,9 @@ export default function ProgressIndicator(props) {
 
     for(let i = 1; i <= props.steps; i++) {
         if(i <= active_number)
-            progress.push(<Number  className={"active"}>{i}</Number>);
+            progress.push(<Number key={i}  className={"active"}>{i}</Number>);
         else
-            progress.push(<Number >{i}</Number>);
+            progress.push(<Number key={i} >{i}</Number>);
 
         if(i >= 1 && i < props.steps)
             progress.push(<Line key={i*10} />);
