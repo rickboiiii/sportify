@@ -16,3 +16,11 @@ class Vlasnik(BaseModel):
 
 class VlasnikSchema(Vlasnik):
     id_korisnika: int
+
+
+class UserUpdateVlasnik(BaseModel):
+    ime_vlasnika: str
+    prezime_vlasnika: str
+    srednje_ime: str | None = None
+    datum_rodjenja: date
+    spol: bool

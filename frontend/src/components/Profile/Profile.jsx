@@ -51,7 +51,7 @@ export default function ProfileComponent({type, profile, picture}) {
         for(let i = 0; i <= 6; i++) {
             if(i === currentDay) {
                 calendar.push(
-                    <GridItem>
+                    <GridItem key={i}>
                         <GridItemHeader className="active">
                             {weekdays[i]}
                         </GridItemHeader>
@@ -66,7 +66,7 @@ export default function ProfileComponent({type, profile, picture}) {
                 )
             } else {
                 calendar.push(
-                    <GridItem>
+                    <GridItem key={i}>
                         <GridItemHeader>
                             {weekdays[i]}
                         </GridItemHeader>
@@ -83,7 +83,7 @@ export default function ProfileComponent({type, profile, picture}) {
         }
         for(let i = 1; i <= 5; i++) {
             friendsList.push(
-                <GridItem style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
+                <GridItem key={i} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
                     <Card>
                         <CardImg src={picture} alt="Users Profile Picture"/>
                         <h5>Test Name {i}</h5>
@@ -95,7 +95,7 @@ export default function ProfileComponent({type, profile, picture}) {
     } else {
         for(let i = 1; i <= 5; i++) {
             eventsList.push(
-                <GridItem style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
+                <GridItem key={i} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
                     <Card>
                         <CardImg src={picture} alt="Event Picture" className="event-img"/>
                         <h5>Test Event {i} TODO</h5>
