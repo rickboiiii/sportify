@@ -4,8 +4,7 @@ from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, 
 from backend.models.prijatelj import Prijatelj
 from backend.models.objava import Objava
 from backend.routers.auth import pwd_context
-from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport
-from backend.schema import Oglas, ObjavaSchema, EkipaSchema, EkipaSaClanovimaSchema
+from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema 
 from sqlalchemy import desc, func, asc
 from backend.dependencies import get_db
 

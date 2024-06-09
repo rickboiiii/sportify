@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username
 from backend.dependencies import get_db
-from typing import List
+
 from backend.schemas import IgracProfil, VlasnikProfil, Profili
 
 router = APIRouter()
@@ -16,13 +16,13 @@ async def get_profiles(db: Session = Depends(get_db)) -> Profili:
 
 
 @router.get("/profiles/igraci", tags=["profiles"])
-async def get_profiles_igraci(db: Session = Depends(get_db)) -> List[IgracProfil]:
+async def get_profiles_igraci(db: Session = Depends(get_db)) -> list[IgracProfil]:
     igraci = get_igraci(db)
     return igraci
 
 
 @router.get("/profiles/igraci/id/{id_igraca}", tags=["profiles"])
-async def get_profile_id(id_igraca: int, db: Session = Depends(get_db)) -> IgracProfil:
+async def get_profile_id(id_igraca: int, db: Session = Depends(get_db)) -> IgracProfil | None:
     igrac = get_igraci(db, {"id_igraca": id_igraca, "first": True})
 
     if igrac is None:
@@ -32,7 +32,7 @@ async def get_profile_id(id_igraca: int, db: Session = Depends(get_db)) -> Igrac
 
 
 @router.get("/profiles/igraci/username/{username}", tags=["profiles"])
-async def get_profile_username(username: str, db: Session = Depends(get_db)) -> IgracProfil:
+async def get_profile_username(username: str, db: Session = Depends(get_db)) -> IgracProfil | None:
     igrac = get_igraci(db, {"username": username, "first": True})
 
     if igrac is None:
@@ -42,13 +42,13 @@ async def get_profile_username(username: str, db: Session = Depends(get_db)) -> 
 
 
 @router.get("/profiles/vlasnici", tags=["profiles"])
-async def get_profiles_vlasnici(db: Session = Depends(get_db)) -> List[VlasnikProfil]:
+async def get_profiles_vlasnici(db: Session = Depends(get_db)) -> list[VlasnikProfil]:
     vlasnici = get_vlasnici(db)
     return vlasnici
 
 
 @router.get("/profiles/vlasnici/id/{id_vlasnika}", tags=["profiles"])
-async def get_profile_id(id_vlasnika: int, db: Session = Depends(get_db)) -> VlasnikProfil:
+async def get_profile_id(id_vlasnika: int, db: Session = Depends(get_db)) -> VlasnikProfil | None:
     vlasnik = get_vlasnici(db, {"id_vlasnika": id_vlasnika, "first": True})
 
     if vlasnik is None:
@@ -58,7 +58,7 @@ async def get_profile_id(id_vlasnika: int, db: Session = Depends(get_db)) -> Vla
 
 
 @router.get("/profiles/vlasnici/username/{username}", tags=["profiles"])
-async def get_profile_username(username: str, db: Session = Depends(get_db)) -> VlasnikProfil:
+async def get_profile_username(username: str, db: Session = Depends(get_db)) -> VlasnikProfil | None:
     vlasnik = get_vlasnici(db, {"username": username, "first": True})
 
     if vlasnik is None:
