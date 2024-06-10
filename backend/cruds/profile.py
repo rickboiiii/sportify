@@ -1,8 +1,11 @@
+import hashlib
+
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from backend.models import Igrac, Vlasnik, Korisnik, RecenzijaIgraca, RecenzijaVlasnika
-from backend.schemas import UserUpdateIgrac, UserUpdateVlasnik, RecenzijaIgracaSchema, RecenzijaVlasnikaSchema
+from backend.schemas import UserUpdateIgrac, UserUpdateVlasnik, RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, \
+    UploadPicture
 
 
 def get_all_profiles(db: Session):
@@ -79,6 +82,18 @@ def rate_igrac(db: Session, rating: RecenzijaIgracaSchema, id_igraca: int):
     return rated_igrac
 
 
+def upload_picture_igrac(db: Session, img_data: UploadPicture):
+    db.query(Igrac).filter(Igrac.id_igraca == img_data.id).update({
+        Igrac.picture_data: img_data.picture_data,
+        Igrac.picture_name: hashlib.md5(img_data.picture_name.encode('utf-8')).hexdigest()
+    })
+    db.commit()
+
+    igrac = db.query(Igrac).join(Korisnik).filter(Igrac.id_igraca == img_data.id).first()
+
+    return igrac
+
+
 def get_vlasnici(db: Session, options: dict = None):
     vlasnici = db.query(Vlasnik).join(Korisnik)
 
@@ -126,3 +141,15 @@ def rate_vlasnik(db: Session, rating: RecenzijaVlasnikaSchema, id_vlasnika: int)
     rated_vlasnik = db.query(Vlasnik).join(Korisnik).filter(Vlasnik.id_vlasnika == id_vlasnika).first()
 
     return rated_vlasnik
+
+
+def upload_picture_vlasnik(db: Session, img_data: UploadPicture):
+    db.query(Vlasnik).filter(Vlasnik.id_vlasnika == img_data.id).update({
+        Vlasnik.picture_data: img_data.picture_data,
+        Vlasnik.picture_name: hashlib.md5(img_data.picture_name.encode('utf-8')).hexdigest()
+    })
+    db.commit()
+
+    vlasnik = db.query(Vlasnik).join(Korisnik).filter(Vlasnik.id_vlasnika == img_data.id).first()
+
+    return vlasnik

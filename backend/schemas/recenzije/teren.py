@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 
-class RecenzijaTerena(BaseModel):
+class RecenzijaTerenaSchema(BaseModel):
     komentar: str
     ocjena: float

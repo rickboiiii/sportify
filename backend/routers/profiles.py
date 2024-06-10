@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac
+from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik
 from backend.cruds.profile import rate_vlasnik
 from backend.dependencies import get_db
 
 from backend.schemas import IgracProfil, VlasnikProfil, Profili, UserUpdateIgrac, UserUpdateVlasnik, \
-    RecenzijaIgracaSchema, RecenzijaVlasnikaSchema
+    RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, UploadPicture
 
 router = APIRouter()
 
@@ -53,6 +53,16 @@ async def rate_profile_igraci(id_igraca: int, rating: RecenzijaIgracaSchema, db:
     return igrac
 
 
+@router.put("/profiles/igraci/upload_picture", tags=["profiles"])
+async def upload_picture_igraci(img_data: UploadPicture, db: Session = Depends(get_db)) -> IgracProfil | None:
+    igrac = upload_picture_igrac(db, img_data)
+
+    if igrac is None:
+        raise HTTPException(status_code=404, detail=f"Profile Igraca:{img_data.id} not found")
+
+    return igrac
+
+
 @router.get("/profiles/igraci/username/{username}", tags=["profiles"])
 async def get_profile_username(username: str, db: Session = Depends(get_db)) -> IgracProfil | None:
     igrac = get_igraci(db, {"username": username, "first": True})
@@ -95,6 +105,16 @@ async def rate_profile_vlasnici(id_vlasnika: int, rating: RecenzijaVlasnikaSchem
 
     if vlasnik is None:
         raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{id_vlasnika} not found")
+
+    return vlasnik
+
+
+@router.put("/profiles/vlasnici/upload_picture", tags=["profiles"])
+async def upload_picture_vlasnici(img_data: UploadPicture, db: Session = Depends(get_db)) -> VlasnikProfil | None:
+    vlasnik = upload_picture_vlasnik(db, img_data)
+
+    if vlasnik is None:
+        raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{img_data.id} not found")
 
     return vlasnik
 
