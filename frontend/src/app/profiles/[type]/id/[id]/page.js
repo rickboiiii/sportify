@@ -1,6 +1,4 @@
-
-
-import {Container, ContainerOld} from "@/components/Containers/ContainerStyled";
+import {ContainerOld} from "@/components/Containers/ContainerStyled";
 import ProfileComponent from "@/components/Profile/Profile";
 import axios from "axios";
 import {Suspense} from "react";
@@ -57,7 +55,7 @@ export default async function Profile(props) {
             </ContainerOld>
         );
     } catch (e) {
-        if(e.response.status === 404) {
+        if(e.response !== undefined && e.response.status === 404) {
             return (
                 <Error404 message={e.response.data.detail}/>
             );

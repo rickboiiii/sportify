@@ -1,6 +1,6 @@
 // "use client";
 
-import {Container, ContainerOld} from "@/components/Containers/ContainerStyled";
+import {ContainerOld} from "@/components/Containers/ContainerStyled";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import axios from "axios";
 import {SearchBarContainer, SearchBarResult, SearchBarResultSplitter} from "@/components/SearchBar/SearchBarStyled";
@@ -73,8 +73,10 @@ export default async function Profiles(props) {
             </ContainerOld>
         );
     } catch (e) {
-        return (
-            <Error404 message={e.response.data.detail}/>
-        );
+        if(e.response !== undefined && e.response.status === 404) {
+            return (
+                <Error404 message={e.response.data.detail}/>
+            );
+        }
     }
 }

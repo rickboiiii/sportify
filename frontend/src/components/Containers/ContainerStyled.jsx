@@ -236,3 +236,26 @@ export const GridItemFooter = styled.div`
         color: ${ghostWhite};
     }
 `;
+
+export const LoadingBackground = styled.div`
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
+    i {
+        font-size: 4rem;
+        color: ${lapisLazuli};
+        
+        -webkit-animation: rotating 2s linear infinite;
+        
+        @-webkit-keyframes rotating {
+            from{
+                -webkit-transform: rotate(0deg);
+            }
+            to{
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    }
+`;
