@@ -26,7 +26,7 @@ export default async function Profiles(props) {
             const current = res.data.svi_korisnici[i];
             profilesIgraciList.push(
                 <SearchBarResult key={i}>
-                    <img src={stock_pic} alt="User profile thumbnail picture"/>
+                    <img src={current.picture_data ?? stock_pic} alt="User profile thumbnail picture"/>
                     <h3>
                         {current.ime_igraca + ((current.srednje_ime !== null && current.srednje_ime !== '') ? (' (' + current.srednje_ime + ') ') : ' ') + current.prezime_igraca}
                         {(current.verifikovan) ? (<i className="fas fa-check-circle"></i>) : ''}
@@ -44,7 +44,7 @@ export default async function Profiles(props) {
             const current = res.data.svi_vlasnici[i];
             profilesVlasniciList.push(
                 <SearchBarResult key={i + 10}>
-                    <img src={stock_pic} alt="User profile thumbnail picture"/>
+                    <img src={current.picture_data ?? stock_pic} alt="User profile thumbnail picture"/>
                     <h3>
                         {current.ime_vlasnika + ((current.srednje_ime !== null && current.srednje_ime !== '') ? (' (' + current.srednje_ime + ') ') : ' ') + current.prezime_vlasnika}
                         <br/>

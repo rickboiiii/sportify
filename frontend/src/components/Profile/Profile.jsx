@@ -17,7 +17,8 @@ import {
     ProgressBarForeground
 } from "@/components/Containers/ContainerStyled";
 import {taupeGrayLight} from "@/styles/GlobalStyle";
-import SideBar from "@/components/SideBar/SideBar";
+import UploadComponent from "@/components/Upload/Upload";
+import {useState} from "react";
 
 export default function ProfileComponent({type, profile, picture}) {
 
@@ -33,8 +34,13 @@ export default function ProfileComponent({type, profile, picture}) {
     let calendar = [];
     let friendsList = [];
     let eventsList = [];
+    let upload_url;
+
+    const [profilePicture, setProfilePicture] = useState(picture);
 
     if(type === 'igraci') {
+
+        upload_url = "http://127.0.0.1:8000/profiles/igraci/upload_picture";
 
         const weekdays = [
             "Nedjelja",
@@ -93,6 +99,9 @@ export default function ProfileComponent({type, profile, picture}) {
         }
 
     } else {
+
+        upload_url = "http://127.0.0.1:8000/profiles/vlasnici/upload_picture";
+
         for(let i = 1; i <= 5; i++) {
             eventsList.push(
                 <GridItem key={i} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
@@ -107,11 +116,11 @@ export default function ProfileComponent({type, profile, picture}) {
 
     return (
         <>
-            <SideBar/>
         <Card>
             <CardHeader>
-                <CardColumn>
-                    <CardImg src={picture} alt="Users Profile Picture"/>
+                <CardColumn style={{position: "relative"}}>
+                    <CardImg src={profilePicture} alt="Users Profile Picture" id="userProfileImage"/>
+                    <UploadComponent id={profile.id} upload_url={upload_url} className="position-absolute" stateChanger={setProfilePicture} />
                 </CardColumn>
                 <CardColumn>
                     <h3 style={{marginBottom: 0}}>

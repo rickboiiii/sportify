@@ -18,39 +18,41 @@ export default async function Profile(props) {
 
         if(params.type === 'igraci') {
             profile = {
-                 first_name: res.data.ime_igraca,
-                 middle_name: res.data.srednje_ime,
-                 last_name: res.data.prezime_igraca,
-                 date_of_birth: res.data.datum_rodjenja,
-                 gender: res.data.spol,
-                 height: res.data.visina,
-                 weight: res.data.tezina,
-                 elo: res.data.nivo_sposobnosti,
-                 max_distance: res.data.max_dozvoljena_udaljenost,
-                 verified: res.data.verifikovan,
-                 stars: res.data.recenzija,
-                 id: res.data.id_igraca,
-                 email: res.data.korisnici.email,
-                 username: res.data.korisnici.korisnicko_ime
+                first_name: res.data.ime_igraca,
+                middle_name: res.data.srednje_ime,
+                last_name: res.data.prezime_igraca,
+                date_of_birth: res.data.datum_rodjenja,
+                gender: res.data.spol,
+                height: res.data.visina,
+                weight: res.data.tezina,
+                elo: res.data.nivo_sposobnosti,
+                max_distance: res.data.max_dozvoljena_udaljenost,
+                verified: res.data.verifikovan,
+                stars: res.data.recenzija,
+                picture: res.data.picture_data,
+                id: res.data.id_igraca,
+                email: res.data.korisnici.email,
+                username: res.data.korisnici.korisnicko_ime
             };
         } else if(params.type === 'vlasnici') {
             profile = {
-                 first_name: res.data.ime_vlasnika,
-                 middle_name: res.data.srednje_ime,
-                 last_name: res.data.prezime_vlasnika,
-                 date_of_birth: res.data.datum_rodjenja,
-                 gender: res.data.spol,
-                 stars: res.data.recenzija,
-                 id: res.data.id_vlasnika,
-                 email: res.data.korisnici.email,
-                 username: res.data.korisnici.korisnicko_ime
+                first_name: res.data.ime_vlasnika,
+                middle_name: res.data.srednje_ime,
+                last_name: res.data.prezime_vlasnika,
+                date_of_birth: res.data.datum_rodjenja,
+                gender: res.data.spol,
+                stars: res.data.recenzija,
+                picture: res.data.picture_data,
+                id: res.data.id_vlasnika,
+                email: res.data.korisnici.email,
+                username: res.data.korisnici.korisnicko_ime
             };
         }
 
         return (
             <ContainerOld>
                 <Suspense fallback={<Loading />}>
-                    <ProfileComponent type={params.type} profile={profile} picture={stock_pic} />
+                    <ProfileComponent type={params.type} profile={profile} picture={profile.picture ?? stock_pic} />
                 </Suspense>
             </ContainerOld>
         );
