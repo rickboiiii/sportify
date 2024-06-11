@@ -23,9 +23,10 @@ const Message = styled.h1`
 // Dinamički učitaj MapComponent bez SSR-a
 const MapComponent = dynamic(() => import('@/components/Map/map'), { ssr: false });
 
-async function sendTerenDetails(terenDetails) {
-  try {
-    const response = await axios.post('http://localhost:8000/kreiraj_teren', terenDetails);
+//terenDetails
+async function sendTerenDetails(formData) {
+    try {
+    const response = await axios.post('http://localhost:8000/kreiraj_teren', formData); //terenDetails
     return response.data;
   } catch (error) {
     console.error('Error:', error);

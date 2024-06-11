@@ -13,3 +13,5 @@ from .sport import Sifarnik_sportova
 from .turnir import Turnir
 from .uloga import Uloga
 from .vlasnik import Vlasnik
+from .meet_and_greet import MeetAndGreet
+from .lost_and_found import LostAndFound

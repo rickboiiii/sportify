@@ -38,7 +38,7 @@ async def napravi_event(event: Event, db: Session = Depends(get_db)):
     db.refresh(novi_termin)
     return novi_termin
 
-#par je specijalan slucaj, max i min broj igraca je 1
+
 @router.post("/kreiranje_para")
 async def kreiraj_par(naziv_termina: str, opis_termina: str, lokacija: int, pocetak_termina: datetime, broj_slobodnih_mjesta: int, sport: int,nivo_sposobnosti: int):
     db_par = Event_u_pripremi(naziv_termina,opis_termina,lokacija,pocetak_termina,broj_slobodnih_mjesta,sport, nivo_sposobnosti)
@@ -47,7 +47,7 @@ async def kreiraj_par(naziv_termina: str, opis_termina: str, lokacija: int, poce
     get_db.refresh(db_par)
     return db_par
 
-class AdresaBase(BaseModel):
+class Adresa(BaseModel):
     naziv_ulice: str
     postanski_broj: int
     grad: str
@@ -61,7 +61,7 @@ class AdresaCreate(Adresa):
 
 
 @router.post("/spremi_lokaciju")
-async def spremi_lokaciju(adresa: AdresaBase, db: Session = Depends(get_db)):
+async def spremi_lokaciju(adresa: Adresa, db: Session = Depends(get_db)):
     nova_adresa = AdresaCreate(naziv_ulice=adresa.naziv_ulice, postanski_broj=adresa.postanski_broj, grad=adresa.grad, drzava=adresa.drzava)  
     db.add(nova_adresa)
     db.commit()
@@ -69,7 +69,7 @@ async def spremi_lokaciju(adresa: AdresaBase, db: Session = Depends(get_db)):
     return nova_adresa
 
 
-class LokacijaBase(BaseModel):
+class Lokacija(BaseModel):
     naziv_terena: str
     opis_terena: str
     id_terena: int
@@ -80,11 +80,11 @@ class LokacijaBase(BaseModel):
     class Config:
         form_attributes = True
 
-class LokacijaCreate(LokacijaBase):
+class LokacijaCreate(Lokacija):
     pass
 
 @router.post("/kreiraj_teren")
-async def kreiraj_teren(teren: LokacijaBase, db: Session = Depends(get_db)):
+async def kreiraj_teren(teren: Lokacija, db: Session = Depends(get_db)):
     nova_lokacija = Lokacija(naziv_terena=teren.naziv_terena, opis_terena=teren.opis_terena, id_lokacije=teren.id_terena, recenzija="2", cijena_po_terminu=teren.cijena_po_terminu)  
     db.add(nova_lokacija)
     db.commit()
@@ -92,21 +92,20 @@ async def kreiraj_teren(teren: LokacijaBase, db: Session = Depends(get_db)):
     return nova_lokacija
 
 #rute za meet&greet i lost&found
-class MeetAndGreetBase(BaseModel):
+class MeetAndGreet(BaseModel):
     kapacitet: int
     id_sporta: int
     id_lokacije: int
     datum_odrzavanja: datetime
     naziv_okupljanja: str
+    opis_okupljanja: str
 
     class Config:
         form_attributes = True
 
-class MeetAndGreetCreate(MeetAndGreetBase):
+class MeetAndGreetCreate(MeetAndGreet):
     pass
 
-class MeetAndGreetCreate(MeetAndGreetBase):
-    pass
 @router.post("/meet_and_greet")
 async def meet_and_greet(okupljanje: MeetAndGreetCreate, db: Session = Depends(get_db)):
     novi_meet = MeetAndGreet(
@@ -122,7 +121,7 @@ async def meet_and_greet(okupljanje: MeetAndGreetCreate, db: Session = Depends(g
     db.refresh(novi_meet)
     return novi_meet
 
-class LostAndFoundBase(BaseModel):
+class LostAndFound(BaseModel):
     tag: str
     opis: str
     id_lokacije: int
@@ -131,12 +130,12 @@ class LostAndFoundBase(BaseModel):
     class Config:
         form_attributes = True
 
-class LostAndFoundCreate(LostAndFoundBase):
+class LostAndFoundCreate(LostAndFound):
     pass
 
 @router.post("/lost_and_found")
-async def lost_and_found(predmet: LostAndFoundBase, db: Session = Depends(get_db)):
-    novi_predmet = Lokacija(tag=predmet.tag, opis=predmet.opis, id_lokacije=predmet.id_lokacije, slika= predmet.slika)  
+async def lost_and_found(predmet: LostAndFoundCreate, db: Session = Depends(get_db)):
+    novi_predmet = LostAndFound(tag=predmet.tag, opis=predmet.opis, id_lokacije=predmet.id_lokacije, slika= predmet.slika)  
     db.add(novi_predmet)
     db.commit()
     db.refresh(novi_predmet)

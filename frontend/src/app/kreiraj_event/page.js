@@ -17,10 +17,10 @@ const Message = styled.h1`
   margin-top: 2rem;
 `;
 
-async function sendEventDetails(eventDetails) {
+async function sendEventDetails(formData) { //eventDetails
   try {
 
-    axios.post('http://localhost:8000/oglas_eventa', eventDetails)
+    axios.post('http://localhost:8000/oglas_eventa', formData)
       .then(function (response) {
         console.log(response);
       })
@@ -91,6 +91,9 @@ export default function Home() {
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
   const [formValues, setFormValues] = useState([]);
+  const [sport, setSport]=useState([])
+  const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
+  const [prikazSportova, setPrikazSportova]=useState([])
  
   const handlePress = () => {
     let spol = parseInt(document.getElementById('id1').value);

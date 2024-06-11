@@ -16,3 +16,5 @@ class MeetAndGreet(Base):
 
     sport = relationship("Sport", back_populates="meet_and_greet_eventi")
     lokacija = relationship("Lokacije", back_populates="meet_and_greet_eventi") 
+
+

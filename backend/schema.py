@@ -211,15 +211,14 @@ class RecenzijaTerena(BaseModel):
     komentar: str
     ocjena: float
 
-
-class MeetAndGreetBase(BaseModel):
+class MeetAndGreet(BaseModel):
     kapacitet: int
     id_sporta: int
     id_lokacije: int
     datum_odrzavanja: datetime
     naziv_okupljanja: str
 
-class LostAndFoundBase(BaseModel):
+class LostAndFound(BaseModel):
     tag: str
     opis: str
     id_lokacije: int
