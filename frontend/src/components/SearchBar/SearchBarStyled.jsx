@@ -1,7 +1,16 @@
 "use client";
 
 import styled from "styled-components";
-import {ghostWhite, lapisLazuli, oxion, oxionLight, pear, taupeGray, taupeGrayLight} from "@/styles/GlobalStyle";
+import {
+    ghostWhite,
+    lapisLazuli,
+    lapisLazuliLight,
+    oxion,
+    oxionLight,
+    pear, pearLight,
+    taupeGray,
+    taupeGrayLight
+} from "@/styles/GlobalStyle";
 
 export const SearchBarStyled = styled.div`
     display: flex;
@@ -12,11 +21,6 @@ export const SearchBarStyled = styled.div`
     padding: 0.5rem 1rem;
     border: 0;
     border-radius: 1.25rem;
-
-    form {
-        display: flex;
-        flex: 1;
-    }
 
     input {
         flex: 1;
@@ -88,6 +92,7 @@ export const SearchBarStyled2 = styled.div`
         background: transparent;
         border: 0;
         color: ${taupeGrayLight};
+        cursor: pointer;
 
         i {
             font-size: 1rem;
@@ -100,10 +105,10 @@ export const SearchBarStyled2 = styled.div`
 `;
 
 export const SearchBarContainer = styled.div`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50%;
 `;
 
 export const SearchBarResult = styled.div`
@@ -192,4 +197,16 @@ export const SearchBarResultSplitter = styled.div`
     h2 {
         margin: 0 0.25rem;
     }
+`;
+
+export const SearchBarResultContainer = styled.div`
+    position: absolute;
+    top: 4rem;
+    left: -4rem;
+    display: none;
+    background: ${lapisLazuliLight};
+    border: 1px solid ${pearLight};
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 24rem;
 `;
