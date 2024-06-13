@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends
 from .config import Settings
 from .dependencies import get_db
 
-from .routers import profiles, auth, forms, eventi, register_quiz_teams, filtriranje
+from .routers import profiles, auth, forms, eventi, register_quiz_teams, filtriranje, chat, users
 
 from .database import Base, engine
 
@@ -32,22 +32,14 @@ def start_application():
     app.include_router(register_quiz_teams.router)
     app.include_router(eventi.router)
     app.include_router(filtriranje.router)
+    app.include_router(chat.router)
+    app.include_router(users.router)
 
     return app
 
 
 app = start_application()
 
-# CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # React dev server URL
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-app.include_router(eventi.router)
 
 @lru_cache
 def get_settings():

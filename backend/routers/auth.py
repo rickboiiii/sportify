@@ -18,6 +18,7 @@ settings = Settings()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+
 def authenticate_user(korisnicko_ime: str, sifra: str, db: Session):
     user = db.query(Korisnik).filter(Korisnik.korisnicko_ime == korisnicko_ime).first()
     if not user:
@@ -25,6 +26,7 @@ def authenticate_user(korisnicko_ime: str, sifra: str, db: Session):
     if not pwd_context.verify(sifra, user.sifra):
         return False
     return user
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -36,6 +38,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, settings.jwt_secret_key, algorithm=settings.jwt_algorithm)
     return encoded_jwt
 
+
 def verify_token(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm])
@@ -45,6 +48,7 @@ def verify_token(token: str = Depends(oauth2_scheme)):
         return payload
     except JWTError:
         raise HTTPException(status_code=403, detail="Token is invalid or expired")
+
 
 @router.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

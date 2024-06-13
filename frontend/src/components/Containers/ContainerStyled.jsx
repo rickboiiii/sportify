@@ -12,9 +12,16 @@ export const Container = styled.div`
 
 export const ContainerOld = styled.div`
     display: flex;
+    width: 100%;
     justify-content: center;
     margin: 2rem 0;
     padding: 0 4rem;
+`;
+export const ContainerSearch = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const Row = styled.div`

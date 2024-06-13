@@ -4,7 +4,6 @@ from typing_extensions import deprecated
 
 from .database import Base
 
-
 @deprecated('use class inside models/korisnik.py')
 class Korisnik(Base):
     __tablename__ = "korisnici"
@@ -283,11 +282,25 @@ class RecenzijaTerena(Base):
     ocjena = Column(Float)  
     tereni= relationship("Lokacija", back_populates="recenzija_terena")           
 
+@deprecated('use class inside models/chat.py')
+class Chat(Base):
+    __tablename__ = "chats"
 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    from_user_id = Column(Integer, ForeignKey("korisnici.id_korisnika"))
+    to_user_id = Column(Integer, ForeignKey("korisnici.id_korisnika"))
 
+    from_user = relationship("Korisnik", foreign_keys=[from_user_id])
+    to_user = relationship("Korisnik", foreign_keys=[to_user_id])
+    messages = relationship("Message", back_populates="chat")
 
-     
+@deprecated('use class inside models/message.py')
+class Message(Base):
+    __tablename__ = "messages"
 
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_id = Column(Integer, ForeignKey("chats.id"))
+    message = Column(Text, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
-
-
+    chat = relationship("Chat", back_populates="messages")
