@@ -36,7 +36,7 @@ export const GlobalStyle = styled.body`
     font-family: "Saira Condensed", sans-serif;
     font-weight: 100;
     font-style: normal;
-    background: ${ghostWhite};
+    background: ${lapisLazuli};
     margin: 0;
     padding: 0;
 `;

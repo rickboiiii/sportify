@@ -36,8 +36,8 @@ const SideBar = () => {
                     <p><Link href={'/'}>Poruke</Link></p>
                 </div>
                 <div>
-                    <Link href={'/'}><FontAwesomeIcon icon={faPuzzlePiece} className="icon"/></Link>
-                    <p><Link href={'/'}>Igre</Link></p>
+                    <Link href={'/xo'}><FontAwesomeIcon icon={faPuzzlePiece} className="icon"/></Link>
+                    <p><Link href={'/xo'}>Igre</Link></p>
                 </div>
                 <div>
                     <Link href={'/'}><FontAwesomeIcon icon={faUserPlus} className="icon"/></Link>

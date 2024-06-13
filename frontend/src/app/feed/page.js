@@ -9,6 +9,7 @@ import PostCard from "@/components/PostCard/PostCard";
 import Events from "@/components/Events/Events";
 import Tabela from "@/components/Tables/Tabela";
 import SSBar from "@/components/ScoresAndSuggestionsBar/SSBar";
+import Dropdown from "@/components/DropdownFilter/Dropdown";
 
 const Page = ({posts}) => {
     const handleLike = (postId) => {
@@ -25,6 +26,7 @@ const Page = ({posts}) => {
              <div className="content-div">
                  <div className="main-content">
                     <StatusBar/>
+                     <Dropdown/>
                     <Events/>
                  </div>
                  <div className="ssbar-container">

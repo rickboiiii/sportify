@@ -12,7 +12,7 @@ from typing_extensions import deprecated
 class KorisnikSchema(BaseModel):
     email: str
     korisnicko_ime: str
-    uloga:int
+    uloga: int
 
 
 @deprecated('use class inside schemas/sport.py')
@@ -34,6 +34,7 @@ class EkipaSport(BaseModel):
 class Korisnik(KorisnikSchema):
     sifra: str
 
+
 class Prijatelj(BaseModel):
     id_prijateljstva: int
     id_prijatelja1: int
@@ -44,14 +45,14 @@ class ObjavaSchema(BaseModel):
     id_korisnika:int
     tekst_objave:str
     #slika
-    
 
 
+@deprecated('use class inside schemas/igrac.py')
 class Igrac(BaseModel):
-    id_korisnika:int
+    id_korisnika: int
     ime_igraca: str
     prezime_igraca: str
-    srednje_ime: str 
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     visina: int
@@ -60,13 +61,13 @@ class Igrac(BaseModel):
     max_dozvoljena_udaljenost: int
     verifikovan: bool
     recenzija: float
-    sport:int
+    sport: int
 
 
 @deprecated('use class inside schemas/profil.py')
 class IgracProfil(Igrac):
     id_igraca: int
-    korisnici: KorisnikSchema 
+    korisnici: KorisnikSchema | None = None
 
     class Config:
         from_attributes: True
@@ -74,10 +75,10 @@ class IgracProfil(Igrac):
 
 @deprecated('use class inside schemas/vlasnik.py')
 class Vlasnik(BaseModel):
-    id_korisnika:int
+    id_korisnika: int
     ime_vlasnika: str
     prezime_vlasnika: str
-    srednje_ime: str 
+    srednje_ime: str | None = None
     datum_rodjenja: date
     spol: bool
     recenzija: float
@@ -86,7 +87,7 @@ class Vlasnik(BaseModel):
 @deprecated('use class inside schemas/profil.py')
 class VlasnikProfil(Vlasnik):
     id_vlasnika: int
-    # korisnici: KorisnikSchema 
+    korisnici: KorisnikSchema | None = None
 
     class Config:
         from_attributes = True
@@ -94,21 +95,24 @@ class VlasnikProfil(Vlasnik):
 
 @deprecated('use class inside schemas/profil.py')
 class Profili(BaseModel):
-    # svi_korisnici: list[IgracProfil]
-    # svi_vlasnici: list[VlasnikProfil]
+    svi_korisnici: list[IgracProfil]
+    svi_vlasnici: list[VlasnikProfil]
 
     class Config:
         from_attributes = True
+
 
 class Uloga(BaseModel):
     naziv_uloge: str
     id_korisnika: int
 
+
 class Lokacija(BaseModel):
-    longituda:float
-    latituda:float
+    longituda: float
+    latituda: float
     recenzija: float
     cijena_po_terminu: Optional[float]
+
 
 class Adresa(BaseModel):
     naziv_ulice: str
@@ -116,10 +120,11 @@ class Adresa(BaseModel):
     grad: str
     drzava: str
 
+
 class Slobodni_Event(BaseModel):
     pocetak_termina: datetime
     kraj_termina: datetime
-    
+
 
 class Event_u_pripremi(BaseModel):
     naziv_termina: Optional[str]
@@ -132,16 +137,19 @@ class Event_u_pripremi(BaseModel):
     maksimalan_broj_igraca: int
     broj_slobodnih_mjesta: int
     popunjen: bool
-    id_lokacije: Optional[int]=None
+    id_lokacije: Optional[int] = None
+
 
 class EkipaSchema(BaseModel):
     naziv_ekipe: str
     id_sporta: int
     id_kapitena:int
 
+
 class EkipaSaClanovimaSchema(BaseModel):
       id_ekipe:int
-      igraci:List[int] 
+      igraci:List[int]
+
 
 class Turnir(BaseModel):
     naziv_turnira: str
@@ -150,10 +158,12 @@ class Turnir(BaseModel):
     id_sporta: int
     id_lokacije: int
 
+
 class Veza_igrac_ekipa(BaseModel):
     id_veze: int
     id_ekipe: int
     id_igraca: int
+
 
 class Sifarnik_sportova(BaseModel):
     naziv_sporta: str
@@ -166,11 +176,12 @@ class Veza_igrac_termin_u_pripremi(BaseModel):
     id_igraca: int
     id_eventa: int
 
+
 class Veza_ekipa_turnir(BaseModel):
-    id_veze:int
-    id_ekipe:int
-    id_turnira:int 
-    
+    id_veze: int
+    id_ekipe: int
+    id_turnira: int
+
 
 class Veza_lokacija_sport(BaseModel):
     id_veze: int
@@ -188,14 +199,26 @@ class RecenzijaVlasnika(BaseModel):
     komentar: str
     ocjena: float
 
+
 class RecenzijaIgraca(BaseModel):
     komentar: str
     ocjena: float
+
 
 class RecenzijaTerena(BaseModel):
     komentar: str
     ocjena: float
 
 
-    
-    
+class Oglas(BaseModel):
+    ime_igraca: str
+    prezime_igraca: str
+    srednje_ime: Optional[str]
+    naziv_sporta: str
+    longituda: float
+    latituda: float
+    naziv_termina: str
+    opis_termina: str
+    pocetak_termina: datetime
+    broj_slobodnih_mjesta: int
+

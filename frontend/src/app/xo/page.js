@@ -1,6 +1,7 @@
 "use client"
 import React from 'react';
-import Game from '@/components/Tic tac toe/Game';
+import Game from '@/components/TicTacToe/Game';
+import "./XO.css"
 
 const Igrica = () => {
   return (

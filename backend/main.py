@@ -3,7 +3,7 @@ from fastapi import FastAPI, Depends
 from .config import Settings
 from .dependencies import get_db
 
-from .routers import profiles, auth, forms, eventi, register_quiz_teams
+from .routers import profiles, auth, forms, eventi, register_quiz_teams, filtriranje
 
 from .database import Base, engine
 
@@ -30,7 +30,8 @@ def start_application():
     app.include_router(auth.router)
     app.include_router(forms.router)
     app.include_router(register_quiz_teams.router)
-
+    app.include_router(eventi.router)
+    app.include_router(filtriranje.router)
 
     return app
 
