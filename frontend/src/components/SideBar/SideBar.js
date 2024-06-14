@@ -14,18 +14,39 @@ import Image from "next/image";
 
 import logo from "@/images/sportify_logo2.png"
 import Link from "next/link";
-import {usePathname} from "next/navigation";
+import {usePathname, useParams} from "next/navigation";
 
 const SideBar = () => {
     const pathname = usePathname();
+    const params = useParams();
+
+    const isFeedRoute = /^\/feed/.test(pathname);
+    const isProfilesRoute = /^\/profiles/.test(pathname);
 
     return (
         <>
             <div className="sideBar">
                 <Image src={logo} alt={"logo"} className={"logo"}/>
                 <div>
-                    {pathname === '/feed' ? <Link href={"/profiles"} passHref><FontAwesomeIcon icon={faUser} className="icon"/></Link> : pathname === '/profiles' ? <Link href={"/feed"} passHref><FontAwesomeIcon icon={faHouse} className="icon"/></Link> : null}
-                    {pathname === '/feed' ? <p><Link href={"/profiles"} passHref>Profil</Link></p> : pathname === '/profiles' ? <p><Link href={"/feed"} passHref>Feed</Link></p> : null}
+                    {isFeedRoute ? (
+                        <>
+                            <Link href="/profiles" passHref>
+                                <FontAwesomeIcon icon={faUser} className="icon"/>
+                            </Link>
+                            <p>
+                                <Link href="/profiles" passHref>Profil</Link>
+                            </p>
+                        </>
+                    ) : isProfilesRoute ? (
+                        <>
+                            <Link href={`/feed/${params.username}`} passHref>
+                                <FontAwesomeIcon icon={faHouse} className="icon"/>
+                            </Link>
+                            <p>
+                                <Link href={`/feed/${params.username}`} passHref>Feed</Link>
+                            </p>
+                        </>
+                    ) : null}
                 </div>
                 <div>
                     <Link href={'/'}><FontAwesomeIcon icon={faMagnifyingGlass} className="icon"/></Link>

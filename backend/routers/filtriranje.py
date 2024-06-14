@@ -22,31 +22,9 @@ async def eventi(id_sporta: int, nivo: str, spol: int, db: Session = Depends(get
         spol_bool = False
     elif (spol == 1):
         spol_bool = True
-    # if (spol_bool!=2):
-    #     if(nivo!="svi"):
-    #         if(id_sporta!=0):
-    #             result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.potreban_nivo_sposobnosti==nivo, Event_u_pripremi.id_sporta==id_sporta)
-    #         else:
-    #              result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
 
-    #     else:
-    #         if(id_sporta!=0):
-    #             result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool, Event_u_pripremi.id_sporta==id_sporta)
-    #         else:
-    #              result=db.query(Event_u_pripremi).filter(Event_u_pripremi.spol==spol_bool)
-    # else:
-    #     if(nivo!="svi"):
-    #         if(id_sporta!=0):
-    #             result=db.query(Event_u_pripremi).filter( Event_u_pripremi.potreban_nivo_sposobnosti==nivo, Event_u_pripremi.id_sporta==id_sporta)
-    #         else:
-    #              result=db.query(Event_u_pripremi).filter( Event_u_pripremi.potreban_nivo_sposobnosti==nivo)
-
-    #     else:
-    #         if(id_sporta!=0):
-    #             result=db.query(Event_u_pripremi).filter( Event_u_pripremi.id_sporta==id_sporta)
-    #         else:
-    #              result=db.query(Event_u_pripremi)
     result = db.query(Event_u_pripremi)
+
     if (id_sporta != 0):
         result = result.filter(Event_u_pripremi.id_sporta == id_sporta)
     if (nivo != "svi"):

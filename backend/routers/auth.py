@@ -6,7 +6,8 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from typing import Optional
 
-from backend.config import Settings, get_database_url
+
+from backend.config import Settings
 from backend.dependencies import get_db
 from backend.models import Korisnik
 
@@ -59,6 +60,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
         data={"sub": user.korisnicko_ime}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
 
 @router.get("/verify-token/{token}")
 async def verify_user_token(token: str):

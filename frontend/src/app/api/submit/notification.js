@@ -13,18 +13,13 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-export async function POST(req, res) {
-    //Get the Form Data
-    const Formdata = await req.formData();
-    const name = Formdata.get('name');
-    const email = Formdata.get('email');
-    const message = Formdata.get('message');
+export async function sendNotification() {
 
     const info = await transporter.sendMail({
         from: "sportify@demomailtrap.com",
-        to: "alickovicnejra8@gmail.com, besic.e17@gmail.com, asasad204@gmail.com, matej.panic.2002@gmail.com, riadpap@live.com",
-        subject: `Message from ${name} (${email})`,
-        text: `${message}`
+        to: "alickovicnejra8@gmail.com",
+        subject: "Poruka",
+        text: "Korisnik želi da pristupi terminu"
     });
 
     console.log("Message sent: %s", info.messageId);
@@ -32,4 +27,3 @@ export async function POST(req, res) {
     //Response
     return NextResponse.json({ name, email, message })
 }
-

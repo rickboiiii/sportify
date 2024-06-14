@@ -1,9 +1,6 @@
 'use client';
 import React, {useState} from 'react';
 
-import {redirect} from "next/navigation";
-import {POST} from "@/app/api/submit/route";
-
 const ContactForm = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -26,8 +23,7 @@ const ContactForm = () => {
               setName('')
               setEmail('')
               setMessage('')
-              setStatusMessage('Email je uspješno poslan. Hvala Vam na poruci :)');
-          }
+              setStatusMessage('Email je uspješno poslan. Hvala Vam na poruci :)');}
           else {
               setStatusMessage('Poruka nije poslana.');
           }
@@ -40,7 +36,7 @@ const ContactForm = () => {
 
     return (
         <div className={"message-box"}>
-            <form onSubmit={handleSubmit} method={POST}>
+            <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     id="full-name"
