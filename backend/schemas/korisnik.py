@@ -6,6 +6,7 @@ class KorisnikSchema(BaseModel):
     korisnicko_ime: str
 
 
+
 class Korisnik(KorisnikSchema):
     sifra: str
 

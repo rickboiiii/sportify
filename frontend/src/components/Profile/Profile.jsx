@@ -10,6 +10,7 @@ import {
     CardSpan, ProgressBarBackground, ProgressBarContainer, ProgressBarForeground
 } from "@/components/Containers/ContainerStyled";
 import {taupeGrayLight} from "@/styles/GlobalStyle";
+import SideBar from "@/components/SideBar/SideBar";
 
 export default function ProfileComponent({type, profile, picture}) {
 
@@ -24,6 +25,7 @@ export default function ProfileComponent({type, profile, picture}) {
 
     return (
         <>
+            <SideBar/>
         <Card>
                 <CardHeader>
                     <CardColumn>

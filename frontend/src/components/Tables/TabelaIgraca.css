@@ -1,0 +1,38 @@
+.scoreboard {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.scoreboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.scoreboard-header th {
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    border-bottom: 2px solid #555;
+}
+
+.scoreboard-body th, .scoreboard-body td {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #555;
+}
+
+.scoreboard-body tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+.scoreboard-body tr:hover {
+    background-color: #555;
+}

@@ -1,0 +1,81 @@
+@import "../styles.css";
+
+h1 {
+    color: #393E44;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+    margin-top: 5%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    justify-content: center;
+}
+
+
+.form-control {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form-control label {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: var(--oxion);
+     font-weight: 350;
+}
+
+.form-control select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid var(--taupe-gray);
+    border-radius: 5px;
+    background-color: var(--ghost-white);
+    color: var(--oxion);
+    font-family: var(--second-font);
+}
+
+
+.scoreboard {
+    background-color: var(--ghost-white);
+    color: var(--oxion);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.scoreboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.scoreboard-header th {
+    background-color: var(--lapis-lazuli);
+    color: var(--ghost-white);
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    border-bottom: 2px solid var(--pear);
+}
+
+.scoreboard-body th,
+.scoreboard-body td {
+    background-color: var(--ghost-white);
+    color: var(--oxion);
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--taupe-gray);
+}
+
+.scoreboard-body tr:nth-child(even) {
+    background-color: var(--taupe-gray);
+}
+
+.scoreboard-body tr:hover {
+    background-color: var(--lapis-lazuli);
+}

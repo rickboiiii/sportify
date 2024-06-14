@@ -4,6 +4,7 @@ from backend.models import Korisnik
 from backend.routers.auth import pwd_context
 from .seeder import Seeder
 
+extend_existing=True
 
 def korisnici_seeder():
     class SeederKorisnici(Seeder):
@@ -18,7 +19,7 @@ def korisnici_seeder():
     warnings.filterwarnings('ignore')
     default_user_password = pwd_context.hash('password')
     warnings.resetwarnings()
-
+    
     data = [
         {
             'email': 'root@mail.com',

@@ -1,5 +1,6 @@
 
 import {GlobalStyle} from "@/styles/GlobalStyle";
+import Loader from "@/components/Loader/Loader";
 
 export default function RootLayout({ children }) {
   return (
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
       <link href="/fa-icons/css/fontawesome.css" rel="stylesheet"/>
       <link href="/fa-icons/css/all.css" rel="stylesheet"/>
     </head>
-    <GlobalStyle>{children}</GlobalStyle>
+      <Loader/>
+      <GlobalStyle>
+        {children}
+      </GlobalStyle>
     </html>
   );
 }

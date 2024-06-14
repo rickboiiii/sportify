@@ -6,6 +6,10 @@ import SideBar from "@/components/SideBar/SideBar";
 import StatusBar from "@/components/StatusBar/StatusBar";
 import React from "react";
 import PostCard from "@/components/PostCard/PostCard";
+import Events from "@/components/Events/Events";
+import Tabela from "@/components/Tables/Tabela";
+import SSBar from "@/components/ScoresAndSuggestionsBar/SSBar";
+import Dropdown from "@/components/DropdownFilter/Dropdown";
 
 const Page = ({posts}) => {
     const handleLike = (postId) => {
@@ -17,10 +21,19 @@ const Page = ({posts}) => {
     };
 
      return (
-         <div className={"feed"}>
+         <div className="feed">
             <SideBar/>
-            <StatusBar/>
-             {posts.map(post => (
+             <div className="content-div">
+                 <div className="main-content">
+                    <StatusBar/>
+                     <Dropdown/>
+                    <Events/>
+                 </div>
+                 <div className="ssbar-container">
+                    <SSBar/>
+                 </div>
+             </div>
+             {/*{posts.map(post => (
                 <PostCard
                     key={post.id}
                     userImage={post.userImage}
@@ -30,7 +43,7 @@ const Page = ({posts}) => {
                     onLike={() => handleLike(post.id)}
                     onComment={() => handleComment(post.id)}
                 />
-            ))}
+            ))}*/}
          </div>
      )
  }

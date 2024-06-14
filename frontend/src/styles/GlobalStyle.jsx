@@ -39,5 +39,6 @@ export const GlobalStyle = styled.body`
     background: ${lapisLazuli};
     margin: 0;
     padding: 0;
-    
 `;
+
+

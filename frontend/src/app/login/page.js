@@ -150,7 +150,7 @@ function LogIn() {
 
       if (response.ok) {
         const data = await response.json();
-        router.push('/');
+        router.push(`/feed/${username}`);
       } else {
         const errorData = await response.json();
         setError(errorData.detail || 'Authentication failed!');
