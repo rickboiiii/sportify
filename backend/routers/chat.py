@@ -1,11 +1,9 @@
-#chat.py
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, HTTPException, Request, Query
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 from typing import List, Dict
 from collections import defaultdict
-import os
 import logging
 from backend.config import Settings
 from backend.dependencies import get_db
@@ -27,11 +25,9 @@ class ConnectionManager:
 
     async def connect(self, websocket: WebSocket, id_igraca: int):
         await websocket.accept()
-        # Convert id_igraca to string when using it as a key
         self.active_connections[str(id_igraca)] = websocket
 
     def disconnect(self, id_igraca: int):
-        # Convert id_igraca to string when using it as a key
         id_str = str(id_igraca)
         if id_str in self.active_connections:
             del self.active_connections[id_str]
@@ -50,7 +46,6 @@ class ConnectionManager:
 
     async def save_message(self, from_user: int, to_user: int, message: str):
         db=next(get_db())
-        # Check if chat exists between users
         chat = (
             db.query(Chat)
             .filter(
@@ -59,15 +54,12 @@ class ConnectionManager:
             )
             .first()
         )
-        
-        # If chat doesn't exist, create it
         if not chat:
             chat = Chat(id_user1=from_user, id_user2=to_user)
             db.add(chat)
             db.commit()
             db.refresh(chat)
 
-        # Create message and associate it with the chat
         db_message = Message(id_chata=chat.id_chata, from_user_id=from_user, to_user_id=to_user,message=message)
         db.add(db_message)
         db.commit()
@@ -78,7 +70,6 @@ manager = ConnectionManager()
 def get_user_id(token: str, db: Session):
     try:
         payload = jwt.decode(token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm])
-        logging.info(payload)
         korisnicko_ime: str = payload.get("sub")
         if korisnicko_ime is None:
             raise HTTPException(status_code=401, detail="Invalid token")
@@ -105,7 +96,6 @@ async def websocket_endpoint(websocket: WebSocket):
             raise HTTPException(status_code=401, detail="Missing token")
        
         id_igraca = await get_id(token)
-        logging.info(f"nesto: {id_igraca}")
         if not id_igraca:
             await websocket.close(code=1008)
             return
@@ -138,7 +128,6 @@ async def websocket_endpoint(websocket: WebSocket):
 @router.post("/messages")
 async def save_message(request: Request, db: Session = Depends(get_db)):
     data = await request.json()
-    logging.info(f"Received message data: {data}")
     from_user = data.get("from")
     to_user = data.get("to")
     message = data.get("message")
@@ -147,7 +136,6 @@ async def save_message(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Invalid message data")
     
     try:
-        # Use get_db() to obtain the database session
         await manager.save_message(from_user, to_user, message)
         return {"status": "Message saved"}
     except Exception as error:
@@ -157,7 +145,6 @@ async def save_message(request: Request, db: Session = Depends(get_db)):
 @router.get("/messages", response_model=List[MessageSchema], tags=["messages"])
 async def get_messages(id_user1: int = Query(...), id_user2: int = Query(...), db: Session = Depends(get_db)):
     try:
-        logging.info(id_user1, id_user2)
         messages = db.query(Message).filter(
             ((Message.from_user_id == id_user1) & (Message.to_user_id == id_user2)) |
             ((Message.from_user_id == id_user2) & (Message.to_user_id == id_user1))
@@ -177,7 +164,6 @@ async def get_chats_by_user(user_id: int, db: Session = Depends(get_db)):
 
         if not chats:
             raise HTTPException(status_code=404, detail="No chats found for this user")
-        logging.info(f"chatovi: {chats}")
         return chats
     except Exception as e:
         logging.error(f"Error retrieving chats: {e}")

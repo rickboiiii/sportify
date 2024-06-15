@@ -2,15 +2,17 @@
 import { useState, useEffect, useRef } from 'react';
 import Search from "@/components/SearchBar/SearchBarComponent";
 import { SearchBarResult2} from "@/components/SearchBar/SearchBarStyled";
+import Image from 'next/image';
+import chatIcon from '../../../../files/images/chatIcon.png';
 import './chat.css';
 
 const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [idKorisnika, setIdKorisnika] = useState(null); // State to store the id_igraca
+    const [idKorisnika, setIdKorisnika] = useState(null); 
     const [selectedUser, setSelectedUser] = useState(null);
     const [chats, setChats] = useState([]);
-    const [chatUsers, setChatUsers] = useState([]); // State to store users with whom the chat exists
+    const [chatUsers, setChatUsers] = useState([]); 
     const [token, setToken] = useState(null);
     const stock_pic = '/blank_profile_picture.png';
     useEffect(() => {
@@ -29,9 +31,13 @@ const Chat = () => {
     }, [chats]);
     useEffect(() => {
         if (selectedUser) {
-            fetchMessages(idKorisnika, selectedUser.korisnici.id_korisnika);///////////////////////////////
+            fetchMessages(idKorisnika, selectedUser.korisnici.id_korisnika);
         }
     }, [selectedUser]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     let fetchMessages = async (id_user1, id_user2) => {
         try {
@@ -45,8 +51,7 @@ const Chat = () => {
             
             if (response.ok) {
                 const data = await response.json();
-                console.log('Messages:', data);
-                setMessages(data); // Set the messages state with fetched messages
+                setMessages(data); 
             } else {
                 console.error('Failed to fetch messages:', response.statusText);
             }
@@ -66,9 +71,9 @@ const Chat = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                setIdKorisnika(data); // Set the id_igraca state
-                const fetchedChats = await fetchChats(data); // Fetch chats after getting id_igraca
-                setChats(fetchedChats); // Set the chats state
+                setIdKorisnika(data);
+                const fetchedChats = await fetchChats(data); 
+                setChats(fetchedChats); 
             } else {
                 console.error('Failed to fetch id_korisnika:', response.statusText);
             }
@@ -79,7 +84,6 @@ const Chat = () => {
     
     const fetchUsers = async () => {
         try {
-            // Make a request to fetch users from the server
             const response = await fetch('http://localhost:8000/users', {
                 method: 'GET',
                 headers: {
@@ -90,17 +94,12 @@ const Chat = () => {
             if (response.ok) {
                 const data = await response.json();
                 const allUsers = data;
-                console.log('All users:', allUsers);
-                console.log('Fetched chats:', chats);
+                const chatUserIds = chats
+                .filter(chat => chat.id_user1 === idKorisnika || chat.id_user2 === idKorisnika)
+                .map(chat => chat.id_user1 === idKorisnika ? chat.id_user2 : chat.id_user1);
     
-                // Filter users to include only those who have an existing chat with the current user
-                const chatUserIds = chats.map(chat => chat.id_user1 === idKorisnika ? chat.id_user2 : chat.id_user1);
-                console.log('Chat user IDs:', chatUserIds);
-    
-                const chatUsers = allUsers.filter(user => chatUserIds.includes(user.id_igraca));
-                console.log('Filtered chat users:', chatUsers);
-    
-                setChatUsers(chatUsers); // Set the filtered users
+                const chatUsers = allUsers.filter(user => chatUserIds.includes(user.korisnici.id_korisnika));
+                setChatUsers(chatUsers); 
             } else {
                 console.error('Failed to fetch users:', response.statusText);
             }
@@ -120,7 +119,6 @@ const Chat = () => {
             });
             if (response.ok) {
                 const data = await response.json();
-                console.log('Chats:', data);
                 return data;
             } else {
                 console.error('Failed to fetch chats:', response.statusText);
@@ -132,11 +130,8 @@ const Chat = () => {
         }
     };
 
-
     const startChat = (user) => {
         setSelectedUser(user);
-        console.log(user);
-        console.log(user.korisnici.id_korisnika);
     };
 
     const ws = useRef(null);
@@ -164,12 +159,13 @@ const Chat = () => {
     const sendMessage = async (toUserId) => {
         if (message.trim() && ws.current && ws.current.readyState === WebSocket.OPEN && selectedUser) {
             const messagePayload = {
-                from: idKorisnika, // Use id_igraca instead of token
+                from: idKorisnika, 
                 to: toUserId,
                 message
             };
             ws.current.send(JSON.stringify(messagePayload));
             setMessage('');
+            fetchMessages(idKorisnika, selectedUser.korisnici.id_korisnika);
         }
     };
 
@@ -179,18 +175,23 @@ const Chat = () => {
             chatContainer.scrollTop = chatContainer.scrollHeight;
         }
     };
+    
     const handleProfileClick = (profile) => {
-        // Implement the logic to start a chat with the selected profile
         console.log('Starting chat with:', profile);
-        // Example: set the selected user state to the clicked profile
         setSelectedUser(profile);
      
+    };
+    const handleSendMessage = (event) => {
+        if (event.key === 'Enter') {
+            sendMessage(selectedUser.korisnici.id_korisnika);
+        }
     };
 
     return (
 <div className="container">
        <div className='sidebar'> 
             <Search onProfileClick={handleProfileClick} />
+            <hr className="separator" />
             <div className="user-list">
                 <ul>
                     {chatUsers.map((user) => (
@@ -216,12 +217,30 @@ const Chat = () => {
         <div className="chat-container">
             {selectedUser ? (
                 <>
-                    <h3> {selectedUser.korisnicko_ime}</h3>
+                    <SearchBarResult2 key={selectedUser.korisnici.id_korisnika} className="selected-user">
+                    <div className="user-profile">
+                        <img src={stock_pic} alt="User profile thumbnail picture" />
+                        <h3 style={{ marginLeft: "0.5em" }}>
+                        {selectedUser.ime_vlasnika ? (
+                            `${selectedUser.ime_vlasnika}${selectedUser.srednje_ime ? ` (${selectedUser.srednje_ime}) ` : ' '}${selectedUser.prezime_vlasnika}`
+                        ) : (
+                            `${selectedUser.ime_igraca}${selectedUser.srednje_ime ? ` (${selectedUser.srednje_ime}) ` : ' '}${selectedUser.prezime_igraca}`
+                        )}
+                        <br />
+                        <small>{selectedUser.korisnici.korisnicko_ime}</small>
+                        </h3>
+                    </div>
+                    </SearchBarResult2>
+
                     <div className="chat">
                         {messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.from_user_id === idKorisnika ? 'my-message' : 'other-message'}`}>
-                                <p style={{ color: msg.from === idKorisnika ? 'blue' : 'green' }}>{msg.message}</p>
-                            </div>
+                        <div key={index} className={`message ${msg.from_user_id === idKorisnika ? 'my-message' : 'other-message'}`}>
+                        <div className="message-content">
+                            <span>{msg.message}</span>
+                            <br/>
+                            <small className="timestamp">{new Date(msg.timestamp).toLocaleString()}</small>
+                        </div>
+                        </div>
                         ))}
                     </div>
                     <div className="input-chat-container">
@@ -231,14 +250,18 @@ const Chat = () => {
                             placeholder="Type a message..."
                             onChange={(e) => setMessage(e.target.value)}
                             value={message}
+                            onKeyDownCapture={handleSendMessage}
                         />
-                        <button className="submit-chat" onClick={() => sendMessage(selectedUser.id_igraca)}>
+                        <button className="submit-chat" onClick={() => sendMessage(selectedUser.korisnici.id_korisnika)}>
                             Send
                         </button>
                     </div>
                 </>
             ) : (
-                <p>Please select a user to start chatting</p>
+                <div className="get-social">
+                    <Image src={chatIcon} alt="Chat icon" className='chat-ikona' width={160} />
+                    <h2 className='text'>Get Social</h2>
+              </div>
             )}
         </div>
 
