@@ -30,15 +30,16 @@
 }
 
 .event-card-header .username {
-    font-size: 14px;
+    font-size: 1.3vw;
     width: 50%;
     height: 2vw;
     font-weight: 600;
-    color: #262626;
+    color: var(--pear);
     background: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
+    text-decoration: none;
 }
 
 /* body */
@@ -95,6 +96,17 @@
     margin-top: 10px;
 }
 
+.opis-termina {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    align-content: center;
+    font-size: medium;
+}
+
+.br-slobodnih-mjesta {
+    font-weight: bold;
+}
+
 .event-card .prijava-na-termin:hover {
     background-color: #D8ED0A;
 }
@@ -102,7 +114,7 @@
 .event-card .dugme {
     width: 100%;
     padding: 10px;
-    background-color: #0095f6;
+    background-color: var(--lapis-lazuli);
     color: #fff;
     border: none;
     border-radius: 10px;

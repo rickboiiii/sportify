@@ -11,3 +11,5 @@ from .sport import Sifarnik_sportova
 from .turnir import Turnir
 from .uloga import Uloga
 from .vlasnik import Vlasnik
+from .objava import Objava
+from .prijave import PrijavljeniKorisnici

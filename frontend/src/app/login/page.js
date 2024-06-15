@@ -146,6 +146,7 @@ function LogIn() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: formDetails,
+        credentials: 'include'
       });
 
       if (response.ok) {

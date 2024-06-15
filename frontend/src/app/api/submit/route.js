@@ -33,3 +33,18 @@ export async function POST(req, res) {
     return NextResponse.json({ name, email, message })
 }
 
+export async function sendNotification(username, email_from, email_to) {
+
+    const info = await transporter.sendMail({
+        from: "sportify@demomailtrap.com",
+        to: email_to,
+        subject: `Message from ${username} (${email_from})`,
+        text: `${username} želi da se pridruži vašem terminu`
+    });
+
+    console.log("Message sent: %s", info.messageId);
+
+    //Response
+    return NextResponse.json({ name, email, message })
+}
+

@@ -1,4 +1,4 @@
-from fastapi import  Depends, APIRouter
+from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
 from backend.models.prijatelj import Prijatelj
@@ -166,33 +166,73 @@ async def obrisi(id:int, db:Session=Depends(get_db) ) :
 
 @router.get("/dajFiltriraneOglase/{id_sporta}/{nivo}/{spol}")
 async def eventi(id_sporta:int, nivo:str, spol:int, db:Session=Depends(get_db)):
-    spol_bool=2
-    if (spol==0):
-        spol_bool=False
-    elif (spol==1):
-        spol_bool=True
-    if(nivo == "0.33"):
-        first=0
-        second=0.33
-    elif(nivo == "0.66"):
-        first=0.33
-        second=0.66    
-    elif (nivo=="1"):
-        first=0.66
-        second=1
+    try:
+        spol_bool = None
+        if spol == 0:
+            spol_bool = False
+        elif spol == 1:
+            spol_bool = True
 
-    result= db.query(Event_u_pripremi)
-    if (id_sporta!=0):
-        result=result.filter(Event_u_pripremi.id_sporta==id_sporta)
-    if (nivo!="svi"):
-        result=result.filter(Event_u_pripremi.potreban_nivo_sposobnosti.between(str(first),str(second)))
-    if(spol_bool!=2):
-        result=result.filter(Event_u_pripremi.spol==spol_bool)
-    result=result.filter(Event_u_pripremi.broj_slobodnih_mjesta>0)    
-    result=result.join(Igrac, Event_u_pripremi.id_organizatora==Igrac.id_igraca).join(Lokacija, Event_u_pripremi.id_lokacije==Lokacija.id_lokacije)\
-    .join(Sifarnik_sportova, Event_u_pripremi.id_sporta==Sifarnik_sportova.id_sporta).order_by(asc(Event_u_pripremi.pocetak_termina))\
-        .add_columns(Igrac.ime_igraca, Igrac.srednje_ime, Igrac.prezime_igraca,Igrac.srednje_ime, Sifarnik_sportova.naziv_sporta, Lokacija.longituda, Lokacija.latituda, Event_u_pripremi.naziv_termina, Event_u_pripremi.opis_termina,Event_u_pripremi.pocetak_termina, Event_u_pripremi.broj_slobodnih_mjesta ).all()   
-    return [Oglas(ime_igraca=row.ime_igraca,prezime_igraca= row.prezime_igraca,srednje_ime=row.srednje_ime ,naziv_sporta=row.naziv_sporta, longituda=row.longituda, latituda=row.latituda,naziv_termina=row.naziv_termina,opis_termina=row.opis_termina , pocetak_termina=row.pocetak_termina ,broj_slobodnih_mjesta=row.broj_slobodnih_mjesta ) for row in result]       
+        nivo_range = {
+            "0.33": (0, 0.33),
+            "0.66": (0.33, 0.66),
+            "1": (0.66, 1)
+        }
+
+        result = db.query(
+            Event_u_pripremi,
+            Igrac.ime_igraca,
+            Igrac.srednje_ime,
+            Igrac.prezime_igraca,
+            Sifarnik_sportova.naziv_sporta,
+            Lokacija.longituda,
+            Lokacija.latituda,
+            Event_u_pripremi.naziv_termina,
+            Event_u_pripremi.opis_termina,
+            Event_u_pripremi.pocetak_termina,
+            Event_u_pripremi.broj_slobodnih_mjesta,
+            Korisnik.korisnicko_ime
+        ).join(
+            Igrac, Event_u_pripremi.id_organizatora == Igrac.id_igraca
+        ).join(
+            Korisnik, Korisnik.id_korisnika == Event_u_pripremi.id_organizatora
+        ).join(
+            Lokacija, Event_u_pripremi.id_lokacije == Lokacija.id_lokacije
+        ).join(
+            Sifarnik_sportova, Event_u_pripremi.id_sporta == Sifarnik_sportova.id_sporta
+        ).order_by(
+            asc(Event_u_pripremi.pocetak_termina)
+        )
+
+        if id_sporta != 0:
+            result = result.filter(Event_u_pripremi.id_sporta == id_sporta)
+        if nivo != "svi":
+            first, second = nivo_range.get(nivo, (0, 1))
+            result = result.filter(Event_u_pripremi.potreban_nivo_sposobnosti.between(str(first), str(second)))
+        if spol_bool is not None:
+            result = result.filter(Event_u_pripremi.spol == spol_bool)
+
+        result = result.filter(Event_u_pripremi.broj_slobodnih_mjesta > 0).all()
+
+        return [
+            Oglas(
+                ime_igraca=row.ime_igraca,
+                prezime_igraca=row.prezime_igraca,
+                srednje_ime=row.srednje_ime,
+                naziv_sporta=row.naziv_sporta,
+                longituda=row.longituda,
+                latituda=row.latituda,
+                naziv_termina=row.naziv_termina,
+                opis_termina=row.opis_termina,
+                pocetak_termina=row.pocetak_termina,
+                broj_slobodnih_mjesta=row.broj_slobodnih_mjesta,
+                korisnicko_ime=row.korisnicko_ime
+            ) for row in result
+        ]
+
+    except Exception as e:
+        print(f"Error: {e}")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 @router.post("/testPrijateljstva/{id1}/{id2}")
 async def dodaj(id1:int, id2:int, db:Session=Depends(get_db) ):
@@ -204,10 +244,18 @@ async def dodaj(id1:int, id2:int, db:Session=Depends(get_db) ):
 
 @router.get("/dajObjavePrijatelja/{id}")
 async def objave(id:int, db:Session=Depends(get_db)):
-    result= db.query(Prijatelj).filter(Prijatelj.id_prijatelja1==id)\
-   .join(Objava, Prijatelj.id_prijatelja2==Objava.id_korisnika).join(Korisnik, Korisnik.id_korisnika==Prijatelj.id_prijatelja2).\
-    add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all()
-    return [ObjavaSchema(id_korisnika=row.id_prijatelja2, tekst_objave=row.tekst_objave, korisnicko_ime=row.korisnicko_ime) for row in result]
+    result = (db.query(Prijatelj)
+              .filter(Prijatelj.id_prijatelja1==id)\
+              .join(Objava, Prijatelj.id_prijatelja2==Objava.id_korisnika)\
+              .join(Korisnik, Korisnik.id_korisnika==Prijatelj.id_prijatelja2) \
+              .add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all())
+
+    return [
+        ObjavaSchema(
+            id_korisnika=row.id_prijatelja2,
+            tekst_objave=row.tekst_objave,
+            korisnicko_ime=row.korisnicko_ime)
+        for row in result]
     
 
 

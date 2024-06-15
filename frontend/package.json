@@ -8,9 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "browser":{
-    "child_process": false
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",

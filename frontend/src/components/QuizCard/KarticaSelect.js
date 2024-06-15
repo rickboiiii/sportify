@@ -22,10 +22,10 @@ const CardSelect = ({ pitanje, handleAnswer, indeks, id}) => {
     <Container>
       <Row style={{justifyContent:"start", alignItems:"center"}}>
       <Image src={left_arrow} width={20} height={20}/>
-        <a onClick={()=>izbrisi(id)} href='http://localhost:3000'>Povratak na prethodnu stranicu</a>
+        <a onClick={()=>izbrisi(id)} href='http://localhost:3000' style={{color:"white"}}>Povratak na prethodnu stranicu</a>
         </Row>
       <ProgressIndicator steps={10} active_number={indeks+1}/>
-      <Row> <h4>{indeks+1} od 10</h4> </Row>
+      <Row style={{color:"white"}}> <h4>{indeks+1} od 10</h4> </Row>
         <QuizSelect h_text={pitanje.pitanje} funkcija={(e)=>setOdgovor(e.target.value)} vrijednost={odgovor} pitanje={pitanje}>
             <Button onClick={()=>handleAnswer( pitanje.funkcija,Number(odgovor))}>Submit</Button>
     </QuizSelect>
