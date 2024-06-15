@@ -3,13 +3,13 @@ from .veza import *
 from .adresa import Adresa
 from .chat import Chat
 from .ekipa import Ekipa
+from .sport import Sifarnik_sportova
 from .event_u_pripremi import Event_u_pripremi
 from .igrac import Igrac
 from .korisnik import Korisnik
 from .message import Message
 from .lokacija import Lokacija
 from .slobodni_event import Slobodni_Event
-from .sport import Sifarnik_sportova
 from .turnir import Turnir
 from .uloga import Uloga
 from .vlasnik import Vlasnik

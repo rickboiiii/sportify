@@ -24,3 +24,5 @@ class Lokacija(Base):
     slobodni_termini = relationship("Slobodni_Event", back_populates="lokacije")
     termini_u_pripremi = relationship("Event_u_pripremi", back_populates="lokacije")
     turnir = relationship("Turnir", back_populates="lokacija")
+    meet_and_greet_eventi = relationship("MeetAndGreet", back_populates="lokacija")
+    lost_and_found_eventi = relationship("LostAndFound", back_populates="lokacija")

@@ -11,4 +11,5 @@ class LostAndFound(Base):
     id_lokacije = Column(Integer, ForeignKey('lokacije.id_lokacije'), nullable=False)
     slika = Column(String)
 
-    lokacija = relationship("Lokacije", back_populates="lost_and_found_predmeti") 
+    
+    lokacija = relationship("Lokacije", back_populates="lost_and_found_eventi") 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, FastAPI, HTTPException
+from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request
 from jose import JWTError, jwt
 from backend.dependencies import get_db
 from datetime import datetime, timedelta
@@ -16,13 +16,12 @@ class Event(BaseModel) :
  broj_slobodnih_mjesta: int
  sport: int
  spol : bool
- potreban_nivo_sposobnosti: int
+ potreban_nivo_sposobnosti: str
  class Config:
     from_attributes: True
 
 class Event_u_pripremi_create(Event_u_pripremi) :
    pass
-
 
 @router.post("/oglas_eventa")
 async def napravi_event(event: Event, db: Session = Depends(get_db)):
@@ -39,13 +38,15 @@ async def napravi_event(event: Event, db: Session = Depends(get_db)):
     return novi_termin
 
 
+
+
 @router.post("/kreiranje_para")
 async def kreiraj_par(naziv_termina: str, opis_termina: str, lokacija: int, pocetak_termina: datetime, broj_slobodnih_mjesta: int, sport: int,nivo_sposobnosti: int):
     db_par = Event_u_pripremi(naziv_termina,opis_termina,lokacija,pocetak_termina,broj_slobodnih_mjesta,sport, nivo_sposobnosti)
     get_db.add(db_par)
     get_db.commit()
     get_db.refresh(db_par)
-    return db_par
+    
 
 class Adresa(BaseModel):
     naziv_ulice: str
@@ -66,7 +67,7 @@ async def spremi_lokaciju(adresa: Adresa, db: Session = Depends(get_db)):
     db.add(nova_adresa)
     db.commit()
     db.refresh(nova_adresa)
-    return nova_adresa
+    
 
 
 class Lokacija(BaseModel):
@@ -89,7 +90,6 @@ async def kreiraj_teren(teren: Lokacija, db: Session = Depends(get_db)):
     db.add(nova_lokacija)
     db.commit()
     db.refresh(nova_lokacija)
-    return nova_lokacija
 
 #rute za meet&greet i lost&found
 class MeetAndGreet(BaseModel):
@@ -119,12 +119,13 @@ async def meet_and_greet(okupljanje: MeetAndGreetCreate, db: Session = Depends(g
     db.add(novi_meet)
     db.commit()
     db.refresh(novi_meet)
-    return novi_meet
+
 
 class LostAndFound(BaseModel):
     tag: str
     opis: str
     id_lokacije: int
+    slika: str
     
 
     class Config:
@@ -139,4 +140,3 @@ async def lost_and_found(predmet: LostAndFoundCreate, db: Session = Depends(get_
     db.add(novi_predmet)
     db.commit()
     db.refresh(novi_predmet)
-    return novi_predmet
