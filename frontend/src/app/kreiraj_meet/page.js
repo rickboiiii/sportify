@@ -17,17 +17,25 @@ const Message = styled.h1`
   margin-top: 2rem;
 `;
 
-async function sendMeetDetails(meetDetails) {
+
+async function sendMeetDetails(meetData) { 
   try {
-    const response = await axios.post('http://localhost:8000/meet_and_greet', meetDetails);
-    return response.data;
+
+    axios.post('http://localhost:8000/meet_and_greet', meetData)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    
   } catch (error) {
     console.error('Error:', error);
     throw error;
   }
 }
-
-export default function Home() {
+export default function KreiranjeMeeta() {
   const labelSets = [
     {
       first: {
@@ -48,9 +56,9 @@ export default function Home() {
         name: "kapacitet",
       },
       second: {
-        label: "sport",
+        label: "datum odrzavanja",
         id: "id2",
-        name: "sport",
+        name: "datum_odrzavanja",
       }
     },
     {
@@ -60,9 +68,10 @@ export default function Home() {
         name: "lokacija",
       },
       second: {
-        label: "datum odrzavanja",
+        label: "sport",
         id: "id2",
-        name: "datum_odrzavanja",
+        name: "sport",
+        values: [{id: 5, name: "odbojka"},{id:6, name:"kosarka"} ,{id:7, name:"fudbal"}]
       }
     }
   ];
@@ -73,15 +82,15 @@ export default function Home() {
   const [formValues, setFormValues] = useState([]);
 
   const handlePress = () => {
-    let lokacija = parseInt(document.getElementById('id1').value);
-    let datum_odrzavanja = (document.getElementById('id2').value);
+    let id_lokacije = parseInt(document.getElementById('id1').value);
+    let id_sporta = parseInt(document.getElementById('id2').value);
     const formData = {
       naziv_okupljanja: formValues[0],
       opis_okupljanja: formValues[1],
       kapacitet:parseInt( formValues[2]),
-      sport: parseInt(formValues[3]),
-      lokacija: lokacija,
-      datum_odrzavanja: datum_odrzavanja
+      datum_odrzavanja: (formValues[3]),
+      id_lokacije: id_lokacije,
+      id_sporta: id_sporta
     };console.log(formData)
 
     try {
@@ -101,10 +110,10 @@ export default function Home() {
   };
 
   const NextSlide = () => {
-    let prvaVrijednost= document.getElementById("id1").value;
-    let drugaVrijednost= document.getElementById("id2").value;
+    let prvaVrijednost= (document.getElementById("id1").value);
+    let drugaVrijednost= (document.getElementById("id2").value);
     setFormValues([...formValues,prvaVrijednost,drugaVrijednost])
-    if (formSubmitCount < 1) {
+    if (formSubmitCount < 2) {
       setFormKey((prevKey) => prevKey + 1);
       setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
       setFormSubmitCount((prevCount) => prevCount + 1);

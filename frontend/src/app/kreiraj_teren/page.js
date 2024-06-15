@@ -24,9 +24,9 @@ const Message = styled.h1`
 const MapComponent = dynamic(() => import('@/components/Map/map'), { ssr: false });
 
 //terenDetails
-async function sendTerenDetails(formData) {
-    try {
-    const response = await axios.post('http://localhost:8000/kreiraj_teren', formData); //terenDetails
+async function sendTerenDetails(terenDetails) {
+  try {
+    const response = await axios.post('http://localhost:8000/kreiraj_teren', terenDetails); //terenDetails
     return response.data;
   } catch (error) {
     console.error('Error:', error);
@@ -34,7 +34,7 @@ async function sendTerenDetails(formData) {
   }
 }
 
-export default function Home() {
+export default function KreiranjeTerena() {
   const router=useRouter();
   const [token, setToken] = useState(null);
   const [idKorisnika, setIdKorisnika] = useState(null);
@@ -103,12 +103,24 @@ const fetchIdKorisnika = async (token) => {
       first: {
         label: "lokacija terena",
         id: "id1",
-        name: "lokacija",
+        name: "id_adrese",
       },
       second: {
         label: "kapacitet terena",
         id: "id2",
         name: "kapacitet_terena",
+      }
+    },
+    {
+      first: {
+        label: "cijena po terminu",
+        id: "id1",
+        name: "cijena_po_terminu",
+      },
+      second: {
+        label: "recenzija",
+        id: "id2",
+        name: "recenzija",
       }
     },
     {
@@ -156,15 +168,17 @@ const fetchIdKorisnika = async (token) => {
   console.log(prikazSportova)}, [listaMogucihSportova])
 
   const handlePress = () => {
-    let cijena_po_terminu = parseInt(document.getElementById('id1').value);
+    let cijena_po_terminu = parseFloat(document.getElementById('id1').value);
     let slika = parseInt(document.getElementById('id2').value);
+    let recenzija= parseFloat(document.getElementById('id2').value)
     const formData = {
-      naziv_terena: formValues[0],
-      opis_terena: formValues[1],
-      id_terena: formValues[2],
-      kapacitet: formValues[3],
+      naziv_lokacije: formValues[0],
+      opis_lokacije: formValues[1],
+      id_adrese: parseInt(formValues[2]),
+      kapacitet: parseInt(formValues[3]),
       cijena_po_terminu: cijena_po_terminu,
-      slika: slika,
+      recenzija: recenzija,
+      slika: slika
     };console.log(formData)
 
     try {
@@ -241,7 +255,7 @@ const fetchIdKorisnika = async (token) => {
               username:username
             }
     } />
-
+        {/*Button goes here for picture*/}
       </div>
     );
   }

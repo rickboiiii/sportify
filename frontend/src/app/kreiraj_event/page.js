@@ -17,10 +17,10 @@ const Message = styled.h1`
   margin-top: 2rem;
 `;
 
-async function sendEventDetails(formData) { //eventDetails
+async function sendEventDetails(eventDetails) { //eventDetails
   try {
 
-    axios.post('http://localhost:8000/oglas_eventa', formData)
+    axios.post('http://localhost:8000/oglas_eventa', eventDetails)
       .then(function (response) {
         console.log(response);
       })
@@ -35,7 +35,7 @@ async function sendEventDetails(formData) { //eventDetails
   }
 }
 
-export default function Home() {
+export default function KreiranjeEventa() {
   const labelSets = [
     {
       first: {
@@ -71,6 +71,7 @@ export default function Home() {
         label: "sport",
         id: "id2",
         name: "sport",
+        values: [{id: 5, name: "odbojka"},{id:6, name:"kosarka"} ,{id:7, name:"fudbal"}]
       }
     },
     {
@@ -78,11 +79,13 @@ export default function Home() {
         label: "spol",
         id: "id1",
         name: "spol",
+        values: [{id:0, name: "musko"},{id: 1, name: "zensko"}]
       },
       second: {
         label: "nivo sposobnosti",
         id: "id2",
         name: "nivo_sposobnosti",
+        values: [{id:0, name:"pocetnik"},{id:1, name: "srednji"},{id:2,  name: "profesionalac"}]
       }
     }
   ];
@@ -91,14 +94,12 @@ export default function Home() {
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
   const [formValues, setFormValues] = useState([]);
-  const [sport, setSport]=useState([])
-  const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
-  const [prikazSportova, setPrikazSportova]=useState([])
+ 
  
   const handlePress = () => {
     let spol = parseInt(document.getElementById('id1').value);
     console.log(spol);
-    let nivo_sposobnosti = (document.getElementById('id2').value);
+    let nivo_sposobnosti = document.getElementById('id2').value;
     console.log(nivo_sposobnosti);
     const formData = {
       naziv_termina: formValues[0],
@@ -161,128 +162,3 @@ export default function Home() {
   );
 }
 
-// useEffect(() => {
-//   async function checkUserRole() {
-//     const cookies = parseCookies();
-//     const token = cookies.token;
-
-//     if (!token) {
-//       router.push('/login');
-//       return;
-//     }
-
-//     try {
-//       const role = await getUserRoleFromToken(token);
-//       if (role === 'vlasnik') {
-//         setIsOwner(true);
-//       } else {
-//         router.push('/unauthorized');
-//       }
-//     } catch (error) {
-//       console.error('Error checking user role:', error);
-//       router.push('/login');
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }
-
-//   checkUserRole();
-// }, [router]);
-// export default function Home() {
-//   const [isOwner, setIsOwner] = useState(false);
-//   const [isLoading, setIsLoading] = useState(true);
-//   const [idOrganizatora, setIdOrganizatora] = useState(null);
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     async function checkUserRole() {
-//       const cookies = parseCookies();
-//       const token = cookies.token;
-
-//       if (!token) {
-//         router.push('/login');
-      //   return;
-      // }
-
-      // try {
-      //   const { role, id_organizatora } = await getUserRoleFromToken(token);
-      //   if (role === 'vlasnik') {
-      //     setIsOwner(true);
-      //     setIdOrganizatora(id_organizatora);
-      //   } else {
-      //     router.push('/unauthorized');
-      //   }
-      // } catch (error) {
-      //   console.error('Error checking user role:', error);
-      //   router.push('/login');
-      // } finally {
-//         setIsLoading(false);
-//       }
-//     }
-
-//     checkUserRole();
-//   }, [router]);
-// labele i njihove vrijednosti
-    
-
-  // const [formKey, setFormKey] = useState(0);
-  // const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
-  // const [formSubmitCount, setFormSubmitCount] = useState(0);
-  // const [formValues, setFormValues] = useState([]);
-  // const [sport, setSport] = useState([]);
-  // const [listaMogucihSportova, setListaMogucihSportova] = useState([]);
-  // const [prikazSportova, setPrikazSportova] = useState([]);
-
-  // const handlePress = async () => {
-  //   let spol = parseInt(document.getElementById('id1').value);
-  //   let nivo_sposobnosti = document.getElementById('id2').value;
-  //   const formData = {
-  //     naziv_termina: formValues[0],
-  //     opis_termina: formValues[1],
-  //     id_lokacije: formValues[2],
-  //     pocetak_termina: formValues[3],
-  //     broj_slobodnih_mjesta: formValues[4],
-  //     sport: parseInt(formValues[5]),
-  //     spol: spol,
-  //     potreban_nivo_sposobnosti: nivo_sposobnosti,
-  //     id_organizatora: idOrganizatora // Dodaj id_organizatora
-  //   };
-
-  //   try {
-  //     await sendEventDetails(formData);
-  //   } catch (error) {
-  //     console.error('Failed to submit form', error);
-  //   }
-
-  //   setFormSubmitCount((prevCount) => prevCount + 1);
-  // };
-
-
-
-  // return (
-  //   <Container>
-  //     {isOwner ? (
-  //       formSubmitCount < 4 ? (
-  //         <>
-  //           <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
-  //           <ParForm
-//               key={formKey}
-//               inputs={labelSets[currentLabelSetIndex]}
-//               h_text={"Osnovne informacije o terminu"}
-//             >
-//               {formSubmitCount === 3 ? (
-//                 <Button onClick={handlePress}>Završite</Button>
-//               ) : (
-//                 <Button onClick={NextSlide}>Sljedeće</Button>
-//               )}
-//             </ParForm>
-//           </>
-//         ) : (
-//           <Message>Uspješno ste dodali termin</Message>
-//         )
-//       ) : (
-//         <Message>Nemate ovlasti za prikaz ove forme</Message>
-//       )}
-//     </Container>
-//   );
-// }
