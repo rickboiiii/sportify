@@ -10,6 +10,12 @@ def get_all_profiles(db: Session):
     }
     return all_profiles
 
+def get_all_users(db: Session):
+    all_users = {
+        'svi_korisnici': get_igraci(db),
+        'svi_vlasnici': get_vlasnici(db)
+    }
+    return all_users
 
 def get_all_profiles_username(username: str, db: Session):
     all_profiles = {

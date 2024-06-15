@@ -1,10 +1,12 @@
 "use client"
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import Image from 'next/image';
 import image6 from '../../../../files/images/image6.png';
 import left_arrow from '../../../../files/images/left_arrow.png';
+import Cookies from 'js-cookie';
+
 import {
   fontSize1,
   fontSize2,
@@ -60,7 +62,7 @@ const RightSection = styled.div`
 `;
 
 const BackLink = styled.a`
-overflow-x: hidden;
+  overflow-x: hidden;
   display: flex;
   color: ${ghostWhiteLight}; 
   box-sizing: border-box;
@@ -74,8 +76,8 @@ overflow-x: hidden;
 `;
 
 const Title = styled.p`
-overflow-x: hidden;
-box-sizing: border-box;
+  overflow-x: hidden;
+  box-sizing: border-box;
   font-size: ${fontSize3};
   font-weight: bold;
   color: ${ghostWhite};
@@ -86,7 +88,7 @@ box-sizing: border-box;
 `;
 
 const Subtitle = styled.span`
-overflow-x: hidden;
+  overflow-x: hidden;
   a {
     color: ${pear};
     font-weight: bold;
@@ -116,7 +118,9 @@ const Form = styled.form`
     margin-bottom: 2em;
   }
 `;
+
 function LogIn() {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -150,13 +154,17 @@ function LogIn() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
+        localStorage.setItem('token', JSON.stringify(data));
+        Cookies.set('token', data.access_token, { expires: 1 });
+        //router.push('/chat'); // Redirect to chat page
         router.push(`/feed/${username}`);
       } else {
         const errorData = await response.json();
         setError(errorData.detail || 'Authentication failed!');
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setError('An error occurred. Please try again later.');
     }
   };
