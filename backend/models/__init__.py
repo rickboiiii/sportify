@@ -16,3 +16,5 @@ from .vlasnik import Vlasnik
 from .meet_and_greet import MeetAndGreet
 from .lost_and_found import LostAndFound
 from .prijatelj import Prijatelj
+from .objava import Objava
+from .prijave import PrijavljeniKorisnici

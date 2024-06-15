@@ -19,8 +19,8 @@ class Oglas(BaseModel):
     prezime_igraca: str
     srednje_ime: Optional[str]
     naziv_sporta: str
-    longituda: float
-    latituda: float
+    longituda: Optional[float]
+    latituda: Optional[float]
     naziv_termina: str
     opis_termina: str
     pocetak_termina: datetime

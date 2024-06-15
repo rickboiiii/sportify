@@ -15,36 +15,6 @@ from backend.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/dajFiltriraneOglase/{id_sporta}/{nivo}/{spol}")
-async def eventi(id_sporta: int, nivo: str, spol: int, db: Session = Depends(get_db)):
-    spol_bool = 2
-    if (spol == 0):
-        spol_bool = False
-    elif (spol == 1):
-        spol_bool = True
-
-    result = db.query(Event_u_pripremi)
-
-    if (id_sporta != 0):
-        result = result.filter(Event_u_pripremi.id_sporta == id_sporta)
-    if (nivo != "svi"):
-        result = result.filter(Event_u_pripremi.potreban_nivo_sposobnosti == nivo)
-    if (spol_bool != 2):
-        result = result.filter(Event_u_pripremi.spol == spol_bool)
-    result = result.join(Igrac, Event_u_pripremi.id_organizatora == Igrac.id_igraca).join(Lokacija,
-                                                                                          Event_u_pripremi.id_lokacije == Lokacija.id_lokacije) \
-        .join(Sifarnik_sportova, Event_u_pripremi.id_sporta == Sifarnik_sportova.id_sporta).order_by(
-        asc(Event_u_pripremi.pocetak_termina)) \
-        .add_columns(Igrac.ime_igraca, Igrac.srednje_ime, Igrac.prezime_igraca, Igrac.srednje_ime,
-                     Sifarnik_sportova.naziv_sporta, Lokacija.longituda, Lokacija.latituda,
-                     Event_u_pripremi.naziv_termina, Event_u_pripremi.opis_termina, Event_u_pripremi.pocetak_termina,
-                     Event_u_pripremi.broj_slobodnih_mjesta).all()
-    # [SportistaSport(naziv_sporta=row.naziv_sporta, ime=row.ime_igraca, prezime=row.prezime_igraca, rating=row.recenzija) for row in results]
-    return [Oglas(ime_igraca=row.ime_igraca, prezime_igraca=row.prezime_igraca, srednje_ime=row.srednje_ime,
-                  naziv_sporta=row.naziv_sporta, longituda=row.longituda, latituda=row.latituda,
-                  naziv_termina=row.naziv_termina, opis_termina=row.opis_termina, pocetak_termina=row.pocetak_termina,
-                  broj_slobodnih_mjesta=row.broj_slobodnih_mjesta) for row in result]
-
 
 @router.post("/testPrijateljstva/{id1}/{id2}")
 async def dodaj(id1: int, id2: int, db: Session = Depends(get_db)):

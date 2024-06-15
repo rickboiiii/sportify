@@ -21,10 +21,10 @@ const CardNumeric = ({ pitanje, handleAnswer, indeks,id }) => {
     <Container>
       <Row style={{justifyContent:"start", alignItems:"center"}}>
       <Image src={left_arrow} width={20} height={20}/>
-        <a onClick={()=>izbrisi(id)} href='http://localhost:3000'>Povratak na prethodnu stranicu</a>
+        <a onClick={()=>izbrisi(id)} href='http://localhost:3000' style={{color:"white"}}>Povratak na prethodnu stranicu</a>
         </Row>
       <ProgressIndicator steps={10} active_number={indeks+1}/>
-      <Row> <h4>{indeks+1}  od  10</h4> </Row>
+      <Row style={{color:"white"}}> <h4>{indeks+1}  od  10</h4> </Row>
         <QuizForm h_text={pitanje.pitanje} funkcija={(e)=>setOdgovor(e.target.value)} vrijednost={odgovor}>
             <Button onClick={()=>handleAnswer( pitanje.funkcija,Number(odgovor))}>Submit</Button>
     </QuizForm>
@@ -33,59 +33,3 @@ const CardNumeric = ({ pitanje, handleAnswer, indeks,id }) => {
 };
 
 export default CardNumeric;
-
-
-const Tijelo = styled.div`
-color: #000;
-border-radius: 10px;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-width: 100vw;
-height: 100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content:center;
-margin: auto;
-`;
-
-const Kartica = styled.div`
-  background-color: #fff;
-  color: #000;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content:center;
-`;
-
-const Pitanje = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Tekst = styled.h1`
-  font-size: 24px;
-  text-align: center;
-`;
-
-const Odgovori = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const Dugme = styled.button`
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5px 0;
-  cursor: pointer;
-  font-size: 18px;
-  &:hover {
-    background-color: #45a049;
-  }
-`;

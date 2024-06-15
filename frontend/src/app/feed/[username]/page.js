@@ -26,8 +26,7 @@ const Page = ({posts}) => {
              <div className="content-div">
                  <div className="main-content">
                     <StatusBar/>
-                     <Dropdown/>
-                    <Events/>
+                    <Events setOptions={"oglasi"}/>
                  </div>
                  <div className="ssbar-container">
                     <SSBar/>
@@ -47,5 +46,6 @@ const Page = ({posts}) => {
          </div>
      )
  }
+
 
  export default Page;

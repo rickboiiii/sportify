@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "mailtrap": "^3.3.0"
+  }
+}
