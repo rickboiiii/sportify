@@ -149,12 +149,14 @@ const Events = ({ setOptions }) => {
 
       <div>
 
-        { isPost ? (
+        { isPost && events.length!==0 ? (
             <ul>
               {events.map(event => (
                 <PostCard key={event.id} event={event} props={currentUser} />
               ))}
             </ul>
+        ) : isPost && events.length===0 ? (
+            <p style={{textAlign: "center", fontSize: "larger", fontWeight: "bolder", padding: "3%", height:"100vh"}}>Trenutno nema objava :(</p>
         ) : (
             <ul>
                {events.map(event => (
