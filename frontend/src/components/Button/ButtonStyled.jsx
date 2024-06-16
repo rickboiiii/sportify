@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import {ghostWhite, oxion, oxionLight} from "@/styles/GlobalStyle";
+import {ghostWhite, ghostWhiteLight, oxion, oxionLight} from "@/styles/GlobalStyle";
 
 export const Button = styled.button`
     background: ${oxion};
@@ -19,4 +19,15 @@ export const Button = styled.button`
         cursor: pointer;
     }
 
+    &.small-button {
+        width: auto;
+        height: auto;
+        font-size: 0.75rem;
+        color: ${ghostWhiteLight};
+        
+        i {
+            font-size: 0.75rem;
+            color: ${ghostWhiteLight};
+        }
+    }
 `;

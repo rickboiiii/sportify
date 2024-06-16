@@ -38,6 +38,12 @@ def korisnici_seeder():
             'sifra': default_user_password,
             'korisnicko_ime': 'vlasnik',
             'id_uloge': 3
+        },
+        {
+            'email': 'nejraalickovic@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'nejra',
+            'id_uloge': 1
         }
     ]
 

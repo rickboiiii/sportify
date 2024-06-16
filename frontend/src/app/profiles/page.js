@@ -3,6 +3,8 @@
 import {ContainerOld} from "@/components/Containers/ContainerStyled";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import Error404 from "@/components/Errors/404";
+import SideBar from "@/components/SideBar/SideBar";
+import Container from "@/components/Containers/Container";
 
 export default function Profiles(props) {
 
@@ -11,9 +13,12 @@ export default function Profiles(props) {
 
     try {
         return (
-            <ContainerOld>
-                <SearchBar default_search_url={defaultSearchUrl} search_url={searchUrl} type="profiles"/>
-            </ContainerOld>
+            <div style={{display: "flex"}}>
+                <SideBar />
+                <ContainerOld>
+                    <SearchBar default_search_url={defaultSearchUrl} search_url={searchUrl} type="profiles"/>
+                </ContainerOld>
+            </div>
         );
     } catch (e) {
         if(e.response !== undefined && e.response.status === 404) {

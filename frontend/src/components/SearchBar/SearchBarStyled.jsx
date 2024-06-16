@@ -202,7 +202,8 @@ export const SearchBarResultSplitter = styled.div`
 export const SearchBarResultContainer = styled.div`
     position: absolute;
     top: 4rem;
-    left: -4rem;
+    left: 14%;
+    z-index: 10;
     display: none;
     background: ${lapisLazuliLight};
     border: 1px solid ${pearLight};
