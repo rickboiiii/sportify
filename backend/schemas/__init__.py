@@ -9,3 +9,5 @@ from .oglas import Oglas
 from .ekipa import EkipaSaClanovimaSchema, EkipaSchema
 from .chat import ChatSchema
 from .message import MessageSchema
+from .lokacija_i_adresa import AdresaSchema, LokacijaSchema
+

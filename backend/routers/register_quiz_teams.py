@@ -1,10 +1,10 @@
 from fastapi import  Depends, APIRouter
 from sqlalchemy.orm import Session
-from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija
+from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, Veza_igrac_sport, Vlasnik, Ekipa, Event_u_pripremi, Lokacija, Adresa, Veza_lokacija_sport
 from backend.models.prijatelj import Prijatelj
 from backend.models.objava import Objava
 from backend.routers.auth import pwd_context
-from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema 
+from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema, AdresaSchema, LokacijaSchema
 from sqlalchemy import desc, func, asc, or_
 from backend.dependencies import get_db
 
@@ -282,3 +282,39 @@ async def dodaj(ekipa:EkipaSaClanovimaSchema, db:Session=Depends(get_db)):
 @router.get("/dajSportistu/{id_korisnika}")
 async def vrati(id_korisnika:int, db:Session=Depends(get_db)):
     return db.query(Igrac).filter(Igrac.id_korisnika==id_korisnika).first()
+
+@router.post("/dodajAdresu")
+async def teren(adresa:AdresaSchema, db:Session=Depends(get_db)):
+    
+    nova_adresa=Adresa(naziv_ulice=adresa.naziv_ulice, postanski_broj=adresa.postanski_broj, grad=adresa.grad, drzava=adresa.drzava )
+
+
+    db.add(nova_adresa)
+    db.commit()
+    db.refresh(nova_adresa)
+    return nova_adresa       
+
+@router.post("/dodajTeren/{sport}")
+async def teren(teren:LokacijaSchema,sport:int, adresa:AdresaSchema, db:Session=Depends(get_db)):
+    
+    nova_adresa=Adresa(naziv_ulice=adresa.naziv_ulice, postanski_broj=adresa.postanski_broj, grad=adresa.grad, drzava=adresa.drzava )
+
+
+    db.add(nova_adresa)
+    db.commit()
+    db.refresh(nova_adresa)
+       
+    
+    nova_lokacija=Lokacija(naziv_terena=teren.naziv_lokacije, kapacitet=teren.kapacitet,longituda=teren.longituda, latituda=teren.latituda, id_vlasnika=teren.id_vlasnika, id_adrese=nova_adresa.id_adrese, cijena_po_terminu=teren.cijena_po_terminu)
+    db.add(nova_lokacija)
+    db.commit()
+
+    db.refresh(nova_lokacija)
+
+    nova_veza=Veza_lokacija_sport(id_lokacije=nova_lokacija.id_lokacije, id_sporta=sport)
+
+    db.add(nova_veza)
+    db.commit()
+
+    db.refresh(nova_veza)
+    return nova_lokacija    

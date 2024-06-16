@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "browser":{
+  "browser": {
     "child_process": false
   },
   "dependencies": {
@@ -17,17 +17,18 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.6.8",
     "cookie": "^0.6.0",
+    "emailjs": "^4.0.3",
+    "fs": "^0.0.1-security",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
-    "emailjs": "^4.0.3",
-    "fs": "^0.0.1-security",
     "multiselect-react-dropdown": "^2.0.25",
     "next": "14.2.3",
     "nodemailer": "^6.9.13",
     "react": "^18",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
     "styled-components": "^6.1.11"

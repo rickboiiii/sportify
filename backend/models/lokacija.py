@@ -16,6 +16,7 @@ class Lokacija(Base):
     latituda=Column(Float)
     naziv_terena=Column(String)
     opis_terena=Column(String)
+    kapacitet=Column(Integer)
     vlasnici = relationship("Vlasnik", back_populates="lokacije")
     adrese = relationship("Adresa", back_populates="lokacija")
     sportovi = relationship("Veza_lokacija_sport", back_populates="lokacije")

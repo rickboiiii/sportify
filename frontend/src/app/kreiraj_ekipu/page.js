@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
     const [saigraci, setSaigraci]=useState([])
     const [sportovi, setSportovi]=useState()
     const [idKorisnika, setIdKorisnika] = useState(null); 
-    const [id, setId]=useState(null) // promijeniti ovo kad bude sesije
+    const [id, setId]=useState(null) 
     const [ponudjeniSaigraci, setPonudjeniSaigraci]=useState([])
     const [username, setUsername]=useState("");
     const [token, setToken] = useState(null);
