@@ -23,6 +23,7 @@ import {Button} from "@/components/Button/ButtonStyled";
 import axios from "axios";
 import InputMasked from "@/components/Inputs/InputMasked";
 import SelectMasked from "@/components/Inputs/SelectMasked";
+import RatingStars from "@/components/RatingStars/RatingStars";
 
 export default function ProfileComponent({type, profile, picture}) {
 
@@ -41,7 +42,8 @@ export default function ProfileComponent({type, profile, picture}) {
     let upload_url;
 
     const [profilePicture, setProfilePicture] = useState(picture);
-    const [mode, setMode] = useState("view")
+    const [mode, setMode] = useState("view");
+    const [rateProfile, setRateProfile] = useState(0);
 
     const onClick = () => {
         if(mode === "view")
@@ -134,23 +136,63 @@ export default function ProfileComponent({type, profile, picture}) {
         const last_name = (full_name.length > 2) ? full_name[2] : (full_name[1].replace("(", "").replace(")", ""));
         const date_of_birth = document.getElementById("dateOfBirth").value;
         const gender = document.getElementById("gender").value;
-        const height = document.getElementById("height").value;
-        const weight = document.getElementById("weight").value;
-        const max_distance = document.getElementById("maxDistance").value;
+
+        if(type === "igraci") {
+            const height = document.getElementById("height").value;
+            const weight = document.getElementById("weight").value;
+            const max_distance = document.getElementById("maxDistance").value;
+
+            const data = {
+                ime_igraca: first_name,
+                prezime_igraca: last_name,
+                srednje_ime: middle_name,
+                datum_rodjenja: date_of_birth,
+                spol: gender,
+                visina: height,
+                tezina: weight,
+                max_dozvoljena_udaljenost: max_distance
+            }
+
+            if(mode === "edit")
+                axios.put("http://localhost:8000/profiles/igraci/id/" + profile.id, data);
+        } else {
+
+            const data = {
+                ime_vlasnika: first_name,
+                prezime_vlasnika: last_name,
+                srednje_ime: middle_name,
+                datum_rodjenja: date_of_birth,
+                spol: gender
+            }
+
+            if(mode === "edit")
+                axios.put("http://localhost:8000/profiles/vlasnici/id/" + profile.id, data);
+        }
+    }
+
+    useEffect(() => {
+
+        if(rateProfile !== 0)
+            document.getElementById("commentProfileSection").style.display = "flex";
+
+    }, [rateProfile])
+
+    const onSubmit = () => {
+
+        const commentProfile = document.getElementById("commentProfile").value;
 
         const data = {
-            ime_igraca: first_name,
-            prezime_igraca: last_name,
-            srednje_ime: middle_name,
-            datum_rodjenja: date_of_birth,
-            spol: gender,
-            visina: height,
-            tezina: weight,
-            max_dozvoljena_udaljenost: max_distance,
+            komentar: commentProfile,
+            ocjena: rateProfile
         }
 
-        if(mode === "edit")
-            axios.put("http://localhost:8000/profiles/igraci/id/" + profile.id, data);
+        if(type === "igraci") {
+            axios.post("http://localhost:8000/profiles/igraci/id/" + profile.id + "/rate", data);
+        } else {
+            axios.post("http://localhost:8000/profiles/vlasnici/id/"+ profile.id + "/rate", data);
+        }
+
+        document.getElementById("commentProfileSection").style.display = "none";
     }
 
 
@@ -187,7 +229,17 @@ export default function ProfileComponent({type, profile, picture}) {
                         <h4 style={{marginTop: "revert"}}>Informacije</h4>
                         <div style={{alignContent: "center"}}>
                             ({(profile.stars).toFixed(1)})
-                            {starsList}
+                            <RatingStars stars={profile.stars} stateSetter={setRateProfile} mode="edit" />
+                            <div id="commentProfileSection" style={{display: "none"}}>
+                                <InputMasked props={{
+                                    type: "text",
+                                    name: "comment_profile",
+                                    id: "commentProfile",
+                                    placeholder: "Vas komentar..."
+                                }} mode="edit" />
+                                <i className="fas fa-check" onClick={onSubmit} style={{cursor: "pointer"}}></i>
+                            </div>
+                            {/*{starsList}*/}
                         </div>
                     </CardRow>
                 </CardSpan>

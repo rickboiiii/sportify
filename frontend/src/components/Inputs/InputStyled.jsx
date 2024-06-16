@@ -116,6 +116,10 @@ export const InputMaskedStyled = styled.input`
     &#fullName {
         min-width: 10ch !important;
     }
+    
+    &#commentProfile {
+        min-width: 100% !important;
+    }
 `;
 
 

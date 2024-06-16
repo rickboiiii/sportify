@@ -12,7 +12,7 @@ export function Profile({type, profile, defaultSearchUrl, searchUrl, stock_pic, 
     return (
         <div style={{display: "flex"}}>
             <SideBar />
-            <div style={{margin: "2rem 0"}}>
+            <div style={{margin: "2rem 0", flex: 1}}>
                 <SearchBar default_search_url={defaultSearchUrl} search_url={searchUrl} type="profiles"/>
                 <ProfileComponent type={type} profile={profile} picture={profile.picture ?? stock_pic} mode={mode}/>
             </div>
