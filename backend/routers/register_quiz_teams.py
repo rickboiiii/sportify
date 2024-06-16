@@ -5,7 +5,7 @@ from backend.models.prijatelj import Prijatelj
 from backend.models.objava import Objava
 from backend.routers.auth import pwd_context
 from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema 
-from sqlalchemy import desc, func, asc
+from sqlalchemy import desc, func, asc, or_
 from backend.dependencies import get_db
 
 
@@ -116,10 +116,10 @@ async def sport(id:int,brojIgraca:int, db:Session=Depends(get_db)):
         subquery1.c.ime_igraca,
         subquery1.c.prezime_igraca,
         subquery1.c.recenzija
-    ).join(subquery1, subquery2.c.id_sporta == subquery1.c.id_sporta)
+    ).join(subquery1, subquery2.c.id_sporta == subquery1.c.id_sporta).order_by(desc(subquery1.c.recenzija))
 
     results = query.limit(brojIgraca).all()
-    return  [SportistaSport(naziv_sporta=row.naziv_sporta, ime=row.ime_igraca, prezime=row.prezime_igraca, rating=row.recenzija) for row in results]
+    return  [SportistaSport(naziv_sporta=row.naziv_sporta, ime=row.ime_igraca, prezime=row.prezime_igraca, rating=(row.recenzija or 2.5)) for row in results]
 
 
 @router.get("/dajNajboljeEkipePoSportu/{id}/{brojIgraca}")
@@ -129,8 +129,8 @@ async def sport(id:int,brojIgraca:int, db:Session=Depends(get_db)):
     Sifarnik_sportova.naziv_sporta,
     Ekipa.broj_pobjeda,
     Ekipa.broj_poraza
-    ).join(Sifarnik_sportova, Sifarnik_sportova.id_sporta == Ekipa.id_sporta).order_by(desc(Ekipa.broj_pobjeda/(Ekipa.broj_pobjeda+Ekipa.broj_poraza))).limit(brojIgraca).all()
-    return [EkipaSport(naziv_sporta=row.naziv_sporta, ime=row.naziv_ekipe, winrate=row.broj_pobjeda/(row.broj_pobjeda+row.broj_poraza)) for row in subquery]
+    ).join(Sifarnik_sportova, Sifarnik_sportova.id_sporta == Ekipa.id_sporta).order_by(desc(Ekipa.broj_pobjeda/(Ekipa.broj_pobjeda +Ekipa.broj_poraza ))).limit(brojIgraca).all()
+    return [EkipaSport(naziv_sporta=row.naziv_sporta, ime=row.naziv_ekipe, winrate=(row.broj_pobjeda or 0)/((row.broj_pobjeda or 1)+(row.broj_poraza or 0))) for row in subquery]
 
 
 @router.put("/dodajSposobnost/{sposobnost}/{id}")
@@ -228,17 +228,38 @@ async def objave(id:int, db:Session=Depends(get_db)):
 @router.get("/pretraziPrijatelje/{id}/{username}/{svi}")
 async def pretrazi_username(id: int, username: str,svi:bool, db: Session = Depends(get_db)):
 
-    id_korisnika=db.query(Igrac.id_korisnika).filter(Igrac.id_igraca==id).first()
+    id_korisnika=db.query(Korisnik).filter(Korisnik.id_korisnika==id).first()
+    print(id_korisnika.id_uloge)
+    if (id_korisnika.id_uloge==1 or id_korisnika.id_uloge==3):
+        id_korisnika=id_korisnika.id_korisnika
+        print(id_korisnika)
+    else:
+        print("nije sportista")
+        return None    
+    
     if (svi==True):
-        return db.query(Korisnik)\
-        .join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2).join(Igrac, Igrac.id_korisnika==Korisnik.id_korisnika)\
-        .filter(Prijatelj.id_prijatelja1 == id_korisnika[0]).all()
+        print("usao")
+        print(db.query(Korisnik).filter(or_(
+            Korisnik.id_uloge == 1,
+            Korisnik.id_uloge == 3
+        ) ))
+        return db.query(Korisnik).filter(or_(
+            Korisnik.id_uloge == 1,
+            Korisnik.id_uloge == 3
+        ) )\
+        .join(Prijatelj, Korisnik.id_korisnika == Prijatelj.id_prijatelja2)\
+        .filter(Prijatelj.id_prijatelja1 == id_korisnika).all()
+        #.join(Igrac, Igrac.id_korisnika==Korisnik.id_korisnika)\
+        
 
 
 @router.post("/dodajEkipu")
 async def dodaj(ekipa:EkipaSchema, db:Session=Depends(get_db)):
     id_igraca=db.query(Igrac.id_igraca).filter(Igrac.id_igraca==ekipa.id_kapitena).first()
-    nova_ekipa=Ekipa(naziv_ekipe=ekipa.naziv_ekipe, id_sporta=ekipa.id_sporta,kapiten=id_igraca[0])
+    if (id_igraca):
+        nova_ekipa=Ekipa(naziv_ekipe=ekipa.naziv_ekipe, id_sporta=ekipa.id_sporta,kapiten=id_igraca[0])
+    else:
+        nova_ekipa=Ekipa(naziv_ekipe=ekipa.naziv_ekipe, id_sporta=ekipa.id_sporta)  
     db.add(nova_ekipa)
     db.commit()
 
@@ -257,3 +278,7 @@ async def dodaj(ekipa:EkipaSaClanovimaSchema, db:Session=Depends(get_db)):
         novi_igrac=Veza_igrac_ekipa(id_ekipe=ekipa.id_ekipe, id_igraca=id[0])
         db.add(novi_igrac)
         db.commit()
+
+@router.get("/dajSportistu/{id_korisnika}")
+async def vrati(id_korisnika:int, db:Session=Depends(get_db)):
+    return db.query(Igrac).filter(Igrac.id_korisnika==id_korisnika).first()
