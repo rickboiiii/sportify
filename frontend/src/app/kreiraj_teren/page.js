@@ -10,6 +10,7 @@ import axios from "axios";
 import { lapisLazuli } from "@/styles/GlobalStyle";
 import dynamic from 'next/dynamic';
 import {ghostWhite, ghostWhiteLight, oxion} from "@/styles/GlobalStyle";
+import { useRouter } from "next/navigation";
 
 const Message = styled.h1`
   color: white;
@@ -32,7 +33,49 @@ async function sendTerenDetails(formData) {
 }
 
 export default function Home() {
-  const id_vlasnika=1;//MOLIM TE PROMIJENI OVO DA BUDE PREKO TOKENA
+  const router=useRouter();
+  const [token, setToken] = useState(null);
+  const [idKorisnika, setIdKorisnika] = useState(null);
+  const [id, setId]=useState(null)  
+  useEffect(() => {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+        const parsedToken = JSON.parse(storedToken);
+        setToken(parsedToken.access_token);
+        fetchIdKorisnika(parsedToken.access_token);
+    }
+}, []);
+
+const fetchIdKorisnika = async (token) => {
+  try {
+      const response = await fetch(`http://localhost:8000/get_id/${token}`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+          }
+      });
+      if (response.ok) {
+          const data = await response.json();
+          setIdKorisnika(data);
+          console.log("data", data)
+          axios.get(`http://localhost:8000/dajVlasnika/${data}`)
+          .then(res=>{
+            console.log("res", res.data)
+            if (res.data)
+              setId(res.data.id_vlasnika)
+            else
+              router.push("/")
+          })
+          
+          .catch(err=>console.log(err))
+      } else {
+          console.error('Failed to fetch id_korisnika:', response.statusText);
+      }
+  } catch (error) {
+      console.error('Error fetching id_korisnika:', error);
+  }
+};
   const labelSets = [
     {
       first: {
@@ -169,7 +212,7 @@ export default function Home() {
               cijena_po_terminu: parseInt(document.getElementById('id1').value),
               slika: parseInt(document.getElementById('id2').value),
               sport:sport, 
-              id_vlasnika:id_vlasnika
+              id_vlasnika:id
             }
     } />
         

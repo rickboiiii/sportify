@@ -283,6 +283,10 @@ async def dodaj(ekipa:EkipaSaClanovimaSchema, db:Session=Depends(get_db)):
 async def vrati(id_korisnika:int, db:Session=Depends(get_db)):
     return db.query(Igrac).filter(Igrac.id_korisnika==id_korisnika).first()
 
+@router.get("/dajVlasnika/{id_korisnika}")
+async def vrati(id_korisnika:int, db:Session=Depends(get_db)):
+    return db.query(Vlasnik).filter(Vlasnik.id_korisnika==id_korisnika).first()
+
 @router.post("/dodajAdresu")
 async def teren(adresa:AdresaSchema, db:Session=Depends(get_db)):
     
