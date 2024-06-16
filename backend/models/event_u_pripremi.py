@@ -26,3 +26,4 @@ class Event_u_pripremi(Base):
     organizator = relationship("Igrac", back_populates="termini_u_pripremi")
     sport = relationship("Sifarnik_sportova", back_populates="termin_u_pripremi")
     igrac = relationship("Veza_igrac_termin_u_pripremi", back_populates="event")
+    prijava = relationship("PrijavljeniKorisnici", back_populates="event")

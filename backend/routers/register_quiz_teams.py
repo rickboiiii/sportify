@@ -4,7 +4,7 @@ from backend.models import Korisnik,Veza_igrac_ekipa, Sifarnik_sportova, Igrac, 
 from backend.models.prijatelj import Prijatelj
 from backend.models.objava import Objava
 from backend.routers.auth import pwd_context
-from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema 
+from backend.schemas import KorisnikSchema2, IgracSchema, VlasnikSchema, SportistaSport, EkipaSport, ObjavaSchema, Oglas,EkipaSchema, EkipaSaClanovimaSchema
 from sqlalchemy import desc, func, asc
 from backend.dependencies import get_db
 
@@ -233,6 +233,7 @@ async def eventi(id_sporta:int, nivo:str, spol:int, db:Session=Depends(get_db)):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
 
 @router.post("/testPrijateljstva/{id1}/{id2}")
 async def dodaj(id1:int, id2:int, db:Session=Depends(get_db) ):
