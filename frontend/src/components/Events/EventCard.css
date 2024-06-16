@@ -29,14 +29,12 @@
     margin-right: 10px;
 }
 
-.event-card-header .username {
-    font-size: 1.3vw;
+a.username  {
+    font-size:3vh;
     width: 50%;
-    height: 2vw;
+    height: max-content;
     font-weight: 600;
     color: var(--pear);
-    background: transparent;
-    border: none;
     padding: 0;
     cursor: pointer;
     text-decoration: none;

@@ -32,6 +32,8 @@
 .ssbar-container .bar {
     width: 100%;
     max-width: 400px; /* Adjust based on your design */
+    padding: 2%;
+    overflow-x: hidden;
 }
 
 

@@ -17,10 +17,10 @@ const EventCard = ({ event, props }) => {
       let endpoint = "";
       let method = "";
       if (!isPrijavljen) {
-        endpoint = `/prijava/${events.id_eventa}`;
+        endpoint = `/prijava/${events.id_eventa}/${props.korisnicko_ime}`;
         method = "POST";
       } else {
-        endpoint = `/odjava/${events.id_eventa}`;
+        endpoint = `/odjava/${events.id_eventa}/${props.korisnicko_ime}`;
         method = "DELETE";
       }
 
@@ -30,12 +30,7 @@ const EventCard = ({ event, props }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          korisnik: {
-            email: props.email,
-            username: props.username,
-            // Dodajte ostale relevantne informacije o korisniku koje želite da prosledite
-          },
-          // Dodajte dodatne parametre ako je potrebno za prijavu/odjavu
+
         }),
       });
 

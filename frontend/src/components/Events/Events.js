@@ -141,7 +141,9 @@ const Events = ({ setOptions }) => {
               </NestedLabel>
             </NestedSelects>
           )}
-          <button onClick={() => handleClick(sport, nivo, spol, selectedOption)}>Odaberi</button>
+          <button onClick={() => handleClick(sport, nivo, spol, selectedOption)}
+                  style={{backgroundColor:"var(--lapis-lazuli)", border:"none", color:"var(--ghost-white)", padding:"1vh"}}
+          > Odaberi </button>
         </DropdownContent>
       </DropdownWrapper>
 

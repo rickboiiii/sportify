@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const DropdownWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
+    font-family: var(--second-font);
+    justify-content: center;
 `;
 
 export const DropdownButton = styled.button`
@@ -22,6 +24,7 @@ export const DropdownButton = styled.button`
 export const DropdownContent = styled.div`
   display: ${(props) => (props.show ? 'flex' : 'none')};
   position: absolute;
+  width: max-content;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -29,21 +32,29 @@ export const DropdownContent = styled.div`
 `;
 
 export const OptionLabel = styled.label`
-  display: block;
-  padding: 12px 16px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f1f1f1;
-  }
+    display: block;
+    margin: auto;
+    padding: 1vh;
+    cursor: pointer;
+    color: var(--oxion);
+    font-weight: 400;
+    
+    &:hover {
+        background-color: #f1f1f1;
+    }
 `;
 
 export const NestedSelects = styled.div`
-  display:flex;
-  margin-top: 10px;
+    display:flex;
+    padding: 1vh;
+    color: var(--oxion);
+    font-weight: 400;
+    font-family: var(--second-font);
 `;
 
 export const NestedLabel = styled.label`
-  display: block;
-  margin: 10px 0;
+    display: block;
+    padding: 1vh;
+    color: var(--oxion);
+    font-weight: 400;
 `;
