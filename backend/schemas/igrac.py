@@ -21,3 +21,14 @@ class Igrac(BaseModel):
 class IgracSchema(Igrac):
     id_korisnika: int
     sport: int
+
+
+class UserUpdateIgrac(BaseModel):
+    ime_igraca: str
+    prezime_igraca: str
+    srednje_ime: str | None = None
+    datum_rodjenja: date
+    spol: bool
+    visina: int
+    tezina: int
+    max_dozvoljena_udaljenost: int

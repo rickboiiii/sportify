@@ -8,7 +8,6 @@ class KorisnikSchema(BaseModel):
     korisnicko_ime: str
 
 
-
 class Korisnik(KorisnikSchema):
     sifra: str
 
@@ -16,7 +15,15 @@ class Korisnik(KorisnikSchema):
 class KorisnikSchema2(Korisnik):
     uloga: int
 
-#Schema koja se koristi u Suggested fro you
+
+class KorisnikPrijateljSchema(BaseModel):
+    user_id: int
+    username: str
+    user_type: str
+    picture_data: str | None
+
+
+# Schema koja se koristi u Suggested fro you
 class UserSchema(BaseModel):
     id_korisnika: int
     korisnicko_ime: str

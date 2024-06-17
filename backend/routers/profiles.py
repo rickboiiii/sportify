@@ -1,10 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username
+from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik, get_prijatelji, get_recommended_prijatelji
+from backend.cruds.profile import rate_vlasnik
 from backend.dependencies import get_db
 
-from backend.schemas import IgracProfil, VlasnikProfil, Profili
+from backend.schemas import IgracProfil, VlasnikProfil, Profili, UserUpdateIgrac, UserUpdateVlasnik, \
+    RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, UploadPicture
+from backend.schemas.profil import PrijateljiProfil
 
 router = APIRouter()
 
@@ -31,6 +34,50 @@ async def get_profile_id(id_igraca: int, db: Session = Depends(get_db)) -> Igrac
     return igrac
 
 
+@router.get("/profiles/prijatelji/id/{id_korisnika}", tags=["profiles"])
+async def get_prijatelji_id(id_korisnika: int, db: Session = Depends(get_db)) -> PrijateljiProfil | None:
+    prijatelji = get_prijatelji(db, id_korisnika)
+
+    return prijatelji
+
+
+@router.get("/profiles/recommended_prijatelji/id/{id_korisnika}", tags=["profiles"])
+async def get_recommended_prijatelji_id(id_korisnika: int, db: Session = Depends(get_db)) -> PrijateljiProfil | None:
+    prijatelji = get_recommended_prijatelji(db, id_korisnika)
+
+    return prijatelji
+
+
+@router.put("/profiles/igraci/id/{id_igraca}", tags=["profiles"])
+async def update_profile_igraci(id_igraca: int, igrac_info: UserUpdateIgrac, db: Session = Depends(get_db)) -> IgracProfil | None:
+    igrac = update_igrac(db, igrac_info, id_igraca)
+
+    if igrac is None:
+        raise HTTPException(status_code=404, detail=f"Profile Igraca:{id_igraca} not found")
+
+    return igrac
+
+
+@router.post("/profiles/igraci/id/{id_igraca}/rate", tags=["profiles"])
+async def rate_profile_igraci(id_igraca: int, rating: RecenzijaIgracaSchema, db: Session = Depends(get_db)) -> IgracProfil:
+    igrac = rate_igrac(db, rating, id_igraca)
+
+    if igrac is None:
+        raise HTTPException(status_code=404, detail=f"Profile Igraca:{id_igraca} not found")
+
+    return igrac
+
+
+@router.put("/profiles/igraci/upload_picture", tags=["profiles"])
+async def upload_picture_igraci(img_data: UploadPicture, db: Session = Depends(get_db)) -> IgracProfil | None:
+    igrac = upload_picture_igrac(db, img_data)
+
+    if igrac is None:
+        raise HTTPException(status_code=404, detail=f"Profile Igraca:{img_data.id} not found")
+
+    return igrac
+
+
 @router.get("/profiles/igraci/username/{username}", tags=["profiles"])
 async def get_profile_username(username: str, db: Session = Depends(get_db)) -> IgracProfil | None:
     igrac = get_igraci(db, {"username": username, "first": True})
@@ -53,6 +100,36 @@ async def get_profile_id(id_vlasnika: int, db: Session = Depends(get_db)) -> Vla
 
     if vlasnik is None:
         raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{id_vlasnika} not found")
+
+    return vlasnik
+
+
+@router.put("/profiles/vlasnici/id/{id_vlasnika}", tags=["profiles"])
+async def update_profile_vlasnici(id_vlasnika: int, vlasnik_info: UserUpdateVlasnik, db: Session = Depends(get_db)) -> VlasnikProfil | None:
+    vlasnik = update_vlasnik(db, vlasnik_info, id_vlasnika)
+
+    if vlasnik is None:
+        raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{id_vlasnika} not found")
+
+    return vlasnik
+
+
+@router.post("/profiles/vlasnici/id/{id_vlasnika}/rate", tags=["profiles"])
+async def rate_profile_vlasnici(id_vlasnika: int, rating: RecenzijaVlasnikaSchema, db: Session = Depends(get_db)) -> VlasnikProfil:
+    vlasnik = rate_vlasnik(db, rating, id_vlasnika)
+
+    if vlasnik is None:
+        raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{id_vlasnika} not found")
+
+    return vlasnik
+
+
+@router.put("/profiles/vlasnici/upload_picture", tags=["profiles"])
+async def upload_picture_vlasnici(img_data: UploadPicture, db: Session = Depends(get_db)) -> VlasnikProfil | None:
+    vlasnik = upload_picture_vlasnik(db, img_data)
+
+    if vlasnik is None:
+        raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{img_data.id} not found")
 
     return vlasnik
 

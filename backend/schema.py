@@ -201,16 +201,19 @@ class Veza_igrac_sport(BaseModel):
     id_sporta: int
 
 
+@deprecated('use class inside schemas/recenzije/vlasnik.py')
 class RecenzijaVlasnika(BaseModel):
     komentar: str
     ocjena: float
 
 
+@deprecated('use class inside schemas/recenzije/igrac.py')
 class RecenzijaIgraca(BaseModel):
     komentar: str
     ocjena: float
 
 
+@deprecated('use class inside schemas/recenzije/teren.py')
 class RecenzijaTerena(BaseModel):
     komentar: str
     ocjena: float

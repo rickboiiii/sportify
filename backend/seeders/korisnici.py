@@ -4,7 +4,6 @@ from backend.models import Korisnik
 from backend.routers.auth import pwd_context
 from .seeder import Seeder
 
-extend_existing=True
 
 def korisnici_seeder():
     class SeederKorisnici(Seeder):
@@ -38,6 +37,36 @@ def korisnici_seeder():
             'sifra': default_user_password,
             'korisnicko_ime': 'vlasnik',
             'id_uloge': 3
+        },
+        {
+            'email': 'nejraalickovic@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'nejra',
+            'id_uloge': 1
+        },
+        {
+            'email': 'riadpap@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'riad',
+            'id_uloge': 1
+        },
+        {
+            'email': 'eminabesic@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'emina',
+            'id_uloge': 1
+        },
+        {
+            'email': 'djenetavelispahic@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'djeneta',
+            'id_uloge': 1
+        },
+        {
+            'email': 'matejpanic@mail.com',
+            'sifra': default_user_password,
+            'korisnicko_ime': 'matej',
+            'id_uloge': 1
         }
     ]
 
