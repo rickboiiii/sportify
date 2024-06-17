@@ -13,7 +13,7 @@ def sport_seeder():
 
     data = [
         {
-            'naziv_sporta': 'Fuutbal',
+            'naziv_sporta': 'Fudbal',
             'broj_igraca': 11,
             'zatvorenog_tipa': 1
         },

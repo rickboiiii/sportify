@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a76cf00b-759d-4d23-8784-a371b8a8f97c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sportify.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/feed/[username]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/feed/[username]/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/profiles/page.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/profiles/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/profiles/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/DropdownFilter/DropdownStyle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DropdownFilter/DropdownStyle.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Events/Events.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Events/Events.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/RatingStars/RatingStars.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/RatingStars/RatingStars.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Tables/TabelaIgraca.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Tables/TabelaIgraca.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models_singleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models_singleton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/seeders/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seeders/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/seeders/sportovi.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seeders/sportovi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,11 +30,20 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\riad\PycharmProjects\sportify\frontend\public" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -61,7 +60,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1718664383784</updated>
-      <workItem from="1718664385846" duration="133000" />
+      <workItem from="1718664385846" duration="3691000" />
     </task>
     <servers />
   </component>
