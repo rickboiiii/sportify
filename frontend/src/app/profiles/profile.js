@@ -6,9 +6,23 @@ import ProfileComponent from "@/components/Profile/Profile";
 import RightBar from "@/components/SideBar/RightBar";
 import {SideBarHeader, SideBarTile} from "@/components/SideBar/SideBarStyled";
 import {Buffer, Card, CardImg} from "@/components/Containers/ContainerStyled";
+import {useEffect, useState} from "react";
 
 
 export function Profile({type, profile, friends, timetable, recommendedFriends, defaultSearchUrl, searchUrl, stock_pic, mode = "view"}) {
+
+    const [username, setUsername] = useState("");
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+
+        if (storedToken) {
+            const parsedToken = JSON.parse(storedToken);
+            setUsername(JSON.parse(atob(parsedToken.access_token.split('.')[1])).sub);
+        }
+    }, [username]);
+
+    if(username === profile.username) mode = "edit";
 
     let recommended_friends = [];
     recommendedFriends && recommendedFriends.map((friend) => {
@@ -31,7 +45,7 @@ export function Profile({type, profile, friends, timetable, recommendedFriends, 
             <Buffer />
             <div style={{margin: "2rem 0", flex: 1}}>
                 <SearchBar default_search_url={defaultSearchUrl} search_url={searchUrl} type="profiles"/>
-                <ProfileComponent type={type} profile={profile} friends={friends} timetable={timetable} picture={profile.picture ?? stock_pic} mode={mode}/>
+                <ProfileComponent type={type} profile={profile} friends={friends} timetable={timetable} picture={profile.picture ?? stock_pic} userMode={mode}/>
             </div>
             <RightBar>
                 <SideBarHeader>

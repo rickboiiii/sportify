@@ -22,7 +22,7 @@ export const DropdownButton = styled.button`
 `;
 
 export const DropdownContent = styled.div`
-  display: ${(props) => (props.show ? 'flex' : 'none')};
+  display: ${(props) => ((props.show === "true") ? 'flex' : 'none')};
   position: absolute;
   width: max-content;
   background-color: #f9f9f9;

@@ -18,7 +18,7 @@ export default function RatingStars({stars, stateSetter, mode = "view"}) {
     return (
         <>
             {
-                (mode === "view") ?
+                (mode === "edit") ?
                 (starsList) :
                 (<RatingStarsStyled>
                     {starsList}

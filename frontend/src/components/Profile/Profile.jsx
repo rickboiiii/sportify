@@ -25,7 +25,7 @@ import InputMasked from "@/components/Inputs/InputMasked";
 import SelectMasked from "@/components/Inputs/SelectMasked";
 import RatingStars from "@/components/RatingStars/RatingStars";
 
-export default function ProfileComponent({type, profile, friends, timetable, picture}) {
+export default function ProfileComponent({type, profile, friends, timetable, picture, userMode}) {
 
     let calendar = [];
     let friendsList = [];
@@ -41,7 +41,6 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
             setMode("edit");
         else
             setMode("view");
-        console.log("Edit mode on");
     }
 
     if(type === 'igraci') {
@@ -216,10 +215,10 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
                         {profile.username}#{profile.id}
                     </p>
                      {/*Same here for edit button*/}
-                    <Button className="small-button" onClick={onClick}>
+                    {(userMode === "edit") ? (<Button className="small-button" onClick={onClick}>
                         <i className="fas fa-pen"></i>
                         Uredi profile
-                    </Button>
+                    </Button>) : ""}
                 </CardColumn>
             </CardHeader>
             <CardRow>
@@ -228,16 +227,17 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
                         <h4 style={{marginTop: "revert"}}>Informacije</h4>
                         <div style={{alignContent: "center"}}>
                             ({(profile.stars).toFixed(1)})
-                            <RatingStars stars={profile.stars} stateSetter={setRateProfile} mode="edit" />
-                            <div id="commentProfileSection" style={{display: "none"}}>
-                                <InputMasked props={{
-                                    type: "text",
-                                    name: "comment_profile",
-                                    id: "commentProfile",
-                                    placeholder: "Vas komentar..."
-                                }} mode="edit" />
-                                <i className="fas fa-check" onClick={onSubmit} style={{cursor: "pointer"}}></i>
-                            </div>
+                            <RatingStars stars={profile.stars} stateSetter={setRateProfile} mode={userMode} />
+                            {(userMode === "view") ? (
+                                <div id="commentProfileSection" style={{display: "none"}}>
+                                    <InputMasked props={{
+                                        type: "text",
+                                        name: "comment_profile",
+                                        id: "commentProfile",
+                                        placeholder: "Vas komentar..."
+                                    }} mode="edit" />
+                                    <i className="fas fa-check" onClick={onSubmit} style={{cursor: "pointer"}}></i>
+                                </div>) : ""}
                             {/*{starsList}*/}
                         </div>
                     </CardRow>

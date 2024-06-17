@@ -94,7 +94,7 @@ const Events = ({ setOptions }) => {
     <>
       <DropdownWrapper>
         <DropdownButton onClick={toggleDropdown}>Filter</DropdownButton>
-        <DropdownContent show={dropdownVisible}>
+        <DropdownContent show={dropdownVisible.toString()}>
           <OptionLabel>
             <input
               type="radio"

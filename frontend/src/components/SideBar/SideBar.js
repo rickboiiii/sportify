@@ -16,7 +16,7 @@ import logo from "@/images/sportify_logo2.png"
 import Link from "next/link";
 import {usePathname, useParams} from "next/navigation";
 
-const SideBar = () => {
+const SideBar = ({profileUrl}) => {
     const pathname = usePathname();
     const params = useParams();
 
@@ -30,11 +30,11 @@ const SideBar = () => {
                 <div>
                     {isFeedRoute ? (
                         <>
-                            <Link href="/profiles" passHref>
+                            <Link href={profileUrl} passHref>
                                 <FontAwesomeIcon icon={faUser} className="icon"/>
                             </Link>
                             <p>
-                                <Link href="/profiles" passHref>Profil</Link>
+                                <Link href={profileUrl} passHref>Profil</Link>
                             </p>
                         </>
                     ) : isProfilesRoute ? (

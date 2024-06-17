@@ -5,7 +5,7 @@ import './TabelaIgraca.css'; // Import the CSS file
 function ResponsiveExample({props}) {
     let data;
     try {
-        data = props.data.map((sportista, indeks) => (
+        data = props.data && props.data.map((sportista, indeks) => (
             <tr key={indeks}>
                 <th>{indeks + 1}</th>
                 <th>{sportista.ime}</th>

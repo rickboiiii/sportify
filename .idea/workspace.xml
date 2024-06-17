@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="">
+    <list default="true" id="a76cf00b-759d-4d23-8784-a371b8a8f97c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sportify.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/feed/[username]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/feed/[username]/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/profiles/page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/profiles/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/profiles/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/DropdownFilter/DropdownStyle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/DropdownFilter/DropdownStyle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Events/Events.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Events/Events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/RatingStars/RatingStars.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/RatingStars/RatingStars.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Tables/TabelaIgraca.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Tables/TabelaIgraca.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,28 +28,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2i0nWsxromiT07FZ14TOmXLXq8M" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2i1iFWeBKRK9fqvxVr0DV3Pzrvd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -53,19 +56,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="" />
-      <created>1718636398802</created>
+      <changelist id="a76cf00b-759d-4d23-8784-a371b8a8f97c" name="Changes" comment="" />
+      <created>1718664383784</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1718636398802</updated>
-      <workItem from="1718636400723" duration="183000" />
-      <workItem from="1718636821660" duration="1234000" />
-      <workItem from="1718638529222" duration="5305000" />
-      <workItem from="1718645966091" duration="1819000" />
-      <workItem from="1718647954077" duration="402000" />
-      <workItem from="1718652625488" duration="168000" />
-      <workItem from="1718652811627" duration="623000" />
-      <workItem from="1718654911631" duration="4979000" />
+      <updated>1718664383784</updated>
+      <workItem from="1718664385846" duration="133000" />
     </task>
     <servers />
   </component>
