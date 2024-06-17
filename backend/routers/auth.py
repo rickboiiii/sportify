@@ -70,3 +70,9 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
 async def verify_user_token(token: str):
     verify_token(token=token)
     return {"message": "Token is valid"}
+
+
+@router.get("/get-username/{user_id}")
+async def get_username(user_id: int, db: Session = Depends(get_db)) -> Optional[str]:
+    return db.query(Korisnik).filter(Korisnik.id_korisnika == user_id).first().korisnicko_ime
+

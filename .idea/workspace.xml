@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/register_quiz_teams.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/register_quiz_teams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/chat/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/chat/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_teren/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_teren/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +63,8 @@
       <workItem from="1718636400723" duration="183000" />
       <workItem from="1718636821660" duration="1234000" />
       <workItem from="1718638529222" duration="5305000" />
+      <workItem from="1718645966091" duration="1819000" />
+      <workItem from="1718647954077" duration="402000" />
     </task>
     <servers />
   </component>

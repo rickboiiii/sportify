@@ -200,7 +200,7 @@ const fetchIdKorisnika = async (token) => {
   let komponenta = <p></p>;
   if (formSubmitCount<3) {
     komponenta = (
-      <Container>
+      <Container style={{height: "100vh", margin: 0}}>
         {formSubmitCount < 3 ? (
           <>
             <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
@@ -230,7 +230,7 @@ const fetchIdKorisnika = async (token) => {
   } else {
     console.log(formValues);
     komponenta = (
-      <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
+      <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column", height: "100vh", margin: 0}}>
         <h1>Odaberite lokaciju</h1>
         <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
         <MapComponent formData={

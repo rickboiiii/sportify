@@ -129,7 +129,7 @@ export default function KreiranjeMeetaClient({sports, locations}) {
 
 
   return (
-    <Container>
+    <Container style={{height: "100vh", margin: 0}}>
       {formSubmitCount < 3 ? (
         <>
           <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />

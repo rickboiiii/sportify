@@ -321,7 +321,9 @@ async def teren(teren:LokacijaSchema,sport:int, adresa:AdresaSchema, db:Session=
     db.commit()
 
     db.refresh(nova_veza)
-    return nova_lokacija    
+    return nova_lokacija
+
+
 @router.get("/dajKorisnika/{id_korisnika}")
 async def korisnik(id_korisnika:int, db:Session=Depends(get_db)):
-    return db.query(Korisnik).filter(Korisnik.id_korisnika==id_korisnika).first();    
+    return db.query(Korisnik).filter(Korisnik.id_korisnika==id_korisnika).first()

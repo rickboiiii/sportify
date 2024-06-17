@@ -5,11 +5,13 @@ import { SearchBarResult2} from "@/components/SearchBar/SearchBarStyled";
 import Image from 'next/image';
 import chatIcon from '../../../../files/images/chatIcon.png';
 import './chat.css';
+import axios from "axios";
 
 const Chat = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [idKorisnika, setIdKorisnika] = useState(null); 
+    const [idKorisnika, setIdKorisnika] = useState(null);
+    const [username, setUsername] = useState('');
     const [selectedUser, setSelectedUser] = useState(null);
     const [chats, setChats] = useState([]);
     const [chatUsers, setChatUsers] = useState([]); 
@@ -22,7 +24,7 @@ const Chat = () => {
             setToken(parsedToken.access_token);
             fetchIdKorisnika(parsedToken.access_token);
         }
-    }, []);
+    }, [username]);
     
     useEffect(() => {
         if (chats.length > 0) {
@@ -38,6 +40,15 @@ const Chat = () => {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    let fetchUsername = async (id) => {
+        try {
+            const res = await axios(`http://localhost:8000/get-username/${id}`);
+            setUsername(res.data);
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
     let fetchMessages = async (id_user1, id_user2) => {
         try {
@@ -72,6 +83,7 @@ const Chat = () => {
             if (response.ok) {
                 const data = await response.json();
                 setIdKorisnika(data);
+                fetchUsername(data);
                 const fetchedChats = await fetchChats(data); 
                 setChats(fetchedChats); 
             } else {
@@ -189,8 +201,11 @@ const Chat = () => {
 
     return (
 <div className="container">
-       <div className='sidebar'> 
-            <Search onProfileClick={handleProfileClick} />
+       <div className='sidebar'>
+           <div style={{display: "flex"}}>
+               <a href={"/feed/" + username} style={{alignSelf: "center", margin: "0 1rem", padding: "0.5rem", border: "1px solid rgba(192, 192, 192, 0.5)", borderRadius: "0.5rem"}}><i className="fas fa-chevron-left"></i></a>
+               <Search onProfileClick={handleProfileClick} />
+           </div>
             <hr className="separator" />
             <div className="user-list">
                 <ul>

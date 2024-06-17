@@ -139,7 +139,7 @@ export default function KreiranjeEventaClient({locations, sports}) {
 
 
   return (
-    <Container>
+    <Container style={{height: "100vh", margin: 0}}>
       {formSubmitCount < 4 ? (
         <>
           <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />

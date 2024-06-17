@@ -108,7 +108,7 @@ export default function KreiranjeLostaClient({locations}) {
 
 
   return (
-    <Container>
+    <Container style={{height: "100vh", margin: 0}}>
       {formSubmitCount < 2 ? (
         <>
           <ProgressIndicator steps={2} active_number={formSubmitCount + 1} />
