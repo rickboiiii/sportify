@@ -37,11 +37,11 @@ async def get_suggestions(username: str, db: Session = Depends(get_db)):
             for korisnik in svi_korisnici:
                 igrac = db.query(Igrac).filter(Igrac.id_korisnika == korisnik.id_korisnika).first()
                 vlasnik = db.query(Vlasnik).filter(Vlasnik.id_korisnika == korisnik.id_korisnika).first()
-                ime, prezime, tip_korisnika = None, None, None
+                ime, prezime, tip_korisnika, slika, opis_slike = None, None, None, None, None
                 if igrac:
-                    ime, prezime, tip_korisnika = igrac.ime_igraca, igrac.prezime_igraca, 'Igrac'
+                    ime, prezime, tip_korisnika, slika, opis_slike = igrac.ime_igraca, igrac.prezime_igraca, 'igrac', igrac.picture_data, igrac.picture_name
                 elif vlasnik:
-                    ime, prezime, tip_korisnika = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'Vlasnik'
+                    ime, prezime, tip_korisnika, slika, opis_slike = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'vlasnic', vlasnik.picture_data, vlasnik.picture_name
 
                 prijedlozi_korisnici.append(UserSchema(
                     id_korisnika=korisnik.id_korisnika,
@@ -49,7 +49,9 @@ async def get_suggestions(username: str, db: Session = Depends(get_db)):
                     email=korisnik.email,
                     ime=ime,
                     prezime=prezime,
-                    tip_korisnika=tip_korisnika
+                    tip_korisnika=tip_korisnika,
+                    slika = slika,
+                    opis_slike = opis_slike
                 ))
             return prijedlozi_korisnici[:5]
 
@@ -66,15 +68,16 @@ async def get_suggestions(username: str, db: Session = Depends(get_db)):
 
         # Dohvati informacije o predloženim korisnicima
         prijedlozi_korisnici = db.query(Korisnik).filter(Korisnik.id_korisnika.in_(prijedlozi_ids)).all()
+
         prijedlozi_info = []
         for korisnik in prijedlozi_korisnici:
             igrac = db.query(Igrac).filter(Igrac.id_korisnika == korisnik.id_korisnika).first()
             vlasnik = db.query(Vlasnik).filter(Vlasnik.id_korisnika == korisnik.id_korisnika).first()
-            ime, prezime, tip_korisnika = None, None, None
+            ime, prezime, tip_korisnika, slika, opis_slike = None, None, None, None, None
             if igrac:
-                ime, prezime, tip_korisnika = igrac.ime_igraca, igrac.prezime_igraca, 'Igrac'
+                ime, prezime, tip_korisnika, slika, opis_slike = igrac.ime_igraca, igrac.prezime_igraca, 'Igrac', igrac.picture_data, igrac.picture_name
             elif vlasnik:
-                ime, prezime, tip_korisnika = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'Vlasnik'
+                ime, prezime, tip_korisnika, slika, opis_slike = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'Vlasnik', vlasnik.picture_data, vlasnik.picture_name
 
             prijedlozi_info.append(UserSchema(
                 id_korisnika=korisnik.id_korisnika,
@@ -82,7 +85,9 @@ async def get_suggestions(username: str, db: Session = Depends(get_db)):
                 email=korisnik.email,
                 ime=ime,
                 prezime=prezime,
-                tip_korisnika=tip_korisnika
+                tip_korisnika=tip_korisnika,
+                slika = slika,
+                opis_slike = opis_slike
             ))
 
         return prijedlozi_info[:5]
@@ -99,12 +104,21 @@ async def dodaj(id1: int, id2: int, db: Session = Depends(get_db)):
 
 @router.get("/dajObjavePrijatelja/{id}")
 async def objave(id: int, db: Session = Depends(get_db)):
-    result = db.query(Prijatelj).filter(Prijatelj.id_prijatelja1 == id) \
-        .join(Objava, Prijatelj.id_prijatelja2 == Objava.id_korisnika).join(Korisnik,
-                                                                            Korisnik.id_korisnika == Prijatelj.id_prijatelja2). \
-        add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all()
+    result = (db.query(Prijatelj)
+              .filter(Prijatelj.id_prijatelja1 == id) \
+              .join(Objava, Prijatelj.id_prijatelja2 == Objava.id_korisnika) \
+              .join(Korisnik, Korisnik.id_korisnika == Prijatelj.id_prijatelja2) \
+              .add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all())
     return [
-        ObjavaSchema(id_korisnika=row.id_prijatelja2, tekst_objave=row.tekst_objave, korisnicko_ime=row.korisnicko_ime)
+        ObjavaSchema(
+            id_korisnika=row.id_prijatelja2,
+            tekst_objave=row.tekst_objave,
+            picture_data=row.picture_data,
+            picture_name=row.picture_name,
+            likes=row.likes,
+            komentari=row.komentari,
+            korisnicko_ime=row.korisnicko_ime
+        )
         for row in result]
 
 @router.get("/pretraziPrijatelje/{id}/{username}/{svi}")

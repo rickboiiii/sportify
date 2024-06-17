@@ -14,6 +14,8 @@ const SuggestedForYou = ({ profiles }) => {
                     ime={profile.ime}
                     prezime={profile.prezime}
                     tip = {profile.tip_korisnika}
+                    slika = {profile.slika}
+                    opis_slike = {profile.opis_slike}
                 />
             ))}
         </div>

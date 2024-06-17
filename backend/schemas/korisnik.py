@@ -24,3 +24,5 @@ class UserSchema(BaseModel):
     ime: Optional[str] = None
     prezime: Optional[str] = None
     tip_korisnika: Optional[str] = None  # 'Igrac' ili 'Vlasnik'
+    slika: Optional[str] = None
+    opis_slike: Optional[str] = None

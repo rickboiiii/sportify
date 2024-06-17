@@ -10,6 +10,8 @@ class Vlasnik(BaseModel):
     datum_rodjenja: date
     spol: bool
     recenzija: float
+    picture_data: str | None = None
+    picture_name: str | None = None
 
 
 class VlasnikSchema(Vlasnik):

@@ -1,6 +1,9 @@
 import "./EventCard.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import stock_pic from "@/images/stock_pic.png";
+import Image from "next/image";
+
 
 const EventCard = ({ event, props }) => {
   const [showMore, setShowMore] = useState(false);
@@ -69,19 +72,21 @@ const EventCard = ({ event, props }) => {
   return (
     <div className="event-card">
       <div className="event-card-header">
-        <div className={"profilna-slika"}></div>
-        {/* treba zamijeniti za sliku*/}
+        <div className={"profilna-slika"}>
+          <Image src={event.slika ?? stock_pic} alt={"Profile Picture"}/>
+        </div>
         <Link
           className={"username"}
           href={`/profiles/igraci/id/${event.id_organizatora}`}
         >
           {event.korisnicko_ime}
         </Link>
-        {/* na ovo mjesto treba da ide username i slika */}
       </div>
       <div className="event-card-body">
         <div>
-          <div className={"slika-oglasa"}></div>
+          <div className={"slika-oglasa"}>
+
+          </div>
           {/* treba zamijeniti za sliku*/}
           <h1>{event.naziv_termina}</h1>
           <h2>{event.vrsta_termina}</h2>

@@ -10,11 +10,10 @@
     height: fit-content;
 }
 
-.profile-image {
+.profile-image > img {
     border-radius: 50%;
-    width: 4vw;
-    height: 4vw;
-    background-color: var(--taupe-gray); /* Placeholder za sliku */
+    width: 40px;
+    height: 40px;
 }
 
 .profile-info {
@@ -43,6 +42,8 @@
     font-weight: bold;
     cursor: pointer;
     margin-right: 2%;
+    border: none;
+    background-color: transparent;
 }
 
 

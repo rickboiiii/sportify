@@ -19,3 +19,4 @@ class Korisnik(Base):
     prijateljstva1 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja1]", back_populates="korisnik1")
     prijateljstva2 = relationship("Prijatelj", foreign_keys="[Prijatelj.id_prijatelja2]", back_populates="korisnik2")
     prijava = relationship("PrijavljeniKorisnici", back_populates="user")
+    likes = relationship("Likes", back_populates="korisnik")

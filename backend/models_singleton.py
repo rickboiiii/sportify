@@ -1,4 +1,5 @@
-from sqlalchemy import Boolean, CheckConstraint, Column, ForeignKey, ForeignKeyConstraint, Integer, String, Date, Float, DateTime
+from sqlalchemy import Boolean, CheckConstraint, Column, ForeignKey, ForeignKeyConstraint, Integer, String, Date, Float, \
+    DateTime, Text
 from sqlalchemy.orm import relationship
 from typing_extensions import deprecated
 
@@ -49,6 +50,8 @@ class Igrac(Base):
     max_dozvoljena_udaljenost = Column(Integer)
     verifikovan=Column(Boolean)
     recenzija=Column(Float,CheckConstraint("recenzija>=1 and recenzija<=5"))
+    picture_data = Column(Text, nullable=True)
+    picture_name = Column(String, nullable=True)
     #data = Column(LargeBinary) PRIKAZ SLIKE ?
     #format = Column(String)  # Dodatni atribut za pohranu formata slike
     korisnici=relationship("Korisnik", back_populates="igraci")
@@ -72,6 +75,8 @@ class Vlasnik(Base):
     datum_rodjenja = Column(Date)
     spol = Column(Boolean)
     recenzija=Column(Float,CheckConstraint("recenzija>=1 and recenzija<=5"))
+    picture_data = Column(Text, nullable=True)
+    picture_name = Column(String, nullable=True)
     #data = Column(LargeBinary) PRIKAZ SLIKE ?
     #format = Column(String)  # Dodatni atribut za pohranu formata slike; treba pretvarati u binarno i obratno
     korisnici= relationship("Korisnik", back_populates= "vlasnici")

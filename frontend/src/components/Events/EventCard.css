@@ -20,12 +20,10 @@
 }
 
 
-/* zaglavlje */
-.profilna-slika {
+.profilna-slika > img {
+    border-radius: 50%;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: #dbdbdb; /* Placeholder color, replace with actual image */
     margin-right: 10px;
 }
 

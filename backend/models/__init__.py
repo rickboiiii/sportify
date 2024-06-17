@@ -13,6 +13,7 @@ from .slobodni_event import Slobodni_Event
 from .turnir import Turnir
 from .uloga import Uloga
 from .vlasnik import Vlasnik
+from .objava import Objava, Likes
 from .meet_and_greet import MeetAndGreet
 from .lost_and_found import LostAndFound
 from .prijatelj import Prijatelj
