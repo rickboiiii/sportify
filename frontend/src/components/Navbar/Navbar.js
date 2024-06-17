@@ -40,7 +40,7 @@ const Navbar = () => {
                 </>
             )}
             {/* eslint-disable-next-line no-script-url */}
-            <a href="javascript:void(0);" className="icon" onClick={myFunction}>
+            <a dangerouslySetInnerHTML={void(0)} className="icon" onClick={myFunction}>
                 &#9776;
             </a>
         </div>

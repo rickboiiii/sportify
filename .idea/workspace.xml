@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/feed/Feed.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Indicators/NumberStyled.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Indicators/NumberStyled.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProfileCard/ProfileSumCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProfileCard/ProfileSumCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/StatusBar/StatusBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/StatusBar/StatusBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SuggestedForYou/SuggestedForYou.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SuggestedForYou/SuggestedForYou.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/middleware.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/event.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/meet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar/Navbar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +65,7 @@
       <workItem from="1718647954077" duration="402000" />
       <workItem from="1718652625488" duration="168000" />
       <workItem from="1718652811627" duration="623000" />
+      <workItem from="1718654911631" duration="4979000" />
     </task>
     <servers />
   </component>

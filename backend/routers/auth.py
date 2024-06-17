@@ -76,3 +76,15 @@ async def verify_user_token(token: str):
 async def get_username(user_id: int, db: Session = Depends(get_db)) -> Optional[str]:
     return db.query(Korisnik).filter(Korisnik.id_korisnika == user_id).first().korisnicko_ime
 
+
+@router.get("/get-username-from-token/{token}", tags=["user"])
+async def get_username_from_token(token: str):
+    try:
+        payload = jwt.decode(token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+
+        return username
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")

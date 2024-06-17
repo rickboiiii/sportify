@@ -150,7 +150,6 @@ export default function KreiranjeEventaClient({locations, sports}) {
           >{(formSubmitCount===3)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
-          // TODO Add username from token
           <Message>uspješno ste dodali termin {router.push("/feed")}</Message>
       )
       }

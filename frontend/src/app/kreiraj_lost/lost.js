@@ -119,7 +119,6 @@ export default function KreiranjeLostaClient({locations}) {
           >{(formSubmitCount===1)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
-        // TODO add username
         <Message>uspješno ste dodali izgubljeni/pronadjeni predmet {router.push("/feed")}</Message>
       )
       }

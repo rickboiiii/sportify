@@ -140,7 +140,6 @@ export default function KreiranjeMeetaClient({sports, locations}) {
           >{(formSubmitCount===2)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
         </>
       ) : (
-          // TODO add token username
         <Message>uspješno ste organizovali okupljanje {router.push('/feed')}</Message>
       )
       }
