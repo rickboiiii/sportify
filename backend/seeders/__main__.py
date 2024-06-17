@@ -3,9 +3,11 @@ from backend.seeders.igraci import igraci_seeder
 from backend.seeders.vlasnici import vlasnici_seeder
 from backend.seeders.korisnici import korisnici_seeder
 from backend.seeders.uloge import uloge_seeder
+from backend.seeders.sportovi import sport_seeder
 
 if __name__ == '__main__':
     Colors().main()
+    sport_seeder()
     uloge_seeder()
     korisnici_seeder()
     igraci_seeder()

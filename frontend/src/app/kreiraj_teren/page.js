@@ -101,9 +101,9 @@ const fetchIdKorisnika = async (token) => {
     },
     {
       first: {
-        label: "lokacija terena",
+        label: "cijena po terminu",
         id: "id1",
-        name: "id_adrese",
+        name: "cijena_po_terminu",
       },
       second: {
         label: "kapacitet terena",
@@ -113,21 +113,9 @@ const fetchIdKorisnika = async (token) => {
     },
     {
       first: {
-        label: "cijena po terminu",
-        id: "id1",
-        name: "cijena_po_terminu",
-      },
-      second: {
         label: "recenzija",
-        id: "id2",
-        name: "recenzija",
-      }
-    },
-    {
-      first: {
-        label: "cijena po terminu",
         id: "id1",
-        name: "cijena_po_terminu",
+        name: "recenzija",
       },
       second: {
         label: "prostor za sliku",
@@ -169,30 +157,30 @@ const fetchIdKorisnika = async (token) => {
 
   const handlePress = () => {
     let cijena_po_terminu = parseFloat(document.getElementById('id1').value);
-    let slika = parseInt(document.getElementById('id2').value);
-    let recenzija= parseFloat(document.getElementById('id2').value)
+    let slika = document.getElementById('id2').value;
+    let recenzija= parseFloat(document.getElementById('id1').value)
+
     const formData = {
       naziv_lokacije: formValues[0],
       opis_lokacije: formValues[1],
-      id_adrese: parseInt(formValues[2]),
       kapacitet: parseInt(formValues[3]),
       cijena_po_terminu: cijena_po_terminu,
       recenzija: recenzija,
       slika: slika
     };console.log(formData)
 
-    try {
-      axios.post('http://localhost:8000/kreiraj_teren', formData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      sendTerenDetails(formData);
-    } catch (error) {
-      console.error('Failed to submit form', error);
-    }
+    // try {
+    //   axios.post('http://localhost:8000/kreiraj_teren', formData)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    //
+    // } catch (error) {
+    //   console.error('Failed to submit form', error);
+    // }
 
     setFormSubmitCount((prevCount) => prevCount + 1);
   };
@@ -202,7 +190,7 @@ const fetchIdKorisnika = async (token) => {
     let prvaVrijednost = document.getElementById("id1").value;
     let drugaVrijednost = document.getElementById("id2").value;
     setFormValues([...formValues, prvaVrijednost, drugaVrijednost]);
-    if (formSubmitCount < 2) {
+    if (formSubmitCount < 3) {
       setFormKey((prevKey) => prevKey + 1);
       setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
       setFormSubmitCount((prevCount) => prevCount + 1);
@@ -212,12 +200,12 @@ const fetchIdKorisnika = async (token) => {
   };
 
   let komponenta = <p></p>;
-  if (formSubmitCount<2) {
+  if (formSubmitCount<3) {
     komponenta = (
       <Container>
-        {formSubmitCount < 2 ? (
+        {formSubmitCount < 3 ? (
           <>
-            <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
+            <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
             <ParForm
               key={formKey}
               inputs={labelSets[currentLabelSetIndex]}
@@ -231,28 +219,33 @@ const fetchIdKorisnika = async (token) => {
                 {prikazSportova}
 
           </SelectKomponenta><br></br></>)}
-              {(formSubmitCount === 2) ? (<Button onClick={handlePress}>Završite</Button>)
+              {(formSubmitCount === 3) ? (<Button onClick={handlePress}>Završite</Button>)
               : (<Button style={{marginTop:"50px"}} onClick={NextSlide}>sljedeće</Button>)}</ParForm>
 
           </>
         ) : (
-          <Message>uspješno ste dodali teren</Message>
+            <></>
+          // <Message>uspješno ste dodali teren</Message>
         )}
       </Container>
     );
   } else {
+    console.log(formValues);
     komponenta = (
       <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
         <h1>Odaberite lokaciju</h1>
-        <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
+        <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
         <MapComponent formData={
-              {naziv_terena: formValues[0],
-                kapacitet: parseInt(formValues[1]),
-              cijena_po_terminu: parseInt(document.getElementById('id1').value),
-              slika: parseInt(document.getElementById('id2').value),
-              sport:sport,
-              id_vlasnika:id,
-              username:username
+              {
+                id_vlasnika:id,
+                naziv_lokacije: formValues[0],
+                opis_Lokacije: formValues[1],
+                kapacitet: parseInt(formValues[2]),
+                cijena_po_terminu: parseFloat(formValues[3]),
+                recenzija: parseFloat(formValues[4]),
+                slika: parseInt(document.getElementById('id2').value),
+                sport:sport,
+                username:username
             }
     } />
         {/*Button goes here for picture*/}

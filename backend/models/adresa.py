@@ -9,7 +9,7 @@ class Adresa(Base):
 
     id_adrese = Column(Integer, primary_key=True, autoincrement=True)
     naziv_ulice = Column(String, nullable=False)
-    postanski_broj = Column(Integer, nullable=False, unique=True)
+    postanski_broj = Column(Integer, nullable=False)
     grad = Column(String, nullable=False)
     drzava = Column(String, nullable=False)
 
