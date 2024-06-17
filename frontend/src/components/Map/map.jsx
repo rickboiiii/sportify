@@ -15,8 +15,7 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapComponent = ({formData}) => {
-    console.log("formdata", formData)
-    const router=useRouter();
+  const router=useRouter();
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -73,8 +72,13 @@ const MapComponent = ({formData}) => {
     e.preventDefault();
     let lat
     let lng
-    (typeof(position)==="object" ? {lat, lng}=position: [lat, lng]=position)
-    
+    if(position.length === undefined) {
+      lat = position.lat;
+      lng = position.lng;
+    } else {
+      lat = position[0];
+      lng = position[1];
+    }
     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
     const data = await response.json();
    
@@ -86,27 +90,21 @@ const MapComponent = ({formData}) => {
       }
       const teren= {
         id_vlasnika: formData.id_vlasnika,
-        naziv_lokacije: formData.naziv_terena,
-        opis_Lokacije:"opis",
-        recenzija:4,
+        naziv_lokacije: formData.naziv_lokacije,
+        opis_Lokacije: formData.opis_Lokacije,
+        recenzija: formData.recenzija,
         cijena_po_terminu: parseInt(formData.cijena_po_terminu),
+        picture_data: formData.picture_data,
         
         longituda: parseFloat(lng),
         latituda: parseFloat(lat), 
-        kapacitet: parseInt(formData.kapacitet),
-        
+        kapacitet: parseInt(formData.kapacitet)
       }
 
     
     console.log("podaci", {adresa:adresa, teren:teren}, typeof({adresa:adresa, teren:teren}))
     axios.post(`http://localhost:8000/dodajTeren/${formData.sport}`,{adresa:adresa, teren:teren} ).then(r=>router.push(`/feed/${formData.username}`))
     .catch(er=>console.log(er))
-    // axios.post(`http://localhost:8000/dodajAdresu`,adresa)
-    // .then(res=>axios.post(`http://localhost:8000/dodajTeren/${formData.sport}/${res.data.id_adrese}`, teren)
-    // .then(r=>console.log(r))
-    // .catch(er=>console.log(er))
-    // .catch(err=>console.log(err)))
-    
   }
 
   return (

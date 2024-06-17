@@ -17,3 +17,5 @@ class Sifarnik_sportova(Base):
     termin_u_pripremi = relationship("Event_u_pripremi", back_populates="sport")
     ekipe = relationship("Ekipa", back_populates="sport")
     turnir = relationship("Turnir", back_populates="sport")
+    meet_and_greet_eventi = relationship("MeetAndGreet", back_populates="sport")
+    

@@ -1,6 +1,6 @@
-import axios from "axios";
-import KreiranjeEventaClient from "@/app/kreiraj_event/event";
 
+import KreiranjeMeetaClient from "@/app/kreiraj_meet/meet";
+import axios from "axios";
 
 async function getSports() {
   try {
@@ -40,13 +40,12 @@ async function getLocations() {
   }
 }
 
-export default async function KreiranjeEventa() {
+export default async function KreiranjeMeeta() {
 
   const sports = await getSports();
   const locations = await getLocations();
 
   return (
-      <KreiranjeEventaClient sports={sports} locations={locations}/>
+      <KreiranjeMeetaClient sports={sports} locations={locations}/>
   );
 }
-

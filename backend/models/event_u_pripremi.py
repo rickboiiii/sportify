@@ -15,7 +15,7 @@ class Event_u_pripremi(Base):
     opis_termina = Column(String, nullable=True)
     vrsta_termina = Column(String, nullable=False)
     pocetak_termina = Column(DateTime)
-    potreban_nivo_sposobnosti = Column(Integer)
+    potreban_nivo_sposobnosti = Column(String)
     spol = Column(Boolean, nullable=True)
     minimalan_broj_igraca = Column(Integer)
     maksimalan_broj_igraca = Column(Integer)

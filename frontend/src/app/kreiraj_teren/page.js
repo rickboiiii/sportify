@@ -1,4 +1,5 @@
 "use client";
+
 import '@/app/globals.css';
 import { useState, useEffect } from 'react';
 import { Container } from "@/components/Containers/ContainerStyled";
@@ -22,9 +23,10 @@ const Message = styled.h1`
 // Dinamički učitaj MapComponent bez SSR-a
 const MapComponent = dynamic(() => import('@/components/Map/map'), { ssr: false });
 
-async function sendTerenDetails(formData) {
+//terenDetails
+async function sendTerenDetails(terenDetails) {
   try {
-    const response = await axios.post('http://localhost:8000/kreiraj_teren', formData); //terenDetails
+    const response = await axios.post('http://localhost:8000/kreiraj_teren', terenDetails); //terenDetails
     return response.data;
   } catch (error) {
     console.error('Error:', error);
@@ -32,7 +34,7 @@ async function sendTerenDetails(formData) {
   }
 }
 
-export default function Home() {
+export default function KreiranjeTerena() {
   const router=useRouter();
   const [token, setToken] = useState(null);
   const [idKorisnika, setIdKorisnika] = useState(null);
@@ -65,7 +67,7 @@ const fetchIdKorisnika = async (token) => {
             .then(res=>{
               temp_username=res.data.korisnicko_ime;
               setUsername(temp_username);
-            
+
             }).catch(err=>console.log(err))
           axios.get(`http://localhost:8000/dajVlasnika/${data}`)
           .then(res=>{
@@ -75,7 +77,7 @@ const fetchIdKorisnika = async (token) => {
             else
               router.push(`/feed/${temp_username}`)
           })
-          
+
           .catch(err=>console.log(err))
       } else {
           console.error('Failed to fetch id_korisnika:', response.statusText);
@@ -92,9 +94,9 @@ const fetchIdKorisnika = async (token) => {
         name: "naziv_terena",
       },
       second: {
-        label: "kapacitet terena",
+        label: "kratki opis",
         id: "id2",
-        name: "kapacitet_terena",
+        name: "opis_terena",
       }
     },
     {
@@ -104,15 +106,29 @@ const fetchIdKorisnika = async (token) => {
         name: "cijena_po_terminu",
       },
       second: {
+        label: "kapacitet terena",
+        id: "id2",
+        name: "kapacitet_terena",
+      }
+    },
+    {
+      first: {
+        label: "recenzija",
+        id: "id1",
+        name: "recenzija",
+      },
+      second: {
         label: "prostor za sliku",
         id: "id2",
-        name: "slika",
+        name: "picture_data",
+        type: "file"
       }
     }
   ];
   const [sport, setSport]=useState(1)
   const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
   const [prikazSportova, setPrikazSportova]=useState([])
+
   const [formKey, setFormKey] = useState(0);
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
@@ -126,52 +142,53 @@ const fetchIdKorisnika = async (token) => {
         console.log(error); // Rukovanje greškom u slučaju neuspješnog dohvata
       }
     };
-  
+
     fetchData(); // Pozivanje funkcije za dohvat podataka
   }, []); // Prazna niz ovisnosti kako bi se hook izvršio samo prilikom montiranja komponente
-  
-  useEffect(  ()=>{
-  setPrikazSportova(
-    listaMogucihSportova.map((sport, indeks) => (
-      
-      <option value={sport.id_sporta}>{sport.naziv_sporta} </option>
-    )))
-  console.log(listaMogucihSportova)
-  console.log(typeof(listaMogucihSportova))
-  console.log(prikazSportova)}, [listaMogucihSportova])
+
+  useEffect(  ()=> {
+    setPrikazSportova(
+        listaMogucihSportova.map((sport, indeks) => (
+            <option value={sport.id_sporta}>{sport.naziv_sporta} </option>
+        )))
+  }, [listaMogucihSportova])
+
+  const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+  });
 
   const handlePress = () => {
-    let cijena_po_terminu = parseInt(document.getElementById('id1').value);
-    let slika = parseInt(document.getElementById('id2').value);
-    const formData = {
-      naziv_terena: formValues[0],
-      kapacitet: formValues[1],
-      cijena_po_terminu: cijena_po_terminu,
-      slika: slika,
-    };console.log(formData)
+    let cijena_po_terminu = parseFloat(document.getElementById('id1').value);
+    let slika = document.getElementById('id2').files[0];
+    let recenzija= parseFloat(document.getElementById('id1').value)
 
-    try {
-      axios.post('http://localhost:8000/kreiraj_teren', formData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      sendTerenDetails(formData);
-    } catch (error) {
-      console.error('Failed to submit form', error);
-    }
+    const formData = {
+      naziv_lokacije: formValues[0],
+      opis_lokacije: formValues[1],
+      kapacitet: parseInt(formValues[3]),
+      cijena_po_terminu: cijena_po_terminu,
+      recenzija: recenzija,
+      slika: slika
+    };
 
     setFormSubmitCount((prevCount) => prevCount + 1);
   };
 
-  const NextSlide = () => {
-    console.log(formValues, "forma")
+  const NextSlide = async (e) => {
+    e.preventDefault();
     let prvaVrijednost = document.getElementById("id1").value;
-    let drugaVrijednost = document.getElementById("id2").value;
+    let drugaVrijednost;
+
+    if(formSubmitCount === 2)
+      drugaVrijednost = await toBase64(document.getElementById("id2").files[0]);
+    else
+      drugaVrijednost = document.getElementById("id2").value;
+
     setFormValues([...formValues, prvaVrijednost, drugaVrijednost]);
-    if (formSubmitCount < 2) {
+    if (formSubmitCount < 3) {
       setFormKey((prevKey) => prevKey + 1);
       setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
       setFormSubmitCount((prevCount) => prevCount + 1);
@@ -181,12 +198,12 @@ const fetchIdKorisnika = async (token) => {
   };
 
   let komponenta = <p></p>;
-  if (formSubmitCount<2) {
+  if (formSubmitCount<3) {
     komponenta = (
       <Container>
-        {formSubmitCount < 2 ? (
+        {formSubmitCount < 3 ? (
           <>
-            <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
+            <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
             <ParForm
               key={formKey}
               inputs={labelSets[currentLabelSetIndex]}
@@ -195,36 +212,41 @@ const fetchIdKorisnika = async (token) => {
               {formSubmitCount===1 && (<><label>Odaberite sport</label><br></br>
           <SelectKomponenta
                 value={sport}
-                onChange={e => setSport(e.target.value)} 
+                onChange={e => setSport(e.target.value)}
               >
                 {prikazSportova}
-                
+
           </SelectKomponenta><br></br></>)}
-              {(formSubmitCount === 2) ? (<Button onClick={handlePress}>Završite</Button>) 
+              {(formSubmitCount === 3) ? (<Button onClick={handlePress}>Završite</Button>)
               : (<Button style={{marginTop:"50px"}} onClick={NextSlide}>sljedeće</Button>)}</ParForm>
 
           </>
         ) : (
-          <Message>uspješno ste dodali teren</Message>
+            <></>
+          // <Message>uspješno ste dodali teren</Message>
         )}
       </Container>
     );
   } else {
+    console.log(formValues);
     komponenta = (
       <div style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"column"}}>
         <h1>Odaberite lokaciju</h1>
-        <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
+        <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
         <MapComponent formData={
-              {naziv_terena: formValues[0],
-                kapacitet: parseInt(formValues[1]),
-              cijena_po_terminu: parseInt(document.getElementById('id1').value),
-              slika: parseInt(document.getElementById('id2').value),
-              sport:sport, 
-              id_vlasnika:id,
-              username:username
+              {
+                id_vlasnika: id,
+                naziv_lokacije: formValues[0],
+                opis_Lokacije: formValues[1],
+                kapacitet: parseInt(formValues[2]),
+                cijena_po_terminu: parseFloat(formValues[3]),
+                recenzija: parseFloat(formValues[4]),
+                picture_data: formValues[5],
+                sport:sport,
+                username:username
             }
     } />
-        
+        {/*Button goes here for picture*/}
       </div>
     );
   }

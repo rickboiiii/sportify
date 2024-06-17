@@ -13,6 +13,7 @@ class LokacijaSchema(BaseModel):
     longituda:float
     latituda:float
     kapacitet:int
+    picture_data: str
 
 class AdresaSchema(BaseModel):
     
