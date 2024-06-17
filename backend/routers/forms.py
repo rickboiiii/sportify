@@ -133,3 +133,14 @@ async def lost_and_found(predmet: LostAndFoundCreate, db: Session = Depends(get_
     db.add(novi_predmet)
     db.commit()
     db.refresh(novi_predmet)
+
+# def upload_picture_lost(db: Session, img_data: UploadPicture):
+#     db.query(LostAndFound).filter(Igrac.id_losta == img_data.id).update({
+#         LostAndFound.picture_data: img_data.picture_data,
+#         LostAndFound.picture_name: hashlib.md5(img_data.picture_name.encode('utf-8')).hexdigest()
+#     })
+#     db.commit()
+
+#     igrac = db.query(Igrac).join(Korisnik).filter(Igrac.id_igraca == img_data.id).first()
+
+#     return igrac
