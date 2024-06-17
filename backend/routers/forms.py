@@ -144,3 +144,23 @@ async def lost_and_found(predmet: LostAndFoundCreate, db: Session = Depends(get_
 #     igrac = db.query(Igrac).join(Korisnik).filter(Igrac.id_igraca == img_data.id).first()
 
 #     return igrac
+
+
+class LocationKeywordsSchema(BaseModel):
+    id_lokacije: int
+    naziv_lokacije: str
+
+
+@router.get("/all-locations")
+async def all_locations(db: Session = Depends(get_db)) -> list[LocationKeywordsSchema]:
+    lokacije = db.query(Lokacija).all()
+
+    final_lokacije = []
+    for lokacija in lokacije:
+        if lokacija.naziv_lokacije is not None:
+            final_lokacije.append({
+                'id_lokacije': lokacija.id_lokacije,
+                'naziv_lokacije': lokacija.naziv_lokacije
+            })
+
+    return final_lokacije

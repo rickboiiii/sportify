@@ -7,7 +7,7 @@ export default function SelectButton({ id, name, options }) {
     return (
         <StyledSelect id={id} name={name}>
             <option value=""></option>
-            {options.map((option) => (
+            {options && options.map((option) => (
                 <option key={option.id} value={option.id}>
                     {option.name}
                 </option>
