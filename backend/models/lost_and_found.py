@@ -12,4 +12,4 @@ class LostAndFound(Base):
     slika = Column(String)
 
     
-    lokacija = relationship("Lokacije", back_populates="lost_and_found_eventi") 
+    lokacije = relationship("Lokacija", back_populates="lost_and_found_eventi") 

@@ -13,4 +13,4 @@ class Adresa(Base):
     grad = Column(String, nullable=False)
     drzava = Column(String, nullable=False)
 
-    lokacija = relationship("Lokacija", back_populates="adrese")
+    lokacije = relationship("Lokacija", back_populates="adrese")

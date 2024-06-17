@@ -15,5 +15,5 @@ class Turnir(Base):
     id_lokacije = Column(Integer, ForeignKey("lokacije.id_lokacije"))
 
     sport = relationship("Sifarnik_sportova", back_populates="turnir")
-    lokacija = relationship("Lokacija", back_populates="turnir")
+    lokacije = relationship("Lokacija", back_populates="turnir")
     ekipa = relationship("Veza_ekipa_turnir", back_populates="turnir")

@@ -10,11 +10,11 @@ class MeetAndGreet(Base):
     kapacitet = Column(Integer, nullable=False)
     id_sporta = Column(Integer, ForeignKey('sportovi.id_sporta'), nullable=False)
     id_lokacije = Column(Integer, ForeignKey('lokacije.id_lokacije'), nullable=False)
-    datum_odrzavanja = Column(DateTime, nullable=False)
+    datum_odrzavanja = Column(DateTime)
     naziv_okupljanja = Column(String)
     opis_okupljanja= Column(String)
 
     sport = relationship("Sifarnik_sportova", back_populates="meet_and_greet_eventi")
-    lokacija = relationship("Lokacije", back_populates="meet_and_greet_eventi") 
+    lokacije = relationship("Lokacija", back_populates="meet_and_greet_eventi") 
 
 

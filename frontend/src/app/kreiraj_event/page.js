@@ -71,7 +71,7 @@ export default function KreiranjeEventa() {
         label: "sport",
         id: "id2",
         name: "sport",
-        values: [{id: 5, name: "odbojka"},{id:6, name:"kosarka"} ,{id:7, name:"fudbal"}]
+        values: [{id: 5, name: "odbojka"},{id:6, name:"fudbal"} ,{id:7, name:"rukomet"},{id:8, name:"kosarka"},{id:9, name:"tenis"},{id:10, name:"teretana"},{id:11, name:"plivanje"}]
       }
     },
     {
