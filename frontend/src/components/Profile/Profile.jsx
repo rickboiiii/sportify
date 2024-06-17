@@ -25,16 +25,7 @@ import InputMasked from "@/components/Inputs/InputMasked";
 import SelectMasked from "@/components/Inputs/SelectMasked";
 import RatingStars from "@/components/RatingStars/RatingStars";
 
-export default function ProfileComponent({type, profile, picture}) {
-
-    let starsList = [];
-    for(let i = 1; i <= 5; i++) {
-        if(i <= profile.stars) {
-            starsList.push(<i className="fas fa-star" key={i}></i>)
-        } else {
-            starsList.push(<i className="fas fa-star" key={i} style={{color: taupeGrayLight}}></i>)
-        }
-    }
+export default function ProfileComponent({type, profile, friends, timetable, picture}) {
 
     let calendar = [];
     let friendsList = [];
@@ -102,16 +93,24 @@ export default function ProfileComponent({type, profile, picture}) {
                 )
             }
         }
-        for(let i = 1; i <= 5; i++) {
+
+        friends && friends.map((friend) => {
+            let visit_url = "#"
+
+            if(friend.user_type !== "others")
+                visit_url = "/profiles/" + friend.user_type + "/id/" + friend.user_id;
+
             friendsList.push(
-                <GridItem key={i} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
-                    <Card>
-                        <CardImg src={picture} alt="Users Profile Picture"/>
-                        <h5>Test Name {i}</h5>
-                    </Card>
-                </GridItem>
-            );
-        }
+                <a href={visit_url} key={friend.user_id} style={{textDecoration: "none"}}>
+                    <GridItem style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
+                        <Card>
+                            <CardImg src={friend.picture_data ?? picture} alt="Users Profile Picture"/>
+                            <h5>@{friend.username}</h5>
+                        </Card>
+                    </GridItem>
+                </a>
+            )
+        });
 
     } else {
 
@@ -328,10 +327,10 @@ export default function ProfileComponent({type, profile, picture}) {
                     </CardRow>
                     <br />
                     <CardRow>
-                        <h3 style={{margin: 0}}>Prijatelji</h3>
+                        <h3 style={{margin: 0}}>Prijatelji {(friendsList.length !== 0) ? ("("+friendsList.length+")") : ""}</h3>
                     </CardRow>
                     <CardRow style={{display: "block"}}>
-                        <Grid>{friendsList}</Grid>
+                        {(friendsList.length !== 0) ? (<Grid>{friendsList}</Grid>) : <p>Korisnik nema prijatelja <i className="fas fa-sad-tear"></i></p>}
                     </CardRow>
                 </>) : (<>
                     <CardRow>

@@ -161,24 +161,28 @@ def get_prijatelji(db: Session, id_korisnika: int):
     sorted_prijatelji = []
     for prijatelj in prijatelji:
         if(prijatelj.korisnik2.id_uloge == 2):
+            user_type = "igraci"
             picture_data = db.query(Igrac).filter(Igrac.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
         elif(prijatelj.korisnik2.id_uloge == 3):
+            user_type = "vlasnici"
             picture_data = db.query(Vlasnik).filter(Vlasnik.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
         else:
+            user_type = "others"
             picture_data = "/profile_picture_cute_nejra.jpg"
 
         if picture_data is None:
             picture_data = "/profile_picture_cute_nejra.jpg"
 
         sorted_prijatelji.append({
-            'id_korisnika': prijatelj.korisnik2.id_korisnika,
-            'korisnicko_ime': prijatelj.korisnik2.korisnicko_ime,
+            'user_id': prijatelj.korisnik2.id_korisnika,
+            'username': prijatelj.korisnik2.korisnicko_ime,
+            'user_type': user_type,
             'picture_data': picture_data
         })
 
     final_prijatelji = {
-        'id_korisnika': id_korisnika,
-        'prijatelji': sorted_prijatelji
+        'user_id': id_korisnika,
+        'friends': sorted_prijatelji
     }
 
     return final_prijatelji
@@ -195,26 +199,30 @@ def get_recommended_prijatelji(db: Session, id_korisnika: int):
     sorted_recommended_prijatelji = []
     for prijatelj in recommended_prijatelji:
         if (prijatelj.korisnik2.id_uloge == 2):
+            user_type = "igraci"
             picture_data = db.query(Igrac).filter(
                 Igrac.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
         elif (prijatelj.korisnik2.id_uloge == 3):
+            user_type = "vlasnici"
             picture_data = db.query(Vlasnik).filter(
                 Vlasnik.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
         else:
+            user_type = "others"
             picture_data = "/profile_picture_cute_nejra.jpg"
 
         if picture_data is None:
             picture_data = "/profile_picture_cute_nejra.jpg"
 
         sorted_recommended_prijatelji.append({
-            'id_korisnika': prijatelj.korisnik2.id_korisnika,
-            'korisnicko_ime': prijatelj.korisnik2.korisnicko_ime,
+            'user_id': prijatelj.korisnik2.id_korisnika,
+            'username': prijatelj.korisnik2.korisnicko_ime,
+            'user_type': user_type,
             'picture_data': picture_data
         })
 
     final_prijatelji = {
-        'id_korisnika': id_korisnika,
-        'prijatelji': sorted_recommended_prijatelji
+        'user_id': id_korisnika,
+        'friends': sorted_recommended_prijatelji
     }
 
     return final_prijatelji

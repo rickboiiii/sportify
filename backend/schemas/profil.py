@@ -36,8 +36,8 @@ class Profili(BaseModel):
 
 
 class PrijateljiProfil(BaseModel):
-    id_korisnika: int
-    prijatelji: list[KorisnikPrijateljSchema]
+    user_id: int
+    friends: list[KorisnikPrijateljSchema]
 
     class Config:
         from_attributes = True

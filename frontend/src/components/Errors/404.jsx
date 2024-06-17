@@ -3,7 +3,7 @@ import {taupeGrayLight} from "@/styles/GlobalStyle";
 
 export default function Error404({message}) {
     return (
-        <ContainerOld>
+        <ContainerOld style={{ width: "auto" }}>
             <Card>
                 <CardHeader>
                     <h1>{message} <i className="fas fa-question" style={{fontSize: "4rem", color: taupeGrayLight}}></i></h1>

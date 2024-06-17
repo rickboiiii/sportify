@@ -48,9 +48,12 @@ export default async function ProfilePage(props) {
             };
         }
 
+        const friends_res = await axios.get('http://127.0.0.1:8000/profiles/prijatelji/id/' + params.id);
+        const recommended_friends_res = await axios.get('http://127.0.0.1:8000/profiles/recommended_prijatelji/id/' + params.id);
+
         return (
             <Suspense fallback={<Loading />}>
-                <Profile type={params.type} profile={profile} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
+                <Profile type={params.type} profile={profile} friends={friends_res.data.friends} timetable={[]} recommendedFriends={recommended_friends_res.data.friends} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
             </Suspense>
         );
     } catch (e) {

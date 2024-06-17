@@ -17,8 +17,9 @@ class KorisnikSchema2(Korisnik):
 
 
 class KorisnikPrijateljSchema(BaseModel):
-    id_korisnika: int
-    korisnicko_ime: str
+    user_id: int
+    username: str
+    user_type: str
     picture_data: str | None
 
 
