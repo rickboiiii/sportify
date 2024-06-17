@@ -100,11 +100,10 @@ export default function KreiranjeEventaClient({locations, sports}) {
   const [formValues, setFormValues] = useState([]);
 
 
-  const handlePress = () => {
+  const handlePress = async (e) => {
+    e.preventDefault();
     let spol = parseInt(document.getElementById('id1').value);
-    console.log(spol);
     let nivo_sposobnosti = document.getElementById('id2').value;
-    console.log(nivo_sposobnosti);
     const formData = {
       naziv_termina: formValues[0],
       opis_termina: formValues[1],
@@ -115,17 +114,9 @@ export default function KreiranjeEventaClient({locations, sports}) {
       spol: spol,
       potreban_nivo_sposobnosti : nivo_sposobnosti
     };
-    console.log(formData);
 
     try {
-      axios.post('http://localhost:8000/oglas_eventa', formData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-       sendEventDetails(formData);
+       await sendEventDetails(formData);
     } catch (error) {
       console.error('Failed to submit form', error);
     }
