@@ -50,13 +50,21 @@ import { useRouter } from "next/navigation";
             const data = await response.json();
             setIdKorisnika(data);
             console.log("data", data)
+            let temp_username;
+            axios.get(`http://localhost:8000/dajKorisnika/${data}`)
+            .then(res=>{
+              temp_username=res.data.korisnicko_ime;
+              setUsername(temp_username);
+            
+            }).catch(err=>console.log(err))
             axios.get(`http://localhost:8000/dajSportistu/${data}`)
             .then(res=>{
               console.log("res", res.data)
               if (res.data)
                 setId(res.data.id_igraca)
               else
-                router.push("/")
+                
+                router.push(`/feed/${temp_username}`)
             })
             
             .catch(err=>console.log(err))
@@ -188,7 +196,7 @@ const dodajEkipu=(id, ime, clanovi, sport)=>{
     }
     axios.post(`http://localhost:8000/dodajEkipu`,ekipa)
     .then(res=>{axios.post(`http://localhost:8000/dodajClanoveEkipe`, {id_ekipe:res.data.id_ekipe, igraci:clanovi}).then(res=>console.log(res)).catch(err=>console.log(err))
-    ;router.push("/")})
+    ;router.push(`/feed/${username}`)})
     .catch(err=>console.log(err))
 
 }

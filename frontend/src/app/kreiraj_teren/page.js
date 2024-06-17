@@ -36,7 +36,8 @@ export default function Home() {
   const router=useRouter();
   const [token, setToken] = useState(null);
   const [idKorisnika, setIdKorisnika] = useState(null);
-  const [id, setId]=useState(null)  
+  const [id, setId]=useState(null);
+  const [username, setUsername]=useState("");
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -59,13 +60,20 @@ const fetchIdKorisnika = async (token) => {
           const data = await response.json();
           setIdKorisnika(data);
           console.log("data", data)
+          let temp_username;
+            axios.get(`http://localhost:8000/dajKorisnika/${data}`)
+            .then(res=>{
+              temp_username=res.data.korisnicko_ime;
+              setUsername(temp_username);
+            
+            }).catch(err=>console.log(err))
           axios.get(`http://localhost:8000/dajVlasnika/${data}`)
           .then(res=>{
             console.log("res", res.data)
             if (res.data)
               setId(res.data.id_vlasnika)
             else
-              router.push("/")
+              router.push(`/feed/${temp_username}`)
           })
           
           .catch(err=>console.log(err))
@@ -212,7 +220,8 @@ const fetchIdKorisnika = async (token) => {
               cijena_po_terminu: parseInt(document.getElementById('id1').value),
               slika: parseInt(document.getElementById('id2').value),
               sport:sport, 
-              id_vlasnika:id
+              id_vlasnika:id,
+              username:username
             }
     } />
         

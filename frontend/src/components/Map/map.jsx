@@ -99,7 +99,7 @@ const MapComponent = ({formData}) => {
 
     
     console.log("podaci", {adresa:adresa, teren:teren}, typeof({adresa:adresa, teren:teren}))
-    axios.post(`http://localhost:8000/dodajTeren/${formData.sport}`,{adresa:adresa, teren:teren} ).then(r=>router.push("/"))
+    axios.post(`http://localhost:8000/dodajTeren/${formData.sport}`,{adresa:adresa, teren:teren} ).then(r=>router.push(`/feed/${formData.username}`))
     .catch(er=>console.log(er))
     // axios.post(`http://localhost:8000/dodajAdresu`,adresa)
     // .then(res=>axios.post(`http://localhost:8000/dodajTeren/${formData.sport}/${res.data.id_adrese}`, teren)

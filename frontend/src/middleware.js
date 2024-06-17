@@ -57,5 +57,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/chat', '/feed', '/profiles', '/kreiraj_ekipu', '/kreiraj_teren'],
+  matcher: ['/chat', '/feed', '/profiles', '/kreiraj_ekipu', '/kreiraj_teren', '/xo'],
 };
