@@ -118,7 +118,7 @@ class LostAndFoundSchema(BaseModel):
     tag: str
     opis: str
     id_lokacije: int
-    slika: str
+    picture_data: str
     
 
     class Config:
@@ -129,11 +129,12 @@ class LostAndFoundCreate(LostAndFoundSchema):
 
 @router.post("/lost_and_found")
 async def lost_and_found(predmet: LostAndFoundCreate, db: Session = Depends(get_db)):
-    novi_predmet = LostAndFound(tag=predmet.tag, opis=predmet.opis, id_lokacije=predmet.id_lokacije, slika= predmet.slika)  
+    novi_predmet = LostAndFound(tag=predmet.tag, opis=predmet.opis, id_lokacije=predmet.id_lokacije, picture_data=predmet.picture_data)
     db.add(novi_predmet)
     db.commit()
     db.refresh(novi_predmet)
 
+    return novi_predmet
 # def upload_picture_lost(db: Session, img_data: UploadPicture):
 #     db.query(LostAndFound).filter(Igrac.id_losta == img_data.id).update({
 #         LostAndFound.picture_data: img_data.picture_data,

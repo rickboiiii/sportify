@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/lokacija.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/lokacija.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/register_quiz_teams.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/register_quiz_teams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/schemas/lokacija_i_adresa.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/schemas/lokacija_i_adresa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/lost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_teren/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_teren/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Map/map.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Map/map.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,19 +31,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -57,6 +62,7 @@
       <updated>1718636398802</updated>
       <workItem from="1718636400723" duration="183000" />
       <workItem from="1718636821660" duration="1234000" />
+      <workItem from="1718638529222" duration="4062000" />
     </task>
     <servers />
   </component>

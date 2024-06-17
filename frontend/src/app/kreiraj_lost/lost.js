@@ -54,35 +54,38 @@ export default function KreiranjeLostaClient({locations}) {
       second: {
         label: "slika",
         id: "id2",
-        name: "slika",
+        name: "picture_data",
+        type: "file"
       }
     }
   ];
+
+  const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+  });
 
   const [formKey, setFormKey] = useState(0);
   const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
   const [formSubmitCount, setFormSubmitCount] = useState(0);
   const [formValues, setFormValues] = useState([]);
 
-  const handlePress = () => {
+  const handlePress = async (e) => {
+    e.preventDefault();
     let lokacija = parseInt(document.getElementById('id1').value);
-    let slika = (document.getElementById('id2').value);
+    let slika = (document.getElementById('id2').files[0]);
     const formData = {
       tag: formValues[0],
       opis: formValues[1],
       id_lokacije: lokacija,
-      slika: slika,
-    };console.log(formData)
+      picture_data: await toBase64(slika),
+    };
+    console.log(formData)
 
     try {
-      axios.post('http://localhost:8000/lost_and_found', formData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-       sendLostDetails(formData);
+       await sendLostDetails(formData);
     } catch (error) {
       console.error('Failed to submit form', error);
     }

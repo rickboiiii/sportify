@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, Float, CheckConstraint, String
+from sqlalchemy import Column, ForeignKey, Integer, Float, CheckConstraint, String, Text
 from sqlalchemy.orm import relationship
 
 from backend.database import Base
@@ -19,6 +19,7 @@ class Lokacija(Base):
     latituda=Column(Float)
     naziv_terena=Column(String)
     opis_terena=Column(String)
+    picture_data = Column(Text)
     vlasnici = relationship("Vlasnik", back_populates="lokacije")
     adrese = relationship("Adresa", back_populates="lokacije")
     sportovi = relationship("Veza_lokacija_sport", back_populates="lokacije")

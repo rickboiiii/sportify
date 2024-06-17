@@ -15,8 +15,7 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapComponent = ({formData}) => {
-    console.log("formdata", formData)
-    const router=useRouter();
+  const router=useRouter();
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -28,7 +27,6 @@ const MapComponent = ({formData}) => {
         const { latitude, longitude } = position.coords;
         setCurrentLocation([latitude, longitude]);
         setPosition([latitude, longitude]);
-        console.log(position.coords);
         fetchAddress({lat:latitude, lng:longitude})
         setLoading(false);
       },
@@ -81,7 +79,6 @@ const MapComponent = ({formData}) => {
       lat = position[0];
       lng = position[1];
     }
-    console.log(lat, lng)
     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
     const data = await response.json();
    
@@ -97,23 +94,17 @@ const MapComponent = ({formData}) => {
         opis_Lokacije: formData.opis_Lokacije,
         recenzija: formData.recenzija,
         cijena_po_terminu: parseInt(formData.cijena_po_terminu),
+        picture_data: formData.picture_data,
         
         longituda: parseFloat(lng),
         latituda: parseFloat(lat), 
         kapacitet: parseInt(formData.kapacitet)
-        
       }
 
     
     console.log("podaci", {adresa:adresa, teren:teren}, typeof({adresa:adresa, teren:teren}))
     axios.post(`http://localhost:8000/dodajTeren/${formData.sport}`,{adresa:adresa, teren:teren} ).then(r=>router.push(`/feed/${formData.username}`))
     .catch(er=>console.log(er))
-    // axios.post(`http://localhost:8000/dodajAdresu`,adresa)
-    // .then(res=>axios.post(`http://localhost:8000/dodajTeren/${formData.sport}/${res.data.id_adrese}`, teren)
-    // .then(r=>console.log(r))
-    // .catch(er=>console.log(er))
-    // .catch(err=>console.log(err)))
-    
   }
 
   return (

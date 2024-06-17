@@ -300,7 +300,7 @@ async def teren(adresa:AdresaSchema, db:Session=Depends(get_db)):
 
 @router.post("/dodajTeren/{sport}")
 async def teren(teren:LokacijaSchema,sport:int, adresa:AdresaSchema, db:Session=Depends(get_db)):
-    
+    print(teren)
     nova_adresa=Adresa(naziv_ulice=adresa.naziv_ulice, postanski_broj=adresa.postanski_broj, grad=adresa.grad, drzava=adresa.drzava )
 
 
@@ -309,7 +309,7 @@ async def teren(teren:LokacijaSchema,sport:int, adresa:AdresaSchema, db:Session=
     db.refresh(nova_adresa)
        
     
-    nova_lokacija=Lokacija(naziv_terena=teren.naziv_lokacije, kapacitet=teren.kapacitet,longituda=teren.longituda, latituda=teren.latituda, id_vlasnika=teren.id_vlasnika, id_adrese=nova_adresa.id_adrese, cijena_po_terminu=teren.cijena_po_terminu, recenzija=teren.recenzija, opis_lokacije=teren.opis_Lokacije, naziv_lokacije=teren.naziv_lokacije, opis_terena=teren.opis_Lokacije)
+    nova_lokacija=Lokacija(naziv_terena=teren.naziv_lokacije, kapacitet=teren.kapacitet,longituda=teren.longituda, latituda=teren.latituda, id_vlasnika=teren.id_vlasnika, id_adrese=nova_adresa.id_adrese, cijena_po_terminu=teren.cijena_po_terminu, recenzija=teren.recenzija, opis_lokacije=teren.opis_Lokacije, naziv_lokacije=teren.naziv_lokacije, opis_terena=teren.opis_Lokacije, picture_data=teren.picture_data)
     db.add(nova_lokacija)
     db.commit()
 

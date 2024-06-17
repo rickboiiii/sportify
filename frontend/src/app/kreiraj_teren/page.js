@@ -120,7 +120,8 @@ const fetchIdKorisnika = async (token) => {
       second: {
         label: "prostor za sliku",
         id: "id2",
-        name: "slika",
+        name: "picture_data",
+        type: "file"
       }
     }
   ];
@@ -145,19 +146,23 @@ const fetchIdKorisnika = async (token) => {
     fetchData(); // Pozivanje funkcije za dohvat podataka
   }, []); // Prazna niz ovisnosti kako bi se hook izvršio samo prilikom montiranja komponente
 
-  useEffect(  ()=>{
-  setPrikazSportova(
-    listaMogucihSportova.map((sport, indeks) => (
+  useEffect(  ()=> {
+    setPrikazSportova(
+        listaMogucihSportova.map((sport, indeks) => (
+            <option value={sport.id_sporta}>{sport.naziv_sporta} </option>
+        )))
+  }, [listaMogucihSportova])
 
-      <option value={sport.id_sporta}>{sport.naziv_sporta} </option>
-    )))
-  console.log(listaMogucihSportova)
-  console.log(typeof(listaMogucihSportova))
-  console.log(prikazSportova)}, [listaMogucihSportova])
+  const toBase64 = file => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+  });
 
   const handlePress = () => {
     let cijena_po_terminu = parseFloat(document.getElementById('id1').value);
-    let slika = document.getElementById('id2').value;
+    let slika = document.getElementById('id2').files[0];
     let recenzija= parseFloat(document.getElementById('id1').value)
 
     const formData = {
@@ -167,28 +172,21 @@ const fetchIdKorisnika = async (token) => {
       cijena_po_terminu: cijena_po_terminu,
       recenzija: recenzija,
       slika: slika
-    };console.log(formData)
-
-    // try {
-    //   axios.post('http://localhost:8000/kreiraj_teren', formData)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    //
-    // } catch (error) {
-    //   console.error('Failed to submit form', error);
-    // }
+    };
 
     setFormSubmitCount((prevCount) => prevCount + 1);
   };
 
-  const NextSlide = () => {
-    console.log(formValues, "forma")
+  const NextSlide = async (e) => {
+    e.preventDefault();
     let prvaVrijednost = document.getElementById("id1").value;
-    let drugaVrijednost = document.getElementById("id2").value;
+    let drugaVrijednost;
+
+    if(formSubmitCount === 2)
+      drugaVrijednost = await toBase64(document.getElementById("id2").files[0]);
+    else
+      drugaVrijednost = document.getElementById("id2").value;
+
     setFormValues([...formValues, prvaVrijednost, drugaVrijednost]);
     if (formSubmitCount < 3) {
       setFormKey((prevKey) => prevKey + 1);
@@ -237,13 +235,13 @@ const fetchIdKorisnika = async (token) => {
         <ProgressIndicator steps={4} active_number={formSubmitCount + 1} />
         <MapComponent formData={
               {
-                id_vlasnika:id,
+                id_vlasnika: id,
                 naziv_lokacije: formValues[0],
                 opis_Lokacije: formValues[1],
                 kapacitet: parseInt(formValues[2]),
                 cijena_po_terminu: parseFloat(formValues[3]),
                 recenzija: parseFloat(formValues[4]),
-                slika: parseInt(document.getElementById('id2').value),
+                picture_data: formValues[5],
                 sport:sport,
                 username:username
             }
