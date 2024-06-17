@@ -1,6 +1,6 @@
 // src/components/StatusBar.js
 import React, { useState } from 'react';
-import { faImage, faPlusCircle, faSmile } from "@fortawesome/free-solid-svg-icons";
+import {faPersonCircleQuestion, faPlusCircle, faSmile} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import PopupForm from '@/components/PopUpForm/PopupForm'; // Import the PopupForm component
@@ -8,8 +8,11 @@ import PopupForm from '@/components/PopUpForm/PopupForm'; // Import the PopupFor
 import profilnaSlika from "@/images/profilna_slika_1.jpg";
 import './StatusBar.css';
 import '@/components/PopUpForm/PopupForm.css';
+import {useRouter} from "next/navigation";
 
 const StatusBar = () => {
+
+    const router = useRouter();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -26,12 +29,12 @@ const StatusBar = () => {
                 <div className="statusBar">
                     <div>
                         <Image src={profilnaSlika} alt="profilna slika usera" />
-                        <button onClick={openPopup}>Podijelite Vaš sportski duh sa ostalima</button>
+                        <button type="button">Podijelite Vaš sportski duh sa ostalima</button>
                     </div>
                     <div>
-                        <button onClick={openPopup}><FontAwesomeIcon icon={faImage} style={{ color: "#1c64a3" }} /> Slika</button>
-                        <button onClick={openPopup}><FontAwesomeIcon icon={faSmile} style={{ color: "#1c64a3" }} /> Status</button>
-                        <button onClick={openPopup}><FontAwesomeIcon icon={faPlusCircle} style={{ color: "#1c64a3" }} /> Termin</button>
+                        <button onClick={() => router.push("/kreiraj_lost")}><FontAwesomeIcon icon={faPersonCircleQuestion} style={{ color: "#1c64a3" }} /> Lost&Found</button>
+                        <button onClick={() => router.push("/kreiraj_meet")}><FontAwesomeIcon icon={faSmile} style={{ color: "#1c64a3" }} /> Meet&Greet</button>
+                        <button onClick={() => router.push("/kreiraj_event")}><FontAwesomeIcon icon={faPlusCircle} style={{ color: "#1c64a3" }} /> Termin</button>
                     </div>
                 </div>
             </div>

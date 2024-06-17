@@ -48,21 +48,21 @@ const SideBar = () => {
                         </>
                     ) : null}
                 </div>
+                {/*<div>*/}
+                {/*    <Link href={'/'}><FontAwesomeIcon icon={faMagnifyingGlass} className="icon"/></Link>*/}
+                {/*    <p><Link href={'/'}>Pretraži</Link></p>*/}
+                {/*</div>*/}
                 <div>
-                    <Link href={'/'}><FontAwesomeIcon icon={faMagnifyingGlass} className="icon"/></Link>
-                    <p><Link href={'/'}>Pretraži</Link></p>
-                </div>
-                <div>
-                    <Link href={'/'}><FontAwesomeIcon icon={faMessage} className="icon"/></Link>
-                    <p><Link href={'/'}>Poruke</Link></p>
+                    <Link href={'/chat'}><FontAwesomeIcon icon={faMessage} className="icon"/></Link>
+                    <p><Link href={'/chat'}>Poruke</Link></p>
                 </div>
                 <div>
                     <Link href={'/xo'}><FontAwesomeIcon icon={faPuzzlePiece} className="icon"/></Link>
                     <p><Link href={'/xo'}>Igre</Link></p>
                 </div>
                 <div>
-                    <Link href={'/'}><FontAwesomeIcon icon={faUserPlus} className="icon"/></Link>
-                    <p><Link href={'/'}>Dodaj ekipu</Link></p>
+                    <Link href={'/kreiraj_ekipu'}><FontAwesomeIcon icon={faUserPlus} className="icon"/></Link>
+                    <p><Link href={'/kreiraj_ekipu'}>Dodaj ekipu</Link></p>
                 </div>
             </div>
         </>
