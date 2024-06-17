@@ -19,7 +19,7 @@ def vlasnici_seeder():
             'srednje_ime': None,
             'datum_rodjenja': '1970-01-01',
             'spol': 1,
-            'recenzija': 5,
+            'recenzija': 3,
         },
         {
             'id_korisnika': 3,
@@ -37,6 +37,24 @@ def vlasnici_seeder():
             'srednje_ime': None,
             'datum_rodjenja': '2001-05-20',
             'spol': 0,
+            'recenzija': 5,
+        },
+        {
+            'id_korisnika': 6,
+            'ime_vlasnika': 'Emina',
+            'prezime_vlasnika': 'Besic',
+            'srednje_ime': None,
+            'datum_rodjenja': '1970-01-01',
+            'spol': 0,
+            'recenzija': 5,
+        },
+        {
+            'id_korisnika': 8,
+            'ime_vlasnika': 'Matej',
+            'prezime_vlasnika': 'Panic',
+            'srednje_ime': None,
+            'datum_rodjenja': '1970-01-01',
+            'spol': 1,
             'recenzija': 5,
         }
     ]

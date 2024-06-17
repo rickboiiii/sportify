@@ -1,6 +1,6 @@
 from .igrac import Igrac, IgracSchema, UserUpdateIgrac
 from .user import IgracUser, VlasnikUser, Users
-from .korisnik import Korisnik, KorisnikSchema, KorisnikSchema2
+from .korisnik import Korisnik, KorisnikSchema, KorisnikSchema2, KorisnikPrijateljSchema
 from .vlasnik import Vlasnik, VlasnikSchema, UserUpdateVlasnik
 from .profil import IgracProfil, UpdateIgracProfil, VlasnikProfil, Profili
 from .sport import SportistaSport, EkipaSport

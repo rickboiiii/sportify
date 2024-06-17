@@ -4,6 +4,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from backend.models import Igrac, Vlasnik, Korisnik, RecenzijaIgraca, RecenzijaVlasnika
+from backend.models.prijatelj import Prijatelj
 from backend.schemas import UserUpdateIgrac, UserUpdateVlasnik, RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, \
     UploadPicture
 
@@ -153,3 +154,67 @@ def upload_picture_vlasnik(db: Session, img_data: UploadPicture):
     vlasnik = db.query(Vlasnik).join(Korisnik).filter(Vlasnik.id_vlasnika == img_data.id).first()
 
     return vlasnik
+
+
+def get_prijatelji(db: Session, id_korisnika: int):
+    prijatelji = db.query(Prijatelj).join(Korisnik, Prijatelj.id_prijatelja2 == Korisnik.id_korisnika).filter(Prijatelj.id_prijatelja1 == id_korisnika).all()
+    sorted_prijatelji = []
+    for prijatelj in prijatelji:
+        if(prijatelj.korisnik2.id_uloge == 2):
+            picture_data = db.query(Igrac).filter(Igrac.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
+        elif(prijatelj.korisnik2.id_uloge == 3):
+            picture_data = db.query(Vlasnik).filter(Vlasnik.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
+        else:
+            picture_data = "/profile_picture_cute_nejra.jpg"
+
+        if picture_data is None:
+            picture_data = "/profile_picture_cute_nejra.jpg"
+
+        sorted_prijatelji.append({
+            'id_korisnika': prijatelj.korisnik2.id_korisnika,
+            'korisnicko_ime': prijatelj.korisnik2.korisnicko_ime,
+            'picture_data': picture_data
+        })
+
+    final_prijatelji = {
+        'id_korisnika': id_korisnika,
+        'prijatelji': sorted_prijatelji
+    }
+
+    return final_prijatelji
+
+
+def get_recommended_prijatelji(db: Session, id_korisnika: int):
+    prijatelji = db.query(Prijatelj).join(Korisnik, Prijatelj.id_prijatelja2 == Korisnik.id_korisnika).filter(Prijatelj.id_prijatelja1 == id_korisnika).all()
+    sorted_prijatelji = []
+    for prijatelj in prijatelji:
+        sorted_prijatelji.append(prijatelj.id_prijatelja2)
+
+    recommended_prijatelji = db.query(Prijatelj).join(Korisnik, Prijatelj.id_prijatelja2 == Korisnik.id_korisnika).filter(Prijatelj.id_prijatelja1.in_(sorted_prijatelji)).all()
+
+    sorted_recommended_prijatelji = []
+    for prijatelj in recommended_prijatelji:
+        if (prijatelj.korisnik2.id_uloge == 2):
+            picture_data = db.query(Igrac).filter(
+                Igrac.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
+        elif (prijatelj.korisnik2.id_uloge == 3):
+            picture_data = db.query(Vlasnik).filter(
+                Vlasnik.id_korisnika == prijatelj.korisnik2.id_korisnika).first().picture_data
+        else:
+            picture_data = "/profile_picture_cute_nejra.jpg"
+
+        if picture_data is None:
+            picture_data = "/profile_picture_cute_nejra.jpg"
+
+        sorted_recommended_prijatelji.append({
+            'id_korisnika': prijatelj.korisnik2.id_korisnika,
+            'korisnicko_ime': prijatelj.korisnik2.korisnicko_ime,
+            'picture_data': picture_data
+        })
+
+    final_prijatelji = {
+        'id_korisnika': id_korisnika,
+        'prijatelji': sorted_recommended_prijatelji
+    }
+
+    return final_prijatelji

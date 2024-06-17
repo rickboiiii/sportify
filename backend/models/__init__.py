@@ -10,12 +10,13 @@ from .korisnik import Korisnik
 from .message import Message
 from .lokacija import Lokacija
 from .slobodni_event import Slobodni_Event
+from .sport import Sifarnik_sportova
 from .turnir import Turnir
 from .uloga import Uloga
 from .vlasnik import Vlasnik
+from .prijatelj import Prijatelj
 from .objava import Objava, Likes
 from .meet_and_greet import MeetAndGreet
 from .lost_and_found import LostAndFound
-from .prijatelj import Prijatelj
 from .objava import Objava
 from .prijave import PrijavljeniKorisnici

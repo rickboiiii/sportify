@@ -1,7 +1,6 @@
 from pydantic import BaseModel
 
-from backend.schemas import Igrac, KorisnikSchema, Vlasnik
-
+from backend.schemas import Igrac, KorisnikSchema, Vlasnik, KorisnikPrijateljSchema
 
 
 class IgracProfil(Igrac):
@@ -31,6 +30,14 @@ class UpdateVlasnikProfil(VlasnikProfil):
 class Profili(BaseModel):
     svi_korisnici: list[IgracProfil]
     svi_vlasnici: list[VlasnikProfil]
+
+    class Config:
+        from_attributes = True
+
+
+class PrijateljiProfil(BaseModel):
+    id_korisnika: int
+    prijatelji: list[KorisnikPrijateljSchema]
 
     class Config:
         from_attributes = True
