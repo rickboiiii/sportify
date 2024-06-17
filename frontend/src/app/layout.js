@@ -20,8 +20,8 @@ export default function RootLayout({ children }) {
       <link href="/fa-icons/css/fontawesome.css" rel="stylesheet"/>
       <link href="/fa-icons/css/all.css" rel="stylesheet"/>
     </head>
-      <Loader/>
       <GlobalStyle>
+        <Loader/>
         {children}
       </GlobalStyle>
     </html>

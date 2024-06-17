@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {ghostWhite, lapisLazuli, oxionLight} from "@/styles/GlobalStyle";
+import {ghostWhite, ghostWhiteLight, lapisLazuli, lapisLazuliLight, oxionLight} from "@/styles/GlobalStyle";
 
 
 export const SideBarStyled = styled.div`
@@ -28,7 +28,7 @@ export const SideBarStyled = styled.div`
 
     &:hover {
         .header {
-            color: ${lapisLazuli};
+            color: ${ghostWhite};
         }
     }
 `;
@@ -43,16 +43,20 @@ export const SideBarHeader = styled.div`
         font-size: 2rem;
     }
     
-    p {
-        font-size: large;
-        text-decoration: underline;
+    h2 {
+        margin: 0;
     }
 `;
 
 export const SideBarTile = styled.a`
     text-decoration: none;
+    margin: 0.5rem 0;
     
     .card-ghost-white {
         background: ${ghostWhite};
+    }
+    
+    .border {
+        border: 1px solid rgba(162, 155, 155, 0.9);
     }
 `;

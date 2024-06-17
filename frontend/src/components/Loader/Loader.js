@@ -16,11 +16,7 @@ const Loader = () => {
             }, 1500);
         };
 
-        window.addEventListener("load", hideLoader);
-
-        return () => {
-            window.removeEventListener("load", hideLoader);
-        };
+        hideLoader();
     }, []);
 
     return (

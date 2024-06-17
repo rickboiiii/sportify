@@ -27,7 +27,7 @@ export const SearchBarStyled = styled.div`
         height: 2rem;
         font-family: inherit;
         background: ${ghostWhite};
-        border: 4px solid ${oxion}; 
+        border: none; 
         color: ${oxion};
 
         &:focus-visible {

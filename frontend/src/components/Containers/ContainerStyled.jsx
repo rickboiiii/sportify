@@ -259,3 +259,16 @@ export const LoadingBackground = styled.div`
         }
     }
 `;
+
+export const Buffer = styled.div`
+    display: flex;
+    width: 32rem;
+    
+    @media (max-width: 1024px) and (min-width: 769px) {
+        width: 11rem;
+    }
+    
+    @media (max-width: 768px) {
+        width: 3rem;
+    }
+`;
