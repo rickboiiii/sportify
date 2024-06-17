@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float, CheckConstraint
+from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Float, CheckConstraint, Text
 from sqlalchemy.orm import relationship
 
 from backend.database import Base
@@ -20,6 +20,8 @@ class Igrac(Base):
     max_dozvoljena_udaljenost = Column(Integer)
     verifikovan = Column(Boolean)
     recenzija = Column(Float, CheckConstraint("recenzija>=1 and recenzija<=5"))
+    picture_data = Column(Text, nullable=True)
+    picture_name = Column(String, nullable=True)
     # data = Column(LargeBinary) PRIKAZ SLIKE ?
     # format = Column(String)  # Dodatni atribut za pohranu formata slike
 

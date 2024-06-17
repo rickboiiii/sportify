@@ -20,25 +20,22 @@
 }
 
 
-/* zaglavlje */
-.profilna-slika {
+.profilna-slika > img {
+    border-radius: 50%;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    background-color: #dbdbdb; /* Placeholder color, replace with actual image */
     margin-right: 10px;
 }
 
-.event-card-header .username {
-    font-size: 14px;
+a.username  {
+    font-size:3vh;
     width: 50%;
-    height: 2vw;
+    height: max-content;
     font-weight: 600;
-    color: #262626;
-    background: transparent;
-    border: none;
+    color: var(--pear);
     padding: 0;
     cursor: pointer;
+    text-decoration: none;
 }
 
 /* body */
@@ -95,6 +92,17 @@
     margin-top: 10px;
 }
 
+.opis-termina {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    align-content: center;
+    font-size: medium;
+}
+
+.br-slobodnih-mjesta {
+    font-weight: bold;
+}
+
 .event-card .prijava-na-termin:hover {
     background-color: #D8ED0A;
 }
@@ -102,7 +110,7 @@
 .event-card .dugme {
     width: 100%;
     padding: 10px;
-    background-color: #0095f6;
+    background-color: var(--lapis-lazuli);
     color: #fff;
     border: none;
     border-radius: 10px;

@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react";
 import CardYesNo from "@/components/QuizCard/Kartica";
 import CardNumeric from "@/components/QuizCard/KarticaNumeric";
@@ -6,6 +7,7 @@ import CardSelect from "@/components/QuizCard/KarticaSelect";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
 import axios from "axios"
+import "./Kviz.css"
 // import Quiz from "@/components/QuizCard/TestYesNo";
 
 
@@ -13,7 +15,7 @@ import axios from "axios"
  function Kviz () {
     const pitanja= [
         {
-            pitanje:"Da li ste profesionalno bavili sportom?",
+            pitanje:"Da li ste se profesionalno bavili sportom?",
             tip:"da-ne",
             udio:0.15
         },

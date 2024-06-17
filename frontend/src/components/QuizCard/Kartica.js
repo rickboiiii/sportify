@@ -20,11 +20,11 @@ const CardYesNo = ({ pitanje, handleAnswer, indeks, id}) => {
     <Container>
       <Row style={{justifyContent:"start", alignItems:"center"}}>
       <Image src={left_arrow} width={20} height={20}/>
-        <a onClick={()=>izbrisi(id)} href='http://localhost:3000'>Povratak na prethodnu stranicu</a>
+        <a onClick={()=>izbrisi(id)} href='http://localhost:3000' style={{color:"white"}}>Povratak na prethodnu stranicu</a>
         </Row>
-     <ProgressIndicator steps={10} active_number={indeks+1}/> 
-     <Row> <p style={{fontFamily: "Saira Condensed, sans-serif",fontSize:"16px"
-    }}>{indeks+1}  od  10</p> </Row>
+     <ProgressIndicator steps={10} active_number={indeks+1}/>
+     <Row> <p style={{fontFamily: "Saira Condensed, sans-serif",fontSize:"16px", color:"white"
+    }} >{indeks+1}  od  10</p> </Row>
      <QuizYesNoForm  h_text={pitanje.pitanje}>
      
         <Button style={{backgroundColor:"#D8ED0F", color:"#1C64A3", width:"20vw"}}  value={1} onClick={()=>handleAnswer(pitanje.udio,1)}>Da</Button>

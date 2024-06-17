@@ -11,14 +11,7 @@ import Tabela from "@/components/Tables/Tabela";
 import SSBar from "@/components/ScoresAndSuggestionsBar/SSBar";
 import Dropdown from "@/components/DropdownFilter/Dropdown";
 
-const Page = ({posts}) => {
-    const handleLike = (postId) => {
-        console.log(`Liked post ${postId}`);
-    };
-
-    const handleComment = (postId) => {
-        console.log(`Commented on post ${postId}`);
-    };
+const Page = () => {
 
      return (
          <div className="feed">
@@ -26,26 +19,15 @@ const Page = ({posts}) => {
              <div className="content-div">
                  <div className="main-content">
                     <StatusBar/>
-                     <Dropdown/>
-                    <Events/>
+                    <Events setOptions={"oglasi"}/>
                  </div>
                  <div className="ssbar-container">
                     <SSBar/>
                  </div>
              </div>
-             {/*{posts.map(post => (
-                <PostCard
-                    key={post.id}
-                    userImage={post.userImage}
-                    userName={post.userName}
-                    postContent={post.content}
-                    postImage={post.image}
-                    onLike={() => handleLike(post.id)}
-                    onComment={() => handleComment(post.id)}
-                />
-            ))}*/}
          </div>
      )
  }
+
 
  export default Page;

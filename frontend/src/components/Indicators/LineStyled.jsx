@@ -7,8 +7,8 @@ export const Line = styled.div`
     align-self: center;
     border: 0;
     border-radius: 3rem;
-    width: 10vw;
-    height: 0.5vw;
+    width: 6.5vw;
+    height: 0.3vw;
     background: ${pear};
     margin: 0 1vw;
 `;

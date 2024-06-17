@@ -6,14 +6,14 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
-    width: 20vw;
+    width: 40vh;
+    height: fit-content;
 }
 
-.profile-image {
+.profile-image > img {
     border-radius: 50%;
-    width: 4vw;
-    height: 4vw;
-    background-color: var(--taupe-gray); /* Placeholder za sliku */
+    width: 40px;
+    height: 40px;
 }
 
 .profile-info {
@@ -23,7 +23,8 @@
 }
 
 .username {
-    font-size: 1rem;
+    font-size: 1vh;
+    text-decoration: none;
     color: var(--oxion);
     font-weight: normal;
     margin: 0;
@@ -41,6 +42,8 @@
     font-weight: bold;
     cursor: pointer;
     margin-right: 2%;
+    border: none;
+    background-color: transparent;
 }
 
 

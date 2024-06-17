@@ -1,7 +1,10 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func, Numeric, alias, TableValuedAlias, asc
 
+from backend.models import Vlasnik
 from backend.models.event_u_pripremi import Event_u_pripremi
 from backend.models.igrac import Igrac
 from backend.models.sport import Sifarnik_sportova
@@ -10,41 +13,86 @@ from backend.models.lokacija import Lokacija
 from backend.models.prijatelj import Prijatelj
 from backend.models.korisnik import Korisnik
 from backend.schemas.objave import ObjavaSchema, Oglas
-
+from backend.schemas.korisnik import UserSchema
 from backend.dependencies import get_db
 
 router = APIRouter()
 
-@router.get("/dajFiltriraneOglase/{id_sporta}/{nivo}/{spol}")
-async def eventi(id_sporta: int, nivo: str, spol: int, db: Session = Depends(get_db)):
-    spol_bool = 2
-    if (spol == 0):
-        spol_bool = False
-    elif (spol == 1):
-        spol_bool = True
+@router.get("/get_suggestions/{username}", response_model=List[UserSchema])
+async def get_suggestions(username: str, db: Session = Depends(get_db)):
+    try:
+        # Pronađi korisnika
+        user = db.query(Korisnik).filter(Korisnik.korisnicko_ime == username).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="Korisnik nije pronađen")
 
-    result = db.query(Event_u_pripremi)
+        # Pronađi korisnikove prijatelje
+        prijatelji = db.query(Prijatelj).filter(
+            (Prijatelj.id_prijatelja1 == user.id_korisnika) | (Prijatelj.id_prijatelja2 == user.id_korisnika)).all()
 
-    if (id_sporta != 0):
-        result = result.filter(Event_u_pripremi.id_sporta == id_sporta)
-    if (nivo != "svi"):
-        result = result.filter(Event_u_pripremi.potreban_nivo_sposobnosti == nivo)
-    if (spol_bool != 2):
-        result = result.filter(Event_u_pripremi.spol == spol_bool)
-    result = result.join(Igrac, Event_u_pripremi.id_organizatora == Igrac.id_igraca).join(Lokacija,
-                                                                                          Event_u_pripremi.id_lokacije == Lokacija.id_lokacije) \
-        .join(Sifarnik_sportova, Event_u_pripremi.id_sporta == Sifarnik_sportova.id_sporta).order_by(
-        asc(Event_u_pripremi.pocetak_termina)) \
-        .add_columns(Igrac.ime_igraca, Igrac.srednje_ime, Igrac.prezime_igraca, Igrac.srednje_ime,
-                     Sifarnik_sportova.naziv_sporta, Lokacija.longituda, Lokacija.latituda,
-                     Event_u_pripremi.naziv_termina, Event_u_pripremi.opis_termina, Event_u_pripremi.pocetak_termina,
-                     Event_u_pripremi.broj_slobodnih_mjesta).all()
-    # [SportistaSport(naziv_sporta=row.naziv_sporta, ime=row.ime_igraca, prezime=row.prezime_igraca, rating=row.recenzija) for row in results]
-    return [Oglas(ime_igraca=row.ime_igraca, prezime_igraca=row.prezime_igraca, srednje_ime=row.srednje_ime,
-                  naziv_sporta=row.naziv_sporta, longituda=row.longituda, latituda=row.latituda,
-                  naziv_termina=row.naziv_termina, opis_termina=row.opis_termina, pocetak_termina=row.pocetak_termina,
-                  broj_slobodnih_mjesta=row.broj_slobodnih_mjesta) for row in result]
+        if not prijatelji:
+            # Ako korisnik nema prijatelja, vrati sve korisnike osim trenutnog korisnika
+            svi_korisnici = db.query(Korisnik).filter(Korisnik.id_korisnika != user.id_korisnika).all()
+            prijedlozi_korisnici = []
+            for korisnik in svi_korisnici:
+                igrac = db.query(Igrac).filter(Igrac.id_korisnika == korisnik.id_korisnika).first()
+                vlasnik = db.query(Vlasnik).filter(Vlasnik.id_korisnika == korisnik.id_korisnika).first()
+                ime, prezime, tip_korisnika, slika, opis_slike = None, None, None, None, None
+                if igrac:
+                    ime, prezime, tip_korisnika, slika, opis_slike = igrac.ime_igraca, igrac.prezime_igraca, 'igrac', igrac.picture_data, igrac.picture_name
+                elif vlasnik:
+                    ime, prezime, tip_korisnika, slika, opis_slike = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'vlasnic', vlasnik.picture_data, vlasnik.picture_name
 
+                prijedlozi_korisnici.append(UserSchema(
+                    id_korisnika=korisnik.id_korisnika,
+                    korisnicko_ime=korisnik.korisnicko_ime,
+                    email=korisnik.email,
+                    ime=ime,
+                    prezime=prezime,
+                    tip_korisnika=tip_korisnika,
+                    slika = slika,
+                    opis_slike = opis_slike
+                ))
+            return prijedlozi_korisnici[:5]
+
+        # Pronađi prijatelje korisnikovih prijatelja
+        prijatelji_ids = [p.id_prijatelja2 if p.id_prijatelja1 == user.id_korisnika else p.id_prijatelja1 for p in
+                          prijatelji]
+        prijedlozi = db.query(Prijatelj).filter(
+            (Prijatelj.id_prijatelja1.in_(prijatelji_ids)) | (Prijatelj.id_prijatelja2.in_(prijatelji_ids))).all()
+
+        # Izbaci duplikate i trenutnog korisnika
+        prijedlozi_ids = set(
+            [p.id_prijatelja2 if p.id_prijatelja1 in prijatelji_ids else p.id_prijatelja1 for p in prijedlozi])
+        prijedlozi_ids.discard(user.id_korisnika)
+
+        # Dohvati informacije o predloženim korisnicima
+        prijedlozi_korisnici = db.query(Korisnik).filter(Korisnik.id_korisnika.in_(prijedlozi_ids)).all()
+
+        prijedlozi_info = []
+        for korisnik in prijedlozi_korisnici:
+            igrac = db.query(Igrac).filter(Igrac.id_korisnika == korisnik.id_korisnika).first()
+            vlasnik = db.query(Vlasnik).filter(Vlasnik.id_korisnika == korisnik.id_korisnika).first()
+            ime, prezime, tip_korisnika, slika, opis_slike = None, None, None, None, None
+            if igrac:
+                ime, prezime, tip_korisnika, slika, opis_slike = igrac.ime_igraca, igrac.prezime_igraca, 'Igrac', igrac.picture_data, igrac.picture_name
+            elif vlasnik:
+                ime, prezime, tip_korisnika, slika, opis_slike = vlasnik.ime_vlasnika, vlasnik.prezime_vlasnika, 'Vlasnik', vlasnik.picture_data, vlasnik.picture_name
+
+            prijedlozi_info.append(UserSchema(
+                id_korisnika=korisnik.id_korisnika,
+                korisnicko_ime=korisnik.korisnicko_ime,
+                email=korisnik.email,
+                ime=ime,
+                prezime=prezime,
+                tip_korisnika=tip_korisnika,
+                slika = slika,
+                opis_slike = opis_slike
+            ))
+
+        return prijedlozi_info[:5]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Došlo je do greške prilikom pronalaska prijatelja")
 
 @router.post("/testPrijateljstva/{id1}/{id2}")
 async def dodaj(id1: int, id2: int, db: Session = Depends(get_db)):
@@ -54,27 +102,24 @@ async def dodaj(id1: int, id2: int, db: Session = Depends(get_db)):
 
     db.refresh(novo_prijateljstvo)
 
-
 @router.get("/dajObjavePrijatelja/{id}")
 async def objave(id: int, db: Session = Depends(get_db)):
-    result = db.query(Prijatelj).filter(Prijatelj.id_prijatelja1 == id) \
-        .join(Objava, Prijatelj.id_prijatelja2 == Objava.id_korisnika).join(Korisnik,
-                                                                            Korisnik.id_korisnika == Prijatelj.id_prijatelja2). \
-        add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all()
+    result = (db.query(Prijatelj)
+              .filter(Prijatelj.id_prijatelja1 == id) \
+              .join(Objava, Prijatelj.id_prijatelja2 == Objava.id_korisnika) \
+              .join(Korisnik, Korisnik.id_korisnika == Prijatelj.id_prijatelja2) \
+              .add_columns(Prijatelj.id_prijatelja2, Objava.tekst_objave, Korisnik.korisnicko_ime).all())
     return [
-        ObjavaSchema(id_korisnika=row.id_prijatelja2, tekst_objave=row.tekst_objave, korisnicko_ime=row.korisnicko_ime)
+        ObjavaSchema(
+            id_korisnika=row.id_prijatelja2,
+            tekst_objave=row.tekst_objave,
+            picture_data=row.picture_data,
+            picture_name=row.picture_name,
+            likes=row.likes,
+            komentari=row.komentari,
+            korisnicko_ime=row.korisnicko_ime
+        )
         for row in result]
-
-
-# @app.get("/events-in-preparation/")
-# def get_events_in_preparation(db: Session = Depends(database.get_db)):
-#     result = db.query(models.Event_u_pripremi)\
-#                .join(models.Event, models.Event_u_pripremi.id_eventa == models.Event.id)\
-#                .join(models.Igrac, models.Event.id_igraca == models.Igrac.id)\
-#                .join(models.Lokacija, models.Event.id_lokacije == models.Lokacija.id)\
-#                .add_columns(models.Igrac.ime, models.Igrac.prezime, models.Event.naziv, models.Lokacija.naziv.label("lokacija_naziv"))\
-#                .all()
-#     return result
 
 @router.get("/pretraziPrijatelje/{id}/{username}/{svi}")
 async def pretrazi_username(id: int, username: str, svi: bool, db: Session = Depends(get_db)):

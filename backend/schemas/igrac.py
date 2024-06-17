@@ -14,6 +14,8 @@ class Igrac(BaseModel):
     max_dozvoljena_udaljenost: int
     verifikovan: bool
     recenzija: float
+    picture_data: str | None = None
+    picture_name: str | None = None
 
 
 class IgracSchema(Igrac):

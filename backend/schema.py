@@ -62,6 +62,8 @@ class Igrac(BaseModel):
     verifikovan: bool
     recenzija: float
     sport: int
+    picture_data: str | None = None
+    picture_name: str | None = None
 
 
 @deprecated('use class inside schemas/profil.py')
@@ -82,6 +84,8 @@ class Vlasnik(BaseModel):
     datum_rodjenja: date
     spol: bool
     recenzija: float
+    picture_data: str | None = None
+    picture_name: str | None = None
 
 
 @deprecated('use class inside schemas/profil.py')
