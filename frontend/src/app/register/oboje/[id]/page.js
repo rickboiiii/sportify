@@ -131,7 +131,7 @@ function Register() {
   const [visina, setVisina]=useState(0);
   const [tezina, setTezina]=useState(0);
   const [udaljenost, setUdaljenost]=useState(0);
-  const [sport, setSport]=useState([])
+  const [sport, setSport]=useState(1)
   const [listaMogucihSportova, setListaMogucihSportova]=useState([]);
   const [prikazSportova, setPrikazSportova]=useState([])
   const validateForm =  (e) => {

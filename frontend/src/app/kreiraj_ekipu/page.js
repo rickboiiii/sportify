@@ -21,12 +21,62 @@ import { useRouter } from "next/navigation";
     const [sport, setSport]=useState(1);
     const [saigraci, setSaigraci]=useState([])
     const [sportovi, setSportovi]=useState()
-    const id=7 // promijeniti ovo kad bude sesije
+    const [idKorisnika, setIdKorisnika] = useState(null); 
+    const [id, setId]=useState(null) 
     const [ponudjeniSaigraci, setPonudjeniSaigraci]=useState([])
     const [username, setUsername]=useState("");
-    
-    // <InputContainer funkcija={funkcija} vrijednost={vrijednost} pitanje={pitanje} children={children} />
+    const [token, setToken] = useState(null);
 
+    
+    useEffect(() => {
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+          const parsedToken = JSON.parse(storedToken);
+          setToken(parsedToken.access_token);
+          fetchIdKorisnika(parsedToken.access_token);
+      }
+  }, []);
+
+  const fetchIdKorisnika = async (token) => {
+    try {
+        const response = await fetch(`http://localhost:8000/get_id/${token}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            setIdKorisnika(data);
+            console.log("data", data)
+            let temp_username;
+            axios.get(`http://localhost:8000/dajKorisnika/${data}`)
+            .then(res=>{
+              temp_username=res.data.korisnicko_ime;
+              setUsername(temp_username);
+            
+            }).catch(err=>console.log(err))
+            axios.get(`http://localhost:8000/dajSportistu/${data}`)
+            .then(res=>{
+              console.log("res", res.data)
+              if (res.data)
+                setId(res.data.id_igraca)
+              else
+                
+                router.push(`/feed/${temp_username}`)
+            })
+            
+            .catch(err=>console.log(err))
+        } else {
+            console.error('Failed to fetch id_korisnika:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error fetching id_korisnika:', error);
+    }
+};
+
+  
     const customStyles = {
         option: (provided, state) => ({
           ...provided,
@@ -93,10 +143,10 @@ import { useRouter } from "next/navigation";
     }, []
 )
 useEffect(()=>{
-    axios.get(`http://localhost:8000/pretraziPrijatelje/${id}/${"Svi"}/${Boolean(true)}`)
+    axios.get(`http://localhost:8000/pretraziPrijatelje/${idKorisnika}/${"Svi"}/${Boolean(true)}`)
     .then(response=>setPonudjeniSaigraci(response.data.map(saigrac=>{return{username:saigrac.korisnicko_ime, id_korisnika:saigrac.id_korisnika}})))
     .catch(err=>console.log(err)) 
-}, [])
+}, [idKorisnika])
 const handleSelect=(e)=>{
     setSport(e.target.value)
 }
@@ -146,7 +196,7 @@ const dodajEkipu=(id, ime, clanovi, sport)=>{
     }
     axios.post(`http://localhost:8000/dodajEkipu`,ekipa)
     .then(res=>{axios.post(`http://localhost:8000/dodajClanoveEkipe`, {id_ekipe:res.data.id_ekipe, igraci:clanovi}).then(res=>console.log(res)).catch(err=>console.log(err))
-    ;router.push("/")})
+    ;router.push(`/feed/${username}`)})
     .catch(err=>console.log(err))
 
 }

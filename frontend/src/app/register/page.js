@@ -158,10 +158,10 @@ function Register() {
               korisnicko_ime:username,
               uloga:uloga
           }
-          if (uloga==2)
+          if (uloga==1)
             {  axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
               .then(response=>router.push(`/register/sportista/${response.data.id_korisnika}`)).catch(err=>console.log(err))}
-          else if (uloga==1){
+          else if (uloga==2){
             axios.post(`http://localhost:8000/dodajKorisnika`, korisnik)
             .then(response=>router.push(`/register/vlasnik/${response.data.id_korisnika}`)).catch(err=>console.log(err))
           }
@@ -209,8 +209,8 @@ function Register() {
                 value={uloga}
                 onChange={e => setUloga(e.target.value)}
               >
-                <option value={2}>Igrač</option>
-                <option value={1}>Vlasnik</option>
+                <option value={1}>Igrač</option>
+                <option value={2}>Vlasnik</option>
                 <option value={3}>Oboje</option>
           </select>
           </div>

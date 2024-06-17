@@ -157,7 +157,7 @@ const nadjiNajbolji=(tabla, trenutniIgrac, slobodnaMjesta, kompjuter)=>{
 
 }
 
-const Game = () => {
+const Game = ({username}) => {
     const [ishod, setIshod]= useState("nerijeseno");
     const [tezina, setTezina]=useState("lagano")
     const [slobodnaMjesta, setSlobodnaMjesta]=useState([1,2,3,4,5,6,7,8,9])
@@ -302,7 +302,7 @@ const Game = () => {
     <>
     <Row style={{paddingLeft: "10vw" ,justifyContent:"start", alignItems:"center"}}>
       <Image src={left_arrow} width={20} height={20} alt={"strelica"}/>
-        <a style={{color:"white"}} href='http://localhost:3000/feed'>Povratak na prethodnu stranicu</a>
+        <a style={{color:"white"}} href={`http://localhost:3000/feed/${username}`} >Povratak na prethodnu stranicu</a>
         </Row>
     <GameContainer>
       <BoardContainer>
