@@ -1,143 +1,51 @@
-"use client";
 
-import '@/app/globals.css';
-import { useState } from 'react';
-import { Container } from "@/components/Containers/ContainerStyled";
-import ParForm from "@/components/Forms/ParForm";
-import ProgressIndicator from '@/components/Indicators/ProgressIndicator';
-import styled from 'styled-components';
-import {Button} from '@/components/Button/ButtonStyled';
+import KreiranjeMeetaClient from "@/app/kreiraj_meet/meet";
 import axios from "axios";
-import {lapisLazuli} from "@/styles/GlobalStyle";
 
-const Message = styled.h1`
-  color: white;
-  font-size: 32px;
-  text-align: center;
-  margin-top: 2rem;
-`;
-
-
-async function sendMeetDetails(meetData) { 
+async function getSports() {
   try {
+     let sportovi = [];
 
-    axios.post('http://localhost:8000/meet_and_greet', meetData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      const res = await axios.get('http://localhost:8000/sportovi');
+        res.data.map((sport) => {
+            sportovi.push({
+              id: sport.id_sporta,
+              name: sport.naziv_sporta
+            })
+          })
 
-    
+      return sportovi;
+
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    console.error('Error:', error)
   }
 }
-export default function KreiranjeMeeta() {
-  const labelSets = [
-    {
-      first: {
-        label: "naziv okupljanja",
-        id: "id1",
-        name: "naziv_okupljanja",
-      },
-      second: {
-        label: "kratki opis",
-        id: "id2",
-        name: "opis_okupljanja",
-      }
-    },
-    {
-      first: {
-        label: "kapacitet",
-        id: "id1",
-        name: "kapacitet",
-      },
-      second: {
-        label: "datum odrzavanja",
-        id: "id2",
-        name: "datum_odrzavanja",
-      }
-    },
-    {
-      first: {
-        label: "lokacija",
-        id: "id1",
-        name: "lokacija",
-      },
-      second: {
-        label: "sport",
-        id: "id2",
-        name: "sport",
-        values: [{id: 5, name: "odbojka"},{id:6, name:"kosarka"} ,{id:7, name:"fudbal"}]
-      }
-    }
-  ];
 
-  const [formKey, setFormKey] = useState(0);
-  const [currentLabelSetIndex, setCurrentLabelSetIndex] = useState(0);
-  const [formSubmitCount, setFormSubmitCount] = useState(0);
-  const [formValues, setFormValues] = useState([]);
-
-  const handlePress = () => {
-    let id_lokacije = parseInt(document.getElementById('id1').value);
-    let id_sporta = parseInt(document.getElementById('id2').value);
-    const formData = {
-      naziv_okupljanja: formValues[0],
-      opis_okupljanja: formValues[1],
-      kapacitet:parseInt( formValues[2]),
-      datum_odrzavanja: (formValues[3]),
-      id_lokacije: id_lokacije,
-      id_sporta: id_sporta
-    };console.log(formData)
-
+async function getLocations() {
     try {
-      axios.post('http://localhost:8000/meet_and_greet', formData)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-       sendMeetDetails(formData);
-    } catch (error) {
-      console.error('Failed to submit form', error);
-    }
+     let lokacije = [];
 
-    setFormSubmitCount((prevCount) => prevCount + 1);
-  };
+      const res = await axios.get('http://localhost:8000/all-locations');
+        res.data.map((lokacija) => {
+            lokacije.push({
+              id: lokacija.id_lokacije,
+              name: lokacija.naziv_lokacije
+            })
+          })
 
-  const NextSlide = () => {
-    let prvaVrijednost= (document.getElementById("id1").value);
-    let drugaVrijednost= (document.getElementById("id2").value);
-    setFormValues([...formValues,prvaVrijednost,drugaVrijednost])
-    if (formSubmitCount < 2) {
-      setFormKey((prevKey) => prevKey + 1);
-      setCurrentLabelSetIndex((prevIndex) => (prevIndex + 1) % labelSets.length);
-      setFormSubmitCount((prevCount) => prevCount + 1);
-    } else {
-      setFormSubmitCount((prevCount) => prevCount + 1);
-    }
+      return lokacije;
+
+  } catch (error) {
+    console.error('Error:', error)
   }
+}
 
+export default async function KreiranjeMeeta() {
+
+  const sports = await getSports();
+  const locations = await getLocations();
 
   return (
-    <Container>
-      {formSubmitCount < 3 ? (
-        <>
-          <ProgressIndicator steps={3} active_number={formSubmitCount + 1} />
-          <ParForm
-            key={formKey}
-            inputs={labelSets[currentLabelSetIndex]}
-            h_text={"Osnovne informacije o okupljanju"}
-          >{(formSubmitCount===2)?(<Button onClick={handlePress}>Završite</Button>) : (<Button onClick={NextSlide}>sljedeće</Button>)}</ParForm>
-        </>
-      ) : (
-        <Message>uspješno ste organizovali okupljanje</Message>
-      )
-      }
-    </Container>
+      <KreiranjeMeetaClient sports={sports} locations={locations}/>
   );
 }

@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="613b5487-6726-44d8-b604-0b5f22d38958" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sportify.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sportify.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routers/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_event/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Inputs/Input.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Inputs/Input.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Selects/SelectButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Selects/SelectButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_lost/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/kreiraj_meet/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +35,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -61,7 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718636398802</updated>
       <workItem from="1718636400723" duration="183000" />
-      <workItem from="1718636821660" duration="476000" />
+      <workItem from="1718636821660" duration="1234000" />
     </task>
     <servers />
   </component>
