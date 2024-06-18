@@ -24,11 +24,12 @@ import axios from "axios";
 import InputMasked from "@/components/Inputs/InputMasked";
 import SelectMasked from "@/components/Inputs/SelectMasked";
 import RatingStars from "@/components/RatingStars/RatingStars";
+import {ProgressBar} from "react-bootstrap";
 
-export default function ProfileComponent({type, profile, friends, timetable, picture, userMode}) {
-console.log(timetable);
+export default function ProfileComponent({type, profile, friends, timetable, fields, events, picture, userMode}) {
     let calendar = [];
     let friendsList = [];
+    let fieldsList = [];
     let eventsList = [];
     let upload_url;
 
@@ -128,16 +129,34 @@ console.log(timetable);
 
         upload_url = "http://127.0.0.1:8000/profiles/vlasnici/upload_picture";
 
-        for(let i = 1; i <= 5; i++) {
-            eventsList.push(
-                <GridItem key={i} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
+        fields && fields.map((field) => {
+            fieldsList.push(
+                <GridItem key={field.id_lokacije} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
                     <Card>
-                        <CardImg src={picture} alt="Event Picture" className="event-img"/>
-                        <h5>Test Event {i} TODO</h5>
+                        <CardImg src={field.picture_data} alt="Field Picture" className="event-img"/>
+                        <h5>{"(" + field.recenzija.toFixed(2) + ")"}<i className="fas fa-star"></i>{field.naziv_terena + " - " + field.opis_terena}</h5>
                     </Card>
                 </GridItem>
-            );
-        }
+            )
+        });
+
+        events && events.map((event) => {
+            eventsList.push(
+                <GridItem key={event.id_eventa} style={{display: "flex", justifyContent: "center", textAlign: "center", border: 0}}>
+                    <Card style={{border: `1px solid ${oxionLight}`}}>
+                        <h5>{event.naziv_termina}</h5>
+                        <h5>{event.opis_termina}</h5>
+                        <CardFooter>
+                            <ProgressBarContainer>
+                            <ProgressBarBackground>
+                                <ProgressBarForeground style={{width: event.potreban_nivo_sposobnosti * 100 + "%"}}/>
+                            </ProgressBarBackground>
+                            </ProgressBarContainer>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
+            )
+        });
     }
 
     const saveData = () => {
@@ -346,6 +365,13 @@ console.log(timetable);
                         {(friendsList.length !== 0) ? (<Grid>{friendsList}</Grid>) : <p>Korisnik nema prijatelja <i className="fas fa-sad-tear"></i></p>}
                     </CardRow>
                 </>) : (<>
+                    <CardRow>
+                        <h3 style={{margin: 0}}>Tereni</h3>
+                    </CardRow>
+                    <CardRow style={{display: "block"}}>
+                        <Grid>{fieldsList}</Grid>
+                    </CardRow>
+                    <br />
                     <CardRow>
                         <h3 style={{margin: 0}}>Eventi</h3>
                     </CardRow>

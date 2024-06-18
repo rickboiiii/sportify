@@ -9,7 +9,7 @@ import {Buffer, Card, CardImg} from "@/components/Containers/ContainerStyled";
 import {useEffect, useState} from "react";
 
 
-export function Profile({type, profile, friends, timetable, recommendedFriends, defaultSearchUrl, searchUrl, stock_pic, mode = "view"}) {
+export function Profile({type, profile, friends, timetable, recommendedFriends, fields, events, defaultSearchUrl, searchUrl, stock_pic, mode = "view"}) {
 
     const [username, setUsername] = useState("");
 
@@ -45,7 +45,7 @@ export function Profile({type, profile, friends, timetable, recommendedFriends, 
             <Buffer />
             <div style={{margin: "2rem 0", flex: 1}}>
                 <SearchBar default_search_url={defaultSearchUrl} search_url={searchUrl} type="profiles"/>
-                <ProfileComponent type={type} profile={profile} friends={friends} timetable={timetable} picture={profile.picture ?? stock_pic} userMode={mode}/>
+                <ProfileComponent type={type} profile={profile} friends={friends} timetable={timetable} fields={fields} events={events} picture={profile.picture ?? stock_pic} userMode={mode}/>
             </div>
             <RightBar>
                 <SideBarHeader>

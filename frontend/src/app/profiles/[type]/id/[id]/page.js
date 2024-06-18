@@ -17,6 +17,8 @@ export default async function ProfilePage(props) {
         let timetable = [];
         let friends = [];
         let recommended_friends = [];
+        let fields = [];
+        let events = [];
 
         if(params.type === 'igraci') {
             profile = {
@@ -57,12 +59,17 @@ export default async function ProfilePage(props) {
                 email: res.data.korisnici.email,
                 username: res.data.korisnici.korisnicko_ime
             };
+
+            const fields_res = await axios.get('http://127.0.0.1:8000/profiles/fields/vlasnici/id/' + params.id);
+            fields = fields_res.data;
+            const events_res = await axios.get('http://127.0.0.1:8000/profiles/events/vlasnici/id/' + params.id);
+            events = events_res.data;
         }
 
 
         return (
             <Suspense fallback={<Loading />}>
-                <Profile type={params.type} profile={profile} friends={friends} timetable={timetable} recommendedFriends={recommended_friends} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
+                <Profile type={params.type} profile={profile} friends={friends} timetable={timetable} recommendedFriends={recommended_friends} fields={fields} events={events} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
             </Suspense>
         );
     } catch (e) {
