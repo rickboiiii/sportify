@@ -1,9 +1,11 @@
 import hashlib
 
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from backend.models import Igrac, Vlasnik, Korisnik, RecenzijaIgraca, RecenzijaVlasnika
+from backend.models import Igrac, Vlasnik, Korisnik, RecenzijaIgraca, RecenzijaVlasnika, PrijavljeniKorisnici, \
+    Event_u_pripremi
 from backend.models.prijatelj import Prijatelj
 from backend.schemas import UserUpdateIgrac, UserUpdateVlasnik, RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, \
     UploadPicture
@@ -47,6 +49,19 @@ def get_igraci(db: Session, options: dict = None):
         igraci = igraci.all()
 
     return igraci
+
+
+def get_timetable(db: Session, id_igraca: int):
+    timetable = db.query(PrijavljeniKorisnici).filter(PrijavljeniKorisnici.id_korisnika == id_igraca).join(Event_u_pripremi, Event_u_pripremi.id_eventa == PrijavljeniKorisnici.id_eventa).all()
+
+    final_timetable = []
+    for event in timetable:
+        final_timetable.append({
+            'date': jsonable_encoder(event.event.pocetak_termina),
+            'game_type': event.event.naziv_termina
+        })
+
+    return final_timetable
 
 
 def update_igrac(db: Session, igrac_info: UserUpdateIgrac, id_igraca: int):

@@ -5,7 +5,7 @@ from .vlasnik import Vlasnik, VlasnikSchema, UserUpdateVlasnik
 from .profil import IgracProfil, UpdateIgracProfil, VlasnikProfil, Profili
 from .sport import SportistaSport, EkipaSport
 from .recenzije import *
-from .generic import UploadPicture
+from .generic import UploadPicture, TimetableDay
 from .objava import ObjavaSchema, Likes
 from .oglas import Oglas
 from .ekipa import EkipaSaClanovimaSchema, EkipaSchema

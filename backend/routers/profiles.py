@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik, get_prijatelji, get_recommended_prijatelji
+from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik, get_prijatelji, get_recommended_prijatelji, get_timetable
 from backend.cruds.profile import rate_vlasnik
 from backend.dependencies import get_db
 
 from backend.schemas import IgracProfil, VlasnikProfil, Profili, UserUpdateIgrac, UserUpdateVlasnik, \
-    RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, UploadPicture
+    RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, UploadPicture, TimetableDay
 from backend.schemas.profil import PrijateljiProfil
 
 router = APIRouter()
@@ -32,6 +32,13 @@ async def get_profile_id(id_igraca: int, db: Session = Depends(get_db)) -> Igrac
         raise HTTPException(status_code=404, detail=f"Profile Igraca:{id_igraca} not found")
 
     return igrac
+
+
+@router.get("/profiles/timetable/igraci/id/{id_igraca}", tags=["profiles"])
+async def get_timetable_id(id_igraca: int, db: Session = Depends(get_db)) -> list[TimetableDay]:
+    timetable = get_timetable(db, id_igraca)
+
+    return timetable
 
 
 @router.get("/profiles/prijatelji/id/{id_korisnika}", tags=["profiles"])

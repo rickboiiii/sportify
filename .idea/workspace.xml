@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a76cf00b-759d-4d23-8784-a371b8a8f97c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models_singleton.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models_singleton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/seeders/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seeders/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/seeders/sportovi.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seeders/sportovi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cruds/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cruds/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/cruds/profile.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/cruds/profile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/routers/profiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routers/profiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/schemas/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/schemas/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/schemas/generic.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/schemas/generic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +62,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1718664383784</updated>
-      <workItem from="1718664385846" duration="3691000" />
+      <workItem from="1718664385846" duration="5149000" />
     </task>
     <servers />
   </component>
