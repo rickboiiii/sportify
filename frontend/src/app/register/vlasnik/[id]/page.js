@@ -180,7 +180,7 @@ function Register() {
           //   sport: 2
           // };
           axios.post(`http://localhost:8000/dodajVlasnika`, igrac)
-          .then(response=>router.push(`/`)).catch(err=>console.log(err))
+          .then(response=>router.push(`/login`)).catch(err=>console.log(err))
         }
         
   };
