@@ -24,7 +24,7 @@ def lokacije_seeder():
             'latituda': 43.84867401344799,
             'naziv_terena': 'Igraliste A',
             'opis_terena': 'Igraliste A - asfalt',
-            'picuture_data': '/igraliste_A.png'
+            'picture_data': '/igraliste_A.png'
         },
         {
             'id_vlasnika': 1,
@@ -38,7 +38,7 @@ def lokacije_seeder():
             'latituda': 43.84867401344799,
             'naziv_terena': 'Igraliste B',
             'opis_terena': 'Igraliste B - asfalt',
-            'picuture_data': '/igraliste_A.png'
+            'picture_data': '/igraliste_A.png'
         },
         {
             'id_vlasnika': 1,
@@ -52,7 +52,7 @@ def lokacije_seeder():
             'latituda': 43.84867401344799,
             'naziv_terena': 'Igraliste C',
             'opis_terena': 'Igraliste C - asfalt',
-            'picuture_data': '/igraliste_A.png'
+            'picture_data': '/igraliste_A.png'
         },
         {
             'id_vlasnika': 1,
@@ -66,7 +66,7 @@ def lokacije_seeder():
             'latituda': 43.84867401344799,
             'naziv_terena': 'Igraliste C',
             'opis_terena': 'Igraliste C - asfalt',
-            'picuture_data': '/igraliste_A.png'
+            'picture_data': '/igraliste_A.png'
         },
     ]
 

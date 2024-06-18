@@ -14,7 +14,7 @@ const Page = () => {
 
      return (
          <div className="feed">
-            <SideBar profileUrl={} />
+            <SideBar profileUrl={""} />
              <div className="content-div">
                  <div className="main-content">
                     <StatusBar/>

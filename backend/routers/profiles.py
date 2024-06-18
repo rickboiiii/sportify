@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik, get_prijatelji, get_recommended_prijatelji, get_timetable
+from backend.cruds import get_igraci, get_vlasnici, get_all_profiles, get_all_profiles_username, update_igrac, update_vlasnik, rate_igrac, upload_picture_igrac, upload_picture_vlasnik, get_prijatelji, get_recommended_prijatelji, get_timetable, get_fields, get_events
 from backend.cruds.profile import rate_vlasnik
 from backend.dependencies import get_db
 
@@ -109,6 +109,20 @@ async def get_profile_id(id_vlasnika: int, db: Session = Depends(get_db)) -> Vla
         raise HTTPException(status_code=404, detail=f"Profile Vlasnika:{id_vlasnika} not found")
 
     return vlasnik
+
+
+@router.get("/profiles/events/vlasnici/id/{id_vlasnika}", tags=["profiles"])
+async def get_events_id(id_vlasnika: int, db: Session = Depends(get_db)):
+    events = get_events(db, id_vlasnika)
+
+    return events
+
+
+@router.get("/profiles/fields/vlasnici/id/{id_vlasnika}", tags=["profiles"])
+async def get_fields_id(id_vlasnika: int, db: Session = Depends(get_db)):
+    fields = get_fields(db, id_vlasnika)
+
+    return fields
 
 
 @router.put("/profiles/vlasnici/id/{id_vlasnika}", tags=["profiles"])

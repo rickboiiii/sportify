@@ -16,7 +16,7 @@ import {
     ProgressBarContainer,
     ProgressBarForeground
 } from "@/components/Containers/ContainerStyled";
-import {taupeGrayLight} from "@/styles/GlobalStyle";
+import {oxion, oxionLight, taupeGrayLight} from "@/styles/GlobalStyle";
 import UploadComponent from "@/components/Upload/Upload";
 import {useEffect, useState} from "react";
 import {Button} from "@/components/Button/ButtonStyled";
@@ -26,7 +26,7 @@ import SelectMasked from "@/components/Inputs/SelectMasked";
 import RatingStars from "@/components/RatingStars/RatingStars";
 
 export default function ProfileComponent({type, profile, friends, timetable, picture, userMode}) {
-
+console.log(timetable);
     let calendar = [];
     let friendsList = [];
     let eventsList = [];
@@ -60,6 +60,7 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
         let otherDate = new Date();
         let currentDay = currentDate.getDay();
         for(let i = 0; i <= 6; i++) {
+            let games = [];
             if(i === currentDay) {
                 calendar.push(
                     <GridItem key={i}>
@@ -67,8 +68,14 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
                             {weekdays[i]}
                         </GridItemHeader>
                         <GridItemBody>
-                            <h6>17:00 - Basketball</h6>
-                            <h6>21:00 - Football</h6>
+                            {
+                                (timetable.length !== 0) ?
+                                (timetable.map((day) => {
+                                    const date = new Date(day.date);
+                                    if(date.getDay() === i) games.push(<h6 key={i + day.game_type}>{day.game_type}</h6>);
+                                })) : ("")
+                            }
+                            {(games.length !== 0) ? (games) : (<h6 style={{color: oxion}}>Slobodan dan</h6>)}
                         </GridItemBody>
                         <GridItemFooter className="active">
                             {currentDate.toLocaleDateString()}
@@ -82,8 +89,14 @@ export default function ProfileComponent({type, profile, friends, timetable, pic
                             {weekdays[i]}
                         </GridItemHeader>
                         <GridItemBody>
-                            <h6>17:00 - Basketball</h6>
-                            <h6>21:00 - Football</h6>
+                            {
+                                (timetable.length !== 0) ?
+                                (timetable.map((day) => {
+                                    const date = new Date(day.date);
+                                    if(date.getDay() === i) games.push(<h6 key={i + day.game_type}>{day.game_type}</h6>);
+                                })) : ("")
+                            }
+                            {(games.length !== 0) ? (games) : (<h6 style={{color: oxionLight}}>Slobodan dan</h6>)}
                         </GridItemBody>
                         <GridItemFooter>
                             {new Date(otherDate.setDate(currentDate.getDate() + (i - currentDay))).toLocaleDateString()}

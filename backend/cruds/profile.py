@@ -5,7 +5,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from backend.models import Igrac, Vlasnik, Korisnik, RecenzijaIgraca, RecenzijaVlasnika, PrijavljeniKorisnici, \
-    Event_u_pripremi
+    Event_u_pripremi, Lokacija
 from backend.models.prijatelj import Prijatelj
 from backend.schemas import UserUpdateIgrac, UserUpdateVlasnik, RecenzijaIgracaSchema, RecenzijaVlasnikaSchema, \
     UploadPicture
@@ -126,6 +126,18 @@ def get_vlasnici(db: Session, options: dict = None):
         vlasnici = vlasnici.all()
 
     return vlasnici
+
+
+def get_events(db: Session, id_vlasnika):
+    events = db.query(Event_u_pripremi).filter(Event_u_pripremi.id_organizatora == id_vlasnika).all()
+
+    return events
+
+
+def get_fields(db: Session, id_vlasnika):
+    fields = db.query(Lokacija).filter(Lokacija.id_vlasnika == id_vlasnika).all()
+
+    return fields
 
 
 def update_vlasnik(db: Session, vlasnik_info: UserUpdateVlasnik, id_vlasnika: int):
