@@ -13,7 +13,12 @@ export default async function ProfilePage(props) {
 
     try {
         const res = await axios.get('http://127.0.0.1:8000/profiles/' + params.type + '/username/' + params.username);
-        let profile = {}
+        let profile = {};
+        let timetable = [];
+        let friends = [];
+        let recommended_friends = [];
+        let fields = [];
+        let events = [];
 
         if(params.type === 'igraci') {
             profile = {
@@ -33,6 +38,13 @@ export default async function ProfilePage(props) {
                 email: res.data.korisnici.email,
                 username: res.data.korisnici.korisnicko_ime
             };
+
+            const timetable_res = await axios.get('http://127.0.0.1:8000/profiles/timetable/igraci/id/' + profile.id);
+            timetable = timetable_res.data;
+            const friends_res = await axios.get('http://127.0.0.1:8000/profiles/prijatelji/id/' + profile.id);
+            friends = friends_res.data.friends;
+            const recommended_friends_res = await axios.get('http://127.0.0.1:8000/profiles/recommended_prijatelji/id/' + profile.id);
+            recommended_friends = recommended_friends_res.data.friends;
         } else if(params.type === 'vlasnici') {
             profile = {
                 first_name: res.data.ime_vlasnika,
@@ -46,11 +58,16 @@ export default async function ProfilePage(props) {
                 email: res.data.korisnici.email,
                 username: res.data.korisnici.korisnicko_ime
             };
+
+            const fields_res = await axios.get('http://127.0.0.1:8000/profiles/fields/vlasnici/id/' + profile.id);
+            fields = fields_res.data;
+            const events_res = await axios.get('http://127.0.0.1:8000/profiles/events/vlasnici/id/' + profile.id);
+            events = events_res.data;
         }
 
         return (
             <Suspense fallback={<Loading />}>
-                <Profile type={params.type} profile={profile} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
+                <Profile type={params.type} profile={profile} friends={friends} timetable={timetable} recommendedFriends={recommended_friends} fields={fields} events={events} stock_pic={stock_pic} searchUrl={searchUrl} defaultSearchUrl={defaultSearchUrl} />
             </Suspense>
         );
     } catch (e) {

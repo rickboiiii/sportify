@@ -15,6 +15,7 @@ import Image from "next/image";
 import logo from "@/images/sportify_logo2.png"
 import Link from "next/link";
 import {usePathname, useParams} from "next/navigation";
+import {lapisLazuliLight} from "@/styles/GlobalStyle";
 
 const SideBar = ({profileUrl}) => {
     const pathname = usePathname();
@@ -30,16 +31,20 @@ const SideBar = ({profileUrl}) => {
                 <div>
                     {isFeedRoute ? (
                         <>
-                            <Link href={profileUrl} passHref>
+                            <Link href={"/profiles/vlasnici/username/" + params.username} passHref>
                                 <FontAwesomeIcon icon={faUser} className="icon"/>
                             </Link>
-                            <p>
-                                <Link href={profileUrl} passHref>Profil</Link>
+                            <p>Profil</p>
+                            <p><i className="fas fa-chevron-left" style={{fontSize: "1.5rem", color: lapisLazuliLight}}></i></p>
+                            <p style={{textAlign: "center"}}>
+                                <Link href={"/profiles/vlasnici/username/" + params.username} passHref>Vlasnik</Link>
+                                <br/>
+                                <Link href={"/profiles/igraci/username/" + params.username} passHref>Igrac</Link>
                             </p>
                         </>
                     ) : isProfilesRoute ? (
                         <>
-                            <Link href={`/feed/${params.username}`} passHref>
+                        <Link href={`/feed/${params.username}`} passHref>
                                 <FontAwesomeIcon icon={faHouse} className="icon"/>
                             </Link>
                             <p>

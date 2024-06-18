@@ -9,12 +9,9 @@ import Events from "@/components/Events/Events";
 import SSBar from "@/components/ScoresAndSuggestionsBar/SSBar";
 
 const Page = () => {
-
-    // TODO get url for profile
-
      return (
          <div className="feed">
-            <SideBar profileUrl={""} />
+            <SideBar />
              <div className="content-div">
                  <div className="main-content">
                     <StatusBar/>
