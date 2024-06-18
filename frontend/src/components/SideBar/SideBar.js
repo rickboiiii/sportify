@@ -17,7 +17,7 @@ import Link from "next/link";
 import {usePathname, useParams} from "next/navigation";
 import {lapisLazuliLight} from "@/styles/GlobalStyle";
 
-const SideBar = ({profileUrl}) => {
+const SideBar = () => {
     const pathname = usePathname();
     const params = useParams();
 
