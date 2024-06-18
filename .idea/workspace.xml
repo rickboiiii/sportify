@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a76cf00b-759d-4d23-8784-a371b8a8f97c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/seeders/igraci.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seeders/igraci.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/kviz/page.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/register/oboje/page.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/register/vlasnik/[id]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/register/vlasnik/[id]/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718664383784</updated>
       <workItem from="1718664385846" duration="9418000" />
-      <workItem from="1718674487631" duration="2113000" />
+      <workItem from="1718674487631" duration="4384000" />
     </task>
     <servers />
   </component>

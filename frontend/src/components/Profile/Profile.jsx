@@ -366,14 +366,14 @@ export default function ProfileComponent({type, profile, friends, timetable, fie
                     </CardRow>
                 </>) : (<>
                     <CardRow>
-                        <h3 style={{margin: 0}}>Tereni</h3>
+                        <h3 style={{margin: 0}}>Tereni {(userMode === "edit") ? (<a href="/kreiraj_teren"><i className="fas fa-plus"></i></a>) : ""}</h3>
                     </CardRow>
                     <CardRow style={{display: "block"}}>
                         <Grid>{fieldsList}</Grid>
                     </CardRow>
                     <br />
                     <CardRow>
-                        <h3 style={{margin: 0}}>Eventi</h3>
+                        <h3 style={{margin: 0}}>Eventi {(userMode === "edit") ? (<a href="/kreiraj_event"><i className="fas fa-plus"></i></a>) : ""}</h3>
                     </CardRow>
                     <CardRow style={{display: "block"}}>
                         <Grid>{eventsList}</Grid>
